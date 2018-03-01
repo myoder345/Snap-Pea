@@ -1,0 +1,8 @@
+D:\myoder345\Code\SoftDD\Region Serialize Demo\Region Serialize Demo\bin\Debug\netcoreapp2.0\Region Serialize Demo.deps.json
+D:\myoder345\Code\SoftDD\Region Serialize Demo\Region Serialize Demo\bin\Debug\netcoreapp2.0\Region Serialize Demo.runtimeconfig.json
+D:\myoder345\Code\SoftDD\Region Serialize Demo\Region Serialize Demo\bin\Debug\netcoreapp2.0\Region Serialize Demo.runtimeconfig.dev.json
+D:\myoder345\Code\SoftDD\Region Serialize Demo\Region Serialize Demo\bin\Debug\netcoreapp2.0\Region Serialize Demo.dll
+D:\myoder345\Code\SoftDD\Region Serialize Demo\Region Serialize Demo\obj\Debug\netcoreapp2.0\Region Serialize Demo.csprojResolveAssemblyReference.cache
+D:\myoder345\Code\SoftDD\Region Serialize Demo\Region Serialize Demo\obj\Debug\netcoreapp2.0\Region Serialize Demo.csproj.CoreCompileInputs.cache
+D:\myoder345\Code\SoftDD\Region Serialize Demo\Region Serialize Demo\obj\Debug\netcoreapp2.0\Region Serialize Demo.AssemblyInfoInputs.cache
+D:\myoder345\Code\SoftDD\Region Serialize Demo\Region Serialize Demo\obj\Debug\netcoreapp2.0\Region Serialize Demo.AssemblyInfo.cs
