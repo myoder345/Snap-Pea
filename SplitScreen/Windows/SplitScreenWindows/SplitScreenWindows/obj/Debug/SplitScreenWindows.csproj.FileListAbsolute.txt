@@ -1,0 +1,14 @@
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\bin\Debug\SplitScreenWindows.exe.config
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\bin\Debug\SplitScreenWindows.exe
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\bin\Debug\SplitScreenWindows.pdb
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\MainWindow.g.cs
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\App.g.cs
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\SplitScreenWindows_MarkupCompile.cache
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\SplitScreenWindows_MarkupCompile.lref
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\MainWindow.baml
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\SplitScreenWindows.g.resources
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\SplitScreenWindows.Properties.Resources.resources
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\SplitScreenWindows.csproj.GenerateResource.Cache
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\SplitScreenWindows.csproj.CoreCompileInputs.cache
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\SplitScreenWindows.exe
+D:\myoder345\Code\SoftDD\SplitScreen\Windows\SplitScreenWindows\SplitScreenWindows\obj\Debug\SplitScreenWindows.pdb
