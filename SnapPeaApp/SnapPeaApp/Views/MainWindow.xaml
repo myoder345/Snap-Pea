@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:SnapPeaApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="Test" Command=""/>
+            </MenuItem>
+        </Menu>
+        <StackPanel></StackPanel>
+    </DockPanel>
 </Window>
