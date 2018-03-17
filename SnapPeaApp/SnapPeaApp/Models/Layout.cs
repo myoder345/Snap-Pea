@@ -6,11 +6,11 @@ namespace SnapPeaApp
 {
     class Layout
     {
-        public List<Region> regions { get; set; }
+        public List<Region> Regions { get; set; }
 
         public void AddRegion(Region r)
         {
-            regions.Add(r);
+            Regions.Add(r);
         }
     }
 }
