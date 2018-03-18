@@ -1,18 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SnapPeaApp
 {
@@ -24,10 +12,12 @@ namespace SnapPeaApp
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModels.MainWindowViewModel();
             NotifyIcon ni = new NotifyIcon();
             ni.Icon = Properties.Resources.testIcon;
             ni.Visible = true;
             ni.DoubleClick += ShowWindow;
+            this.Closing += (DataContext as ViewModels.MainWindowViewModel).MainWindow_Closing;
         }
 
         void ShowWindow(object sender, EventArgs args)
