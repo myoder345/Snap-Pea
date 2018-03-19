@@ -12,6 +12,7 @@
             <MenuItem Header="_File">
                 <MenuItem Header="Test" Command=""/>
             </MenuItem>
+            <MenuItem Header="Layout Editor" Command="{Binding OpenLayoutEditorCommand}" />
         </Menu>
         <StackPanel></StackPanel>
     </DockPanel>

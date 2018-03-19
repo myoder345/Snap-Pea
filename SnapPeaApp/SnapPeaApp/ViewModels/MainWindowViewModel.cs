@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SnapPeaApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SnapPeaApp.ViewModels
 {
@@ -37,6 +39,20 @@ namespace SnapPeaApp.ViewModels
             {
                 winHook.MoveWindow(hwnd, 0, 0, 600, 600);
             }
+        }
+
+        public ICommand OpenLayoutEditorCommand
+        {
+            get
+            {
+                return new RelayCommand(o=>OpenLayoutEditor());
+            }
+        }
+
+        void OpenLayoutEditor()
+        {
+            var window = new LayoutEditorWindow();
+            window.Show();
         }
 
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

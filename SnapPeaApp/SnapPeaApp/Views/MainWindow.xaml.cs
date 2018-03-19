@@ -13,9 +13,11 @@ namespace SnapPeaApp
         {
             InitializeComponent();
             DataContext = new ViewModels.MainWindowViewModel();
-            NotifyIcon ni = new NotifyIcon();
-            ni.Icon = Properties.Resources.testIcon;
-            ni.Visible = true;
+            NotifyIcon ni = new NotifyIcon
+            {
+                Icon = Properties.Resources.testIcon,
+                Visible = true
+            };
             ni.DoubleClick += ShowWindow;
             this.Closing += (DataContext as ViewModels.MainWindowViewModel).MainWindow_Closing;
         }
