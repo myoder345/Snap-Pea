@@ -21,6 +21,9 @@ namespace SnapPeaApp.Views
     {
         public LayoutEditorWindow()
         {
+            this.Height = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height;
+            this.Width = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width;
+            
             InitializeComponent();
         }
     }

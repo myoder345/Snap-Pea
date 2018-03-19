@@ -6,7 +6,11 @@
         xmlns:local="clr-namespace:SnapPeaApp.Views"
         xmlns:dt="clr-namespace:DrawTools;assembly=DrawTools"
         mc:Ignorable="d"
-        Title="LayoutEditorWindow" Height="450" Width="800">
+        Title="LayoutEditorWindow"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Left="0"
+        Top="0">
     <Grid>
         <WindowsFormsHost>
             <dt:DrawArea/>
