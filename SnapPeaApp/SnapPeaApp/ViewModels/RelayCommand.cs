@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace APC.FlowTracker.ViewModels
+namespace SnapPeaApp.ViewModels
 {
     public class RelayCommand : ICommand
     {
