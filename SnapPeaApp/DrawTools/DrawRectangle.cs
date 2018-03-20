@@ -257,6 +257,32 @@ namespace DrawTools
             SetRectangle(left, top, right - left, bottom - top);
         }
 
+        public void CheckBounds(int maxX, int maxY)
+        {
+            int newX = Rectangle.Left;
+            int newY = Rectangle.Top;
+
+            if(Rectangle.Left < 0)
+            {
+                newX = 0;
+            }
+            else if(Rectangle.Right > maxX)
+            {
+                newX -= Rectangle.Right - maxX;
+            }
+
+            if(Rectangle.Top < 0)
+            {
+                newY = 0;
+            }
+            else if(Rectangle.Bottom > maxY)
+            {
+                newY -= Rectangle.Bottom - maxY;
+            }
+
+            rectangle.X = newX;
+            rectangle.Y = newY;
+        }
 
         public override bool IntersectsWith(Rectangle rectangle)
         {

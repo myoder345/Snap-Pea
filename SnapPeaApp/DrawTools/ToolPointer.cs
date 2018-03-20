@@ -211,6 +211,9 @@ namespace DrawTools
                         o.Move(-dx, -dy);
                         break;
                     }
+
+                    // CHECK OUT OF BOUNDS
+                    o.CheckBounds(drawArea.Width,drawArea.Height);
                 }
 
                 drawArea.Refresh();
