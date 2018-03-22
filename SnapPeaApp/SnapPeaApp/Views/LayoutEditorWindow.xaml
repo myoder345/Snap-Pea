@@ -14,7 +14,7 @@
         KeyDown="Window_KeyDown">
     <Grid>
         <WindowsFormsHost>
-            <dt:DrawArea/>
+            <dt:DrawArea x:Name="DrawArea"/>
         </WindowsFormsHost>
     </Grid>
 </Window>

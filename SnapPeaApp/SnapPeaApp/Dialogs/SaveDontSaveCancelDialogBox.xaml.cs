@@ -21,7 +21,6 @@ namespace SnapPeaApp.Dialogs
     {
         public SaveDontSaveCancelDialogBox()
         {
-            //DataContext = 
             InitializeComponent();
         }
 

@@ -16,10 +16,6 @@ namespace SnapPeaApp.ViewModels
             changesMade = true;
         }
 
-        #region Commands
-
-        #endregion
-
         void SaveLayout()
         {
             throw new NotImplementedException();

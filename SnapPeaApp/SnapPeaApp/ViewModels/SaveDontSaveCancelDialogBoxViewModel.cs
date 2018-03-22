@@ -11,6 +11,7 @@ namespace SnapPeaApp.ViewModels
     {
         bool cancelClosing = false;
 
+        #region Commands
         public ICommand CancelCommand
         {
             get
@@ -18,12 +19,7 @@ namespace SnapPeaApp.ViewModels
                 return new RelayCommand(Cancel);
             }
         }
-        void Cancel(object o)
-        {
-            cancelClosing = true;
-            (o as System.Windows.Window).Close();
-        }
-        
+
         public ICommand SaveCommand
         {
             get
@@ -31,10 +27,20 @@ namespace SnapPeaApp.ViewModels
                 return new RelayCommand(Save);
             }
         }
+        #endregion
+
+        #region Methods
+        void Cancel(object o)
+        {
+            cancelClosing = true;
+            (o as System.Windows.Window).Close();
+        }
+        
         void Save(object o)
         {
             SaveLayout();
             (o as System.Windows.Window).Close();
         }
+        #endregion
     }
 }
