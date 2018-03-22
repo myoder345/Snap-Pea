@@ -55,6 +55,21 @@ namespace SnapPeaApp.ViewModels
             window.Show();
         }
 
+        public ICommand EditLayoutEditorCommand
+        {
+            get
+            {
+                return new RelayCommand(o=>EditLayoutEditor());
+            }
+        }
+
+        void EditLayoutEditor()
+        {
+            throw new NotImplementedException();
+            var window = new LayoutEditorWindow(/*layout here*/);
+            window.Show();
+        }
+
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             winHook.Unhook();
