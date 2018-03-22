@@ -17,7 +17,17 @@ namespace SnapPeaApp
             ni.Icon = Properties.Resources.testIcon;
             ni.Visible = true;
             ni.DoubleClick += ShowWindow;
+            ni.MouseDown += Ni_MouseDown;
             this.Closing += (DataContext as ViewModels.MainWindowViewModel).MainWindow_Closing;
+        }
+
+        private void Ni_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                System.Windows.Controls.ContextMenu menu = (System.Windows.Controls.ContextMenu)this.FindResource("NotifierContextMenu");
+                menu.IsOpen = true;
+            }
         }
 
         void ShowWindow(object sender, EventArgs args)
@@ -31,6 +41,11 @@ namespace SnapPeaApp
             if (WindowState == System.Windows.WindowState.Minimized)
                 this.Hide();
             base.OnStateChanged(e);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

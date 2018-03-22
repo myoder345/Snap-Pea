@@ -6,13 +6,48 @@
         xmlns:local="clr-namespace:SnapPeaApp"
         mc:Ignorable="d"
         Visibility="Visible"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Snap Pea" Height="300" Width="300">
+    <Window.Resources>
+        <ContextMenu x:Key="NotifierContextMenu"
+                    Placement="MousePoint">
+            <MenuItem Header="Create Layout" Command=""/>
+            <MenuItem Header="Edit Layout" Command=""/>
+            <MenuItem Header="Load Layout" Command=""/>
+            <MenuItem Header="Settings" Command=""/>
+            <MenuItem Header="Quit" Click="MenuItem_Click"/>
+        </ContextMenu>
+    </Window.Resources>
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="Test" Command=""/>
-            </MenuItem>
-        </Menu>
-        <StackPanel></StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button 
+                Grid.Column="0" 
+                Grid.Row="0" 
+                Margin="10"
+                Content="Create Layout"/>
+            <Button 
+                Grid.Column="0" 
+                Grid.Row="1" 
+                Margin="10"
+                Content="Edit Layout"/>
+            <Button 
+                Grid.Column="1" 
+                Grid.Row="0" 
+                Margin="10"
+                Content="Load Layout"/>
+            <Button 
+                Grid.Column="1" 
+                Grid.Row="1" 
+                Margin="10"
+                Content="Settings Window"/>
+        </Grid>
     </DockPanel>
 </Window>
