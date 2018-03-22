@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SnapPeaApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,13 +22,14 @@ namespace SnapPeaApp.Views
     {
         public LayoutEditorWindow()
         {
+            InitializeComponent();
+            DataContext = new LayoutEditorViewModel();
             this.Height = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height;
             this.Width = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width;
-            
-            InitializeComponent();
+            this.Closing += (DataContext as LayoutEditorViewModel).LayoutEditorWindow_Closing;
         }
 
-        private void WindowsFormsHost_KeyDown(object sender, KeyEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Escape)
             {

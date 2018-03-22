@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SnapPeaApp.Dialogs"
         mc:Ignorable="d"
-        Title="Save Changes" 
+        Title="Closing" 
         Height="150" 
         Width="350"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="ToolWindow">
+        WindowStyle="ToolWindow"
+        x:Name="ClosingWindow">
     <Window.Resources>
         <Style x:Key="FormButton" TargetType="Button">
             <Setter Property="Margin" Value="5"/>
@@ -23,10 +24,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Would you like to save changes made to this layout?"
+        <TextBlock Text="Would you like to save changes made to this layout before closing this window?"
 				   Grid.Row="0"
 				   VerticalAlignment="Center"
-				   Margin="30"
+				   Margin="20"
 				   TextWrapping="Wrap"/>
         <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
@@ -36,14 +37,17 @@
             <Button Name="SaveButton"
                     Content="Save"
                     Style="{StaticResource FormButton}"
-                    Command="{Binding SaveCommand}" />
+                    Command="{Binding SaveCommand}" 
+                    CommandParameter="{Binding ClosingWindow}"/>
             <Button Content="Don't Save"
                     IsDefault="True"
-                    Style="{StaticResource FormButton}"
-                    Command="{Binding DontSaveCommand}" />
+                    Style="{StaticResource FormButton}" 
+                    Click="Button_Click"/>
             <Button Content="Cancel"
                     IsCancel="True"
-                    Style="{StaticResource FormButton}" />
+                    Style="{StaticResource FormButton}" 
+                    Command="{Binding CancelCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
         </StackPanel>
     </Grid>
 </Window>

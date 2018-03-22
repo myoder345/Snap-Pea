@@ -10,9 +10,10 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         Left="0"
-        Top="0">
+        Top="0"
+        KeyDown="Window_KeyDown">
     <Grid>
-        <WindowsFormsHost KeyDown="WindowsFormsHost_KeyDown">
+        <WindowsFormsHost>
             <dt:DrawArea/>
         </WindowsFormsHost>
     </Grid>
