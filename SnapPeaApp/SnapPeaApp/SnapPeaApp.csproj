@@ -60,8 +60,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialogs\SaveDontSaveCancelDialogBox.xaml.cs">
+      <DependentUpon>SaveDontSaveCancelDialogBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Hooks.cs" />
     <Compile Include="Models\Region.cs" />
+    <Page Include="Dialogs\SaveDontSaveCancelDialogBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LayoutEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

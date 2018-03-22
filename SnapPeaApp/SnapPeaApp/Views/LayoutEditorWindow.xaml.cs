@@ -26,5 +26,13 @@ namespace SnapPeaApp.Views
             
             InitializeComponent();
         }
+
+        private void WindowsFormsHost_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

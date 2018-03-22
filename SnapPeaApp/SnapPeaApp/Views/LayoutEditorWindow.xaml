@@ -12,7 +12,7 @@
         Left="0"
         Top="0">
     <Grid>
-        <WindowsFormsHost>
+        <WindowsFormsHost KeyDown="WindowsFormsHost_KeyDown">
             <dt:DrawArea/>
         </WindowsFormsHost>
     </Grid>
