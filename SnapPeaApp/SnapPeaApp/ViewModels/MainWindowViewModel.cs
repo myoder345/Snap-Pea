@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using Newtonsoft.Json;
 
 namespace SnapPeaApp.ViewModels
 {
@@ -13,6 +15,13 @@ namespace SnapPeaApp.ViewModels
         {
             winHook = new Hooks(WinEventProc);
         }
+
+        public Rect screen = SystemParameters.WorkArea;
+        
+        // Replace "FourSquare.json" with our method for getting the selected file
+        Layout currentLayout = JsonConvert.DeserializeObject<Layout>(System.IO.File.ReadAllText("FourSquare.json"));
+
+        
 
         /// <summary>
         /// Callback function called whenever a window drag stops
@@ -33,10 +42,18 @@ namespace SnapPeaApp.ViewModels
             Console.WriteLine($"Window {windowName} Moved, {cursorPos.ToString()}");
 
             // region hit test here
-            if (cursorPos.X < 100 && cursorPos.Y < 100)
+            //if (cursorPos.X < 100 && cursorPos.Y < 100)
+            //{
+            //    winHook.MoveWindow(hwnd, 0, 0, 600, 600);
+            //}
+            foreach(Region r in currentLayout.Regions)
             {
-                winHook.MoveWindow(hwnd, 0, 0, 600, 600);
+                if (r.IsPointIn(new System.Drawing.Point((int)cursorPos.X, (int)cursorPos.Y)))
+                {
+                    winHook.MoveWindow(hwnd, r.Left, r.Top, r.Width, r.Height);
+                }
             }
+
         }
 
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

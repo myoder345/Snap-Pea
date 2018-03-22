@@ -77,7 +77,7 @@ namespace SnapPeaApp
 
         public void MoveWindow(IntPtr hwnd, int x, int y, int width, int height)
         {
-            SetWindowPos(hwnd, x, y, 0, width, height, SWP_NOZORDER | SWP_SHOWWINDOW);
+            SetWindowPos(hwnd, 0, x, y, width, height, SWP_NOZORDER | SWP_SHOWWINDOW);
         }
 
         public void Unhook()
