@@ -1,0 +1,82 @@
+﻿<Window x:Class="SnapPeaApp.Views.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SnapPeaApp.Views"
+        mc:Ignorable="d"
+        Title="Settings" Height="300" Width="300"
+        Background="Gray">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock 
+            Text="Default Layout"
+            Grid.Row="0"
+            Grid.Column="0"
+            TextWrapping="Wrap"
+            Margin="10"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            FontWeight="Bold"
+            FontSize="20"/>
+
+        <TextBlock
+            Text="Layout Folder Path"
+            Grid.Row="1"
+            Grid.Column="0"
+            TextWrapping="Wrap"
+            Margin="15"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            FontWeight="Bold"
+            FontSize="20"/>
+
+        <TextBox
+            Grid.Row="0"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            Height="25"
+            Text="{Binding DefaultLayoutPath}">
+        </TextBox>
+
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            Height="25"
+            Text="{Binding LayoutFolderPath}">
+        </TextBox>
+
+        <Button
+            Grid.Row="0"
+            Grid.Column="2"
+            Margin="20"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Background="White"
+            Command="{Binding BrowseLayoutCommand}"
+            Content ="Browse...">
+        </Button>
+
+        <Button
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="20"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Background="White"
+            Command="{Binding BrowseFolderPathCommand}"
+            Content="Browse...">
+        </Button>
+    </Grid>
+
+</Window>
