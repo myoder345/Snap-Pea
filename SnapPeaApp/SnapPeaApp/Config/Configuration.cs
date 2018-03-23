@@ -137,33 +137,18 @@ namespace SnapPeaApp.Config
             foreach (KeyValuePair<string, string> p in stringEntries)
             {
                 WriteNode(xmlWriter,p.Key,p.Value,"string","\t");
-                //xmlWriter.WriteStartElement("entry");
-                //xmlWriter.WriteAttributeString("name", p.Key);
-                //xmlWriter.WriteAttributeString("type", "string");
-                //xmlWriter.WriteAttributeString("data", p.Value);
-                //xmlWriter.WriteEndElement();
             }
 
             //Write int entries
             foreach (KeyValuePair<string, int> p in intEntries)
             {
                 WriteNode(xmlWriter,p.Key,p.Value.ToString(),"int","\t");
-                //xmlWriter.WriteStartElement("entry");
-                //xmlWriter.WriteAttributeString("name", p.Key);
-                //xmlWriter.WriteAttributeString("type", "int");
-                //xmlWriter.WriteAttributeString("data", p.Value.ToString());
-                //xmlWriter.WriteEndElement();
             }
 
             //Write bool entries
             foreach (KeyValuePair<string, bool> p in boolEntries)
             {
                 WriteNode(xmlWriter,p.Key,p.Value.ToString(),"bool","\t");
-                //xmlWriter.WriteStartElement("entry");
-                //xmlWriter.WriteAttributeString("name", p.Key);
-                //xmlWriter.WriteAttributeString("type", "bool");
-                //xmlWriter.WriteAttributeString("data", p.Value.ToString().ToLower());
-                //xmlWriter.WriteEndElement();
             }
 
             xmlWriter.WriteEndElement();

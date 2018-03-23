@@ -22,6 +22,14 @@ namespace SnapPeaApp.ViewModels
             currentLayout = LoadDefaultLayout();
         }
 
+        public string LayoutName
+        {
+            get
+            {
+                return String.IsNullOrEmpty(currentLayout.Name) ? "No layout loaded" : currentLayout.Name;
+            }
+        }
+
         #region Commands
         public ICommand CreateLayoutCommand
         {
@@ -74,7 +82,16 @@ namespace SnapPeaApp.ViewModels
 
         private Layout LoadDefaultLayout()
         {
-            return JsonConvert.DeserializeObject<Layout>(File.ReadAllText(Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout)));
+            try
+            {
+                return JsonConvert.DeserializeObject<Layout>(File.ReadAllText(Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout)));
+            }
+            catch (Exception e)
+            {
+                //MessageBox.Show($"Could not load default layout\nPath: {Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout)}", "Error");
+                MessageBox.Show($"{e.Message}", "Error");
+                return new Layout();
+            }
         }
 
         private Layout LoadLayout()

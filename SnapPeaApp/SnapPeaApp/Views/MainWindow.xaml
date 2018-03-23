@@ -17,8 +17,9 @@
             <MenuItem Header="Quit" Click="MenuItem_Click"/>
         </ContextMenu>
     </Window.Resources>
-    <DockPanel>
-        <Grid>
+    <DockPanel LastChildFill="True">
+        <TextBlock Margin="10 5 0 5"  DockPanel.Dock="Bottom" Text="{Binding LayoutName}"/>
+        <Grid Margin="10 10 10 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -31,25 +32,25 @@
             <Button 
                 Grid.Column="0" 
                 Grid.Row="0" 
-                Margin="10"
+                Margin="0 0 5 5"
                 Content="Create Layout"
                 Command="{Binding CreateLayoutCommand}"/>
             <Button 
                 Grid.Column="0" 
                 Grid.Row="1" 
-                Margin="10"
+                Margin="0 5 5 0"
                 Content="Edit Layout"
                 Command="{Binding EditLayoutCommand}"/>
             <Button 
                 Grid.Column="1" 
                 Grid.Row="0" 
-                Margin="10"
+                Margin="5 0 0 5"
                 Content="Load Layout"
                 Command="{Binding LoadLayoutCommand}"/>
             <Button 
                 Grid.Column="1" 
                 Grid.Row="1" 
-                Margin="10"
+                Margin="5 5 0 0"
                 Content="Settings Window"
                 Command="{Binding SettingsWindowCommand}"/>
         </Grid>

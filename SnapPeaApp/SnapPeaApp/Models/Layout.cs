@@ -6,6 +6,14 @@ namespace SnapPeaApp
 {
     class Layout
     {
+        public Layout()
+        {
+            Regions = new List<Region>();
+            Name = "";
+        }
+
+        public string Name { get; set; }
+
         public List<Region> Regions { get; set; }
 
         public void AddRegion(Region r)
