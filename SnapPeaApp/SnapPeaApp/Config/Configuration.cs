@@ -49,7 +49,7 @@ namespace SnapPeaApp.Config
             { ConfigKeys.LayoutsPath, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\SnapPea\layouts" },
 
             //The default layout to be loaded on startup. this is blank by default
-            { ConfigKeys.DefaultLayout, String.Empty }
+            { ConfigKeys.DefaultLayout, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\SnapPea\layouts\FourSquare.json" }
         };
 
         /*
