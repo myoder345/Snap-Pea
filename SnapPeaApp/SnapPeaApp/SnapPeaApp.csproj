@@ -60,6 +60,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Config\ConfigKeys.cs" />
+    <Compile Include="Config\Configuration.cs" />
     <Compile Include="Models\Hooks.cs" />
     <Compile Include="Models\Region.cs" />
     <Page Include="Views\MainWindow.xaml">
