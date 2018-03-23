@@ -18,9 +18,9 @@ namespace SnapPeaApp.Views
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class SettingsWindow : Window
     {
-        public Window1()
+        public SettingsWindow()
         {
             DataContext = new SettingsWindowViewModel();
             InitializeComponent();

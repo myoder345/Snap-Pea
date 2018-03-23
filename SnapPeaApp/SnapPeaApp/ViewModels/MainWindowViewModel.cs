@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using Newtonsoft.Json;
+using SnapPeaApp.Views;
 
 namespace SnapPeaApp.ViewModels
 {
@@ -19,6 +21,29 @@ namespace SnapPeaApp.ViewModels
             winHook = new Hooks(WinEventProc);
             currentLayout = LoadDefaultLayout();
         }
+
+        #region Commands
+        public ICommand CreateLayoutCommand
+        {
+            get { return new RelayCommand(o => OpenLayoutEditor()); }
+        }
+
+        public ICommand EditLayoutCommand
+        {
+            get { return new RelayCommand(o => OpenLayoutEditor()); }
+        }
+
+        public ICommand LoadLayoutCommand
+        {
+            get { return new RelayCommand(o => LoadLayout()); }
+        }
+
+        public ICommand SettingsWindowCommand
+        {
+            get { return new RelayCommand(o => OpenSettingsWindow()); }
+        }
+
+        #endregion
 
         /// <summary>
         /// Callback function called whenever a window drag stops
@@ -47,14 +72,25 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
-        private Layout LoadLayout(string filepath)
+        private Layout LoadDefaultLayout()
+        {
+            return JsonConvert.DeserializeObject<Layout>(File.ReadAllText(Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout)));
+        }
+
+        private Layout LoadLayout()
         {
             throw new NotImplementedException();
         }
 
-        private Layout LoadDefaultLayout()
+        private void OpenSettingsWindow()
         {
-            return JsonConvert.DeserializeObject<Layout>(File.ReadAllText(Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout)));
+            var window = new SettingsWindow();
+            window.ShowDialog();
+        }
+
+        private void OpenLayoutEditor()
+        {
+            throw new NotImplementedException();
         }
 
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

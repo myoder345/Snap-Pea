@@ -32,22 +32,26 @@
                 Grid.Column="0" 
                 Grid.Row="0" 
                 Margin="10"
-                Content="Create Layout"/>
+                Content="Create Layout"
+                Command="{Binding CreateLayoutCommand}"/>
             <Button 
                 Grid.Column="0" 
                 Grid.Row="1" 
                 Margin="10"
-                Content="Edit Layout"/>
+                Content="Edit Layout"
+                Command="{Binding EditLayoutCommand}"/>
             <Button 
                 Grid.Column="1" 
                 Grid.Row="0" 
                 Margin="10"
-                Content="Load Layout"/>
+                Content="Load Layout"
+                Command="{Binding LoadLayoutCommand}"/>
             <Button 
                 Grid.Column="1" 
                 Grid.Row="1" 
                 Margin="10"
-                Content="Settings Window"/>
+                Content="Settings Window"
+                Command="{Binding SettingsWindowCommand}"/>
         </Grid>
     </DockPanel>
 </Window>

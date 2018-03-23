@@ -10,12 +10,18 @@ namespace SnapPeaApp.ViewModels
 {
     class SettingsWindowViewModel : ViewModelBase
     {
+        public SettingsWindowViewModel()
+        {
+            layoutFolderPath = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath);
+            defaultlLayoutPath = Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout);
+        }
+
         string layoutFolderPath;
         public string LayoutFolderPath
         {
             get
             {
-                return defaultlLayoutPath;
+                return layoutFolderPath;
             }
 
             set
@@ -38,7 +44,7 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
-        public ICommand browselayoutcommand
+        public ICommand BrowseLayoutCommand
         {
             get
             {
@@ -46,7 +52,7 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
-        public ICommand browsefolderpathcommand
+        public ICommand BrowseFolderPathCommand
         {
             get
             {

@@ -1,11 +1,11 @@
-﻿<Window x:Class="SnapPeaApp.Views.Window1"
+﻿<Window x:Class="SnapPeaApp.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SnapPeaApp.Views"
         mc:Ignorable="d"
-        Title="Settings" Height="300" Width="300"
+        Title="Settings" Height="300" Width="350"
         Background="Gray">
     <StackPanel>
         <StackPanel Margin="10 0 10 5">
@@ -20,8 +20,15 @@
             <StackPanel Orientation="Horizontal">
                 <TextBox
                     VerticalAlignment="Center"
-                    MinWidth="200"
+                    Width="250"
                     Text="{Binding DefaultLayoutPath}">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock Text="{Binding DefaultLayoutPath}"/>
+                            </StackPanel>
+                        </ToolTip>
+                    </TextBox.ToolTip>
                 </TextBox>
 
                 <Button
@@ -50,8 +57,15 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBox
                     VerticalAlignment="Center"
-                    MinWidth="200"
+                    Width="250"
                     Text="{Binding LayoutFolderPath}">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock Text="{Binding LayoutFolderPath}"/>
+                            </StackPanel>
+                        </ToolTip>
+                    </TextBox.ToolTip>
                 </TextBox>
 
                 <Button
