@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.IO;
 
-namespace SnapPeaApp
+namespace SnapPeaApp.Config
 {
     /*
      * The Configuration class contains some static method for retrieving and modifying
@@ -46,10 +46,10 @@ namespace SnapPeaApp
         private static Dictionary<string, string> stringEntries = new Dictionary<string, string>()
         {
             //This is the default path for the layouts folder
-            { "layouts_path", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\SnapPea\layouts" },
+            { ConfigKeys.LayoutsPath, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\SnapPea\layouts" },
 
             //The default layout to be loaded on startup. this is blank by default
-            { "default_layout", "" }
+            { ConfigKeys.DefaultLayout, String.Empty }
         };
 
         /*
@@ -65,7 +65,7 @@ namespace SnapPeaApp
         private static Dictionary<string, bool> boolEntries = new Dictionary<string, bool>()
         {
             //whether the layout specified by default_layout will be loaded on startup
-            { "load_layout_on_start", false }
+            { ConfigKeys.LoadLayoutOnStart, false }
         };
 
         /*
@@ -136,37 +136,57 @@ namespace SnapPeaApp
             //Write string entries
             foreach (KeyValuePair<string, string> p in stringEntries)
             {
-                xmlWriter.WriteStartElement("entry");
-                xmlWriter.WriteAttributeString("name", p.Key);
-                xmlWriter.WriteAttributeString("type", "string");
-                xmlWriter.WriteAttributeString("data", p.Value);
-                xmlWriter.WriteEndElement();
+                WriteNode(xmlWriter,p.Key,p.Value,"string","\t");
+                //xmlWriter.WriteStartElement("entry");
+                //xmlWriter.WriteAttributeString("name", p.Key);
+                //xmlWriter.WriteAttributeString("type", "string");
+                //xmlWriter.WriteAttributeString("data", p.Value);
+                //xmlWriter.WriteEndElement();
             }
 
             //Write int entries
             foreach (KeyValuePair<string, int> p in intEntries)
             {
-                xmlWriter.WriteStartElement("entry");
-                xmlWriter.WriteAttributeString("name", p.Key);
-                xmlWriter.WriteAttributeString("type", "int");
-                xmlWriter.WriteAttributeString("data", p.Value.ToString());
-                xmlWriter.WriteEndElement();
+                WriteNode(xmlWriter,p.Key,p.Value.ToString(),"int","\t");
+                //xmlWriter.WriteStartElement("entry");
+                //xmlWriter.WriteAttributeString("name", p.Key);
+                //xmlWriter.WriteAttributeString("type", "int");
+                //xmlWriter.WriteAttributeString("data", p.Value.ToString());
+                //xmlWriter.WriteEndElement();
             }
 
             //Write bool entries
             foreach (KeyValuePair<string, bool> p in boolEntries)
             {
-                xmlWriter.WriteStartElement("entry");
-                xmlWriter.WriteAttributeString("name", p.Key);
-                xmlWriter.WriteAttributeString("type", "bool");
-                xmlWriter.WriteAttributeString("data", p.Value.ToString().ToLower());
-                xmlWriter.WriteEndElement();
+                WriteNode(xmlWriter,p.Key,p.Value.ToString(),"bool","\t");
+                //xmlWriter.WriteStartElement("entry");
+                //xmlWriter.WriteAttributeString("name", p.Key);
+                //xmlWriter.WriteAttributeString("type", "bool");
+                //xmlWriter.WriteAttributeString("data", p.Value.ToString().ToLower());
+                //xmlWriter.WriteEndElement();
             }
 
             xmlWriter.WriteEndElement();
             xmlWriter.WriteEndDocument();
 
             xmlWriter.Close();
+        }
+
+        /// <summary>
+        /// Helper function for writing config
+        /// </summary>
+        /// <param name="textWriter"></param>
+        /// <param name="elementName"></param>
+        /// <param name="elementValue"></param>
+        /// <param name="indentString"></param>
+        private static void WriteNode(XmlWriter textWriter, string elementName, string elementValue, string elementType, string indentString)
+        {
+            textWriter.WriteWhitespace(Environment.NewLine + indentString);
+            textWriter.WriteStartElement("entry");
+            textWriter.WriteAttributeString("name", elementName);
+            textWriter.WriteAttributeString("type", elementValue);
+            textWriter.WriteAttributeString("data", elementType);
+            textWriter.WriteEndElement();
         }
 
         /*
