@@ -7,76 +7,63 @@
         mc:Ignorable="d"
         Title="Settings" Height="300" Width="300"
         Background="Gray">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <StackPanel>
+        <StackPanel Margin="10 0 10 5">
+            <TextBlock 
+                Text="Default Layout:"
+                TextWrapping="Wrap"
+                Margin="0 5"
+                HorizontalAlignment="Left"
+                FontWeight="Bold"
+                FontSize="20"/>
 
-        <TextBlock 
-            Text="Default Layout"
-            Grid.Row="0"
-            Grid.Column="0"
-            TextWrapping="Wrap"
-            Margin="10"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontWeight="Bold"
-            FontSize="20"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox
+                    VerticalAlignment="Center"
+                    MinWidth="200"
+                    Text="{Binding DefaultLayoutPath}">
+                </TextBox>
 
-        <TextBlock
-            Text="Layout Folder Path"
-            Grid.Row="1"
-            Grid.Column="0"
-            TextWrapping="Wrap"
-            Margin="15"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontWeight="Bold"
-            FontSize="20"/>
+                <Button
+                    Margin="10 0 0 0"
+                    Padding="5 2"
+                    VerticalAlignment="Center"
+                    Background="White"
+                    Command="{Binding BrowseLayoutCommand}"
+                    Content ="Browse...">
+                </Button>
+            </StackPanel>
+        </StackPanel>
 
-        <TextBox
-            Grid.Row="0"
-            Grid.Column="1"
-            VerticalAlignment="Center"
-            Height="25"
-            Text="{Binding DefaultLayoutPath}">
-        </TextBox>
+        <StackPanel Margin="10 0">
+            <TextBlock
+                Text="Layout Folder Path:"
+                Grid.Row="1"
+                Grid.Column="0"
+                TextWrapping="Wrap"
+                Margin="0 5"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontWeight="Bold"
+                FontSize="20"/>
 
-        <TextBox
-            Grid.Row="1"
-            Grid.Column="1"
-            VerticalAlignment="Center"
-            Height="25"
-            Text="{Binding LayoutFolderPath}">
-        </TextBox>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBox
+                    VerticalAlignment="Center"
+                    MinWidth="200"
+                    Text="{Binding LayoutFolderPath}">
+                </TextBox>
 
-        <Button
-            Grid.Row="0"
-            Grid.Column="2"
-            Margin="20"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Background="White"
-            Command="{Binding BrowseLayoutCommand}"
-            Content ="Browse...">
-        </Button>
-
-        <Button
-            Grid.Row="1"
-            Grid.Column="2"
-            Margin="20"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Background="White"
-            Command="{Binding BrowseFolderPathCommand}"
-            Content="Browse...">
-        </Button>
-    </Grid>
-
+                <Button
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Background="White"
+                    Margin="10 0 0 0"
+                    Padding="5 2"
+                    Command="{Binding BrowseFolderPathCommand}"
+                    Content="Browse...">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Window>

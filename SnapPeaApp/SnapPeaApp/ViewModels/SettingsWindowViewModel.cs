@@ -10,17 +10,39 @@ namespace SnapPeaApp.ViewModels
 {
     class SettingsWindowViewModel : ViewModelBase
     {
-        String layoutfolderpath;
+        string layoutFolderPath;
         public string LayoutFolderPath
         {
             get
             {
-                return defaultlayoutpath;
+                return defaultlLayoutPath;
             }
 
             set
             {
-                SetProperty(ref layoutfolderpath, value);
+                SetProperty(ref layoutFolderPath, value);
+            }
+        }
+
+        string defaultlLayoutPath;
+        public string DefaultLayoutPath
+        {
+            get
+            {
+                return defaultlLayoutPath;
+            }
+
+            set
+            {
+                SetProperty(ref defaultlLayoutPath, value);
+            }
+        }
+
+        public ICommand browselayoutcommand
+        {
+            get
+            {
+                return new RelayCommand(o => browsefolderpathtoo());
             }
         }
 
@@ -41,28 +63,6 @@ namespace SnapPeaApp.ViewModels
             if (results == DialogResult.OK)
             {
                 LayoutFolderPath = filedialog.FileName;
-            }
-        }
-
-        String defaultlayoutpath;
-        public string DefaultLayoutPath
-        {
-            get
-            {
-                return defaultlayoutpath;
-            }
-
-            set
-            {
-                SetProperty(ref defaultlayoutpath, value);
-            }
-        }
-
-        public ICommand browselayoutcommand
-        {
-            get
-            {
-                return new RelayCommand(o => browsefolderpathtoo());
             }
         }
 
