@@ -1,18 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SnapPeaApp
 {
@@ -24,10 +12,24 @@ namespace SnapPeaApp
         public MainWindow()
         {
             InitializeComponent();
-            NotifyIcon ni = new NotifyIcon();
-            ni.Icon = Properties.Resources.testIcon;
-            ni.Visible = true;
+            DataContext = new ViewModels.MainWindowViewModel();
+            NotifyIcon ni = new NotifyIcon
+            {
+                Icon = Properties.Resources.testIcon,
+                Visible = true
+            };
             ni.DoubleClick += ShowWindow;
+            ni.MouseDown += Ni_MouseDown;
+            this.Closing += (DataContext as ViewModels.MainWindowViewModel).MainWindow_Closing;
+        }
+
+        private void Ni_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                System.Windows.Controls.ContextMenu menu = (System.Windows.Controls.ContextMenu)this.FindResource("NotifierContextMenu");
+                menu.IsOpen = true;
+            }
         }
 
         void ShowWindow(object sender, EventArgs args)
@@ -41,6 +43,11 @@ namespace SnapPeaApp
             if (WindowState == System.Windows.WindowState.Minimized)
                 this.Hide();
             base.OnStateChanged(e);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

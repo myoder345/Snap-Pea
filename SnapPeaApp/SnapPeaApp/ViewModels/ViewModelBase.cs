@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace SnapPeaApp
+namespace SnapPeaApp.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

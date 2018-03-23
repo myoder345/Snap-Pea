@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SplitScreenWindows
+namespace SnapPeaApp
 {
     class Hooks
     {
@@ -39,39 +39,45 @@ namespace SplitScreenWindows
         const uint EVENT_SYSTEM_MOVESIZEEND = 0x000B;
         const uint WINEVENT_OUTOFCONTEXT = 0;
 
+        [DllImport("user32.dll")]
+        static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int Y, int cx, int cy, uint wFlags);
+
+        const uint SWP_NOZORDER = 0x0004;
+        const uint SWP_SHOWWINDOW = 0x0040;
+
         delegate void WinEventDelegate(IntPtr hWinEventHook, uint eventType,
             IntPtr hwnd, object sender, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
+
         #endregion
 
         IntPtr hhook;
         WinEventDelegate procDelegate;
 
-        public Hooks()
+        public Hooks(Action<IntPtr, uint, IntPtr, object, int, int, uint, uint> winEventProc)
         {
-            procDelegate = new WinEventDelegate(WinEventProc);
+            procDelegate = new WinEventDelegate(winEventProc);
             hhook = SetWinEventHook(EVENT_SYSTEM_MOVESIZEEND, EVENT_SYSTEM_MOVESIZEEND, IntPtr.Zero,
                    procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
         }
 
-        Point GetMousePosition()
+        public Point GetMousePosition()
         {
             Win32Point w32Mouse = new Win32Point();
             GetCursorPos(ref w32Mouse);
             return new Point(w32Mouse.X, w32Mouse.Y);
         }
 
-        public string CursorPos
+        public string GetWindowName(object wrapper, IntPtr handle)
         {
-            get { return GetMousePosition().ToString(); }
+            int capacity = GetWindowTextLength(new HandleRef(wrapper, handle)) + 1;
+            StringBuilder stringBuilder = new StringBuilder(capacity);
+            GetWindowText(new HandleRef(wrapper, handle), stringBuilder, stringBuilder.Capacity);
+            return stringBuilder.ToString();
         }
 
-        void WinEventProc(IntPtr hWinEventHook, uint eventType,
-            IntPtr hwnd, object sender, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
+        public void MoveWindow(IntPtr hwnd, int x, int y, int width, int height)
         {
-            int capacity = GetWindowTextLength(new HandleRef(sender, hwnd)) + 1;
-            StringBuilder stringBuilder = new StringBuilder(capacity);
-            GetWindowText(new HandleRef(sender, hwnd), stringBuilder, stringBuilder.Capacity);
-            Console.WriteLine($"Window {stringBuilder.ToString()} Moved, {CursorPos}");
+            SetWindowPos(hwnd, 0, x, y, width, height, SWP_NOZORDER | SWP_SHOWWINDOW);
         }
 
         public void Unhook()

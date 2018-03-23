@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SnapPeaApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Visibility="Visible"
+        Title="Snap Pea" Height="300" Width="300">
+    <Window.Resources>
+        <ContextMenu x:Key="NotifierContextMenu"
+                    Placement="MousePoint">
+            <MenuItem Header="Create Layout" Command=""/>
+            <MenuItem Header="Edit Layout" Command=""/>
+            <MenuItem Header="Load Layout" Command=""/>
+            <MenuItem Header="Settings" Command=""/>
+            <MenuItem Header="Quit" Click="MenuItem_Click"/>
+        </ContextMenu>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <TextBlock Margin="10 5 0 5"  DockPanel.Dock="Bottom" Text="{Binding LayoutName}"/>
+        <Grid Margin="10 10 10 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button 
+                Grid.Column="0" 
+                Grid.Row="0" 
+                Margin="0 0 5 5"
+                Content="Create Layout"
+                Command="{Binding CreateLayoutCommand}"/>
+            <Button 
+                Grid.Column="0" 
+                Grid.Row="1" 
+                Margin="0 5 5 0"
+                Content="Edit Layout"
+                Command="{Binding EditLayoutCommand}"/>
+            <Button 
+                Grid.Column="1" 
+                Grid.Row="0" 
+                Margin="5 0 0 5"
+                Content="Load Layout"
+                Command="{Binding LoadLayoutCommand}"/>
+            <Button 
+                Grid.Column="1" 
+                Grid.Row="1" 
+                Margin="5 5 0 0"
+                Content="Settings Window"
+                Command="{Binding SettingsWindowCommand}"/>
+        </Grid>
+    </DockPanel>
 </Window>
