@@ -12,17 +12,19 @@ namespace SnapPeaApp.ViewModels
         bool changesMade;
         Layout currentLayout;
 
-        public LayoutEditorViewModel(Layout layout)
+        public LayoutEditorViewModel(Layout layout, DrawTools.GraphicsList graphicsList)
         {
             currentLayout = layout;
+            GraphicsList = graphicsList;
+            GraphicsList.GraphicsListChanged = () => changesMade = true;
+
+            foreach(var region in layout.Regions)
+            {
+                GraphicsList.Add(new DrawTools.DrawRectangle(region.Left, region.Top, region.Width, region.Height));
+            }
         }
 
-        DrawTools.GraphicsList graphicsList;
-        public DrawTools.GraphicsList GraphicsList
-        {
-            get { return graphicsList; }
-            set { graphicsList = value; graphicsList.GraphicsListChanged = () => changesMade = true; }
-        }
+        public DrawTools.GraphicsList GraphicsList { get; private set; }
 
         void SaveLayout()
         {

@@ -25,10 +25,7 @@ namespace SnapPeaApp.Views
             InitializeComponent();
 
 
-            DataContext = new LayoutEditorViewModel(l)
-            {
-                GraphicsList = DA.GraphicsList
-            };
+            DataContext = new LayoutEditorViewModel(l, DA.GraphicsList);
             this.Height = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height;
             this.Width = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width;
             this.Closing += (DataContext as LayoutEditorViewModel).LayoutEditorWindow_Closing;
