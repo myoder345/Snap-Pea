@@ -293,7 +293,7 @@ namespace DrawTools
         {
             var RectB = GetNormalizedRectangle(Rectangle);
             var RectA = GetNormalizedRectangle(rectangle.Rectangle);
-            return (RectA.Left <= RectB.Right && RectA.Right >= RectB.Left && RectA.Top <= RectB.Bottom && RectA.Bottom >= RectB.Top);
+            return (RectA.Left < RectB.Right && RectA.Right > RectB.Left && RectA.Top < RectB.Bottom && RectA.Bottom > RectB.Top);
         }
 
         /// <summary>
