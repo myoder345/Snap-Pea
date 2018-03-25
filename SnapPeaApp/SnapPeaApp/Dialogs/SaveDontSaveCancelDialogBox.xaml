@@ -38,7 +38,7 @@
                     Content="Save"
                     Style="{StaticResource FormButton}"
                     Command="{Binding SaveCommand}" 
-                    CommandParameter="{Binding ClosingWindow}"/>
+                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Button Content="Don't Save"
                     IsDefault="True"
                     Style="{StaticResource FormButton}" 
