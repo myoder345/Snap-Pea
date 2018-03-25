@@ -21,6 +21,12 @@ namespace DrawTools
             AddNewObject(drawArea, new DrawRectangle(e.X, e.Y, 1, 1));
         }
 
+        public override void OnMouseUp(DrawArea drawArea, MouseEventArgs e)
+        {
+            base.OnMouseUp(drawArea, e);
+            drawArea.GraphicsList.GraphicsListChanged?.Invoke();
+        }
+
         public override void OnMouseMove(DrawArea drawArea, MouseEventArgs e)
         {
             drawArea.Cursor = Cursor;

@@ -305,6 +305,7 @@ namespace DrawTools
         {
             rectangle.X += deltaX;
             rectangle.Y += deltaY;
+            
         }
 
         public override void MoveTo(int X, int Y)

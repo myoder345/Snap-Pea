@@ -12,6 +12,7 @@ namespace DrawTools
 {
     public partial class DrawArea : UserControl
     {
+
         #region Constructor
 
         public DrawArea()
@@ -91,7 +92,7 @@ namespace DrawTools
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
-
+             
             // set default tool
             activeTool = DrawToolType.Rectangle;
 
@@ -159,6 +160,7 @@ namespace DrawTools
                 o.Selected = true;
                 if (GraphicsList.DeleteSelection())
                 {
+                    GraphicsList.GraphicsListChanged?.Invoke();
                     Refresh();      // in the case selection was changed
                 }
             }
@@ -166,45 +168,6 @@ namespace DrawTools
             {
                 GraphicsList.UnselectAll();
             }
-
-
-            //// Show context menu.
-            //// Context menu items are filled from owner form Edit menu items.
-            //m_ContextMenu = new ContextMenuStrip();
-
-            //int nItems = owner.ContextParent.DropDownItems.Count;
-
-            //// Read Edit items and move them to context menu.
-            //// Since every move reduces number of items, read them in reverse order.
-            //// To get items in direct order, insert each of them to beginning.
-            //for (int i = nItems - 1; i >= 0; i--)
-            //{
-            //    m_ContextMenu.Items.Insert(0, owner.ContextParent.DropDownItems[i]);
-            //}
-
-            //// Show context menu for owner form, so that it handles items selection.
-            //// Convert point from this window coordinates to owner's coordinates.
-            //point.X += this.Left;
-            //point.Y += this.Top;
-
-            //m_ContextMenu.Show(owner, point);
-
-            //Owner.SetStateOfControls();  // enable/disable menu items
-
-            //// Context menu is shown, but owner's Edit menu is now empty.
-            //// Subscribe to context menu Closed event and restore items there.
-            //m_ContextMenu.Closed += delegate(object sender, ToolStripDropDownClosedEventArgs args)
-            //{
-            //    if (m_ContextMenu != null)      // precaution
-            //    {
-            //        nItems = m_ContextMenu.Items.Count;
-
-            //        for (int k = nItems - 1; k >= 0; k--)
-            //        {
-            //            owner.ContextParent.DropDownItems.Insert(0, m_ContextMenu.Items[k]);
-            //        }
-            //    }
-            //};
         }
 
         #endregion

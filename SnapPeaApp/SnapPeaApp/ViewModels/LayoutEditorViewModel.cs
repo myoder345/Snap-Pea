@@ -10,15 +10,23 @@ namespace SnapPeaApp.ViewModels
     partial class LayoutEditorViewModel : ViewModelBase
     {
         bool changesMade;
+        Layout currentLayout;
 
-        public LayoutEditorViewModel()
+        public LayoutEditorViewModel(Layout layout)
         {
-            changesMade = true;
+            currentLayout = layout;
+        }
+
+        DrawTools.GraphicsList graphicsList;
+        public DrawTools.GraphicsList GraphicsList
+        {
+            get { return graphicsList; }
+            set { graphicsList = value; graphicsList.GraphicsListChanged = () => changesMade = true; }
         }
 
         void SaveLayout()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void LayoutEditorWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

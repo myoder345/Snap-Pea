@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SnapPeaApp
 {
-    class Layout
+    public class Layout
     {
         public Layout()
         {

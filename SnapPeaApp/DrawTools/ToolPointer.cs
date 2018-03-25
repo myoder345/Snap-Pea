@@ -215,7 +215,6 @@ namespace DrawTools
                     // CHECK OUT OF BOUNDS
                     o.CheckBounds(drawArea.Width,drawArea.Height);
                 }
-
                 drawArea.Refresh();
             }
 
@@ -259,12 +258,16 @@ namespace DrawTools
 
                 selectMode = SelectionMode.None;
             }
-
+            if (selectMode == SelectionMode.Move)
+            {
+                drawArea.GraphicsList.GraphicsListChanged?.Invoke();
+            }
             if ( resizedObject != null )
             {
                 // after resizing
                 resizedObject.Normalize();
                 resizedObject = null;
+                drawArea.GraphicsList.GraphicsListChanged?.Invoke();
             }
 
             drawArea.Capture = false;

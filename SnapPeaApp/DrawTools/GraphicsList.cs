@@ -30,7 +30,10 @@ namespace DrawTools
 
         private const string entryCount = "Count";
         private const string entryType = "Type";
-
+        /// <summary>
+        /// Gets invoked when the collection or an object in the collection changes
+        /// </summary>
+        public Action GraphicsListChanged;
         #endregion
 
 

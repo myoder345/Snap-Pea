@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SnapPeaApp
 {
-    class Region
+    public class Region
     {
         public int Left { get; set; }
         public int Top { get; set; }

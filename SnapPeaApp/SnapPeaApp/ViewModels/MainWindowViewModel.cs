@@ -33,12 +33,12 @@ namespace SnapPeaApp.ViewModels
         #region Commands
         public ICommand CreateLayoutCommand
         {
-            get { return new RelayCommand(o => OpenLayoutEditor()); }
+            get { return new RelayCommand(o => OpenLayoutEditor(new Layout())); }
         }
 
         public ICommand EditLayoutCommand
         {
-            get { return new RelayCommand(o => OpenLayoutEditor()); }
+            get { return new RelayCommand(o => OpenLayoutEditor(currentLayout)); }
         }
 
         public ICommand LoadLayoutCommand
@@ -105,9 +105,10 @@ namespace SnapPeaApp.ViewModels
             window.ShowDialog();
         }
 
-        private void OpenLayoutEditor()
+        private void OpenLayoutEditor(Layout layout)
         {
-            throw new NotImplementedException();
+            var window = new LayoutEditorWindow(layout);
+            window.Show();
         }
 
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
