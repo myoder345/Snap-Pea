@@ -28,7 +28,14 @@ namespace SnapPeaApp.ViewModels
 
         void SaveLayout()
         {
-            
+            currentLayout.Regions.Clear();
+
+            foreach(DrawTools.DrawRectangle drawRect in GraphicsList.Enumeration)
+            {
+                currentLayout.AddRegion(new Region(drawRect.GetRectangle()));
+            }
+
+            // overwrite layout file or svae to new layout file?
         }
 
         public void LayoutEditorWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

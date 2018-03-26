@@ -364,7 +364,10 @@ namespace DrawTools
             base.LoadFromStream (info, orderNumber);
         }
 
-
+        public Rectangle GetRectangle()
+        {
+            return new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+        }
         #region Helper Functions
 
         public static Rectangle GetNormalizedRectangle(int x1, int y1, int x2, int y2)
