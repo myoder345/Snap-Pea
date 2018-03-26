@@ -1,9 +1,12 @@
-﻿using SnapPeaApp.Dialogs;
+﻿using Newtonsoft.Json;
+using SnapPeaApp.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SnapPeaApp.ViewModels
 {
@@ -36,6 +39,18 @@ namespace SnapPeaApp.ViewModels
             }
 
             // overwrite layout file or svae to new layout file?
+            var saveFileDialog = new SaveFileDialog()
+            {
+                Filter = "json (*.json)|*.json|All files (*.*)|*.*",
+                InitialDirectory = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath)
+            };
+
+            if(saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                currentLayout.Name = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
+                string jsonString = JsonConvert.SerializeObject(currentLayout);
+                System.IO.File.WriteAllText(saveFileDialog.FileName, jsonString);
+            }
         }
 
         public void LayoutEditorWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
