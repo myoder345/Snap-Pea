@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="LayoutEditorWindow"
         WindowStyle="None"
+        WindowState="Maximized"
         ResizeMode="NoResize"
         Left="0"
         Top="0"

@@ -24,10 +24,15 @@ namespace SnapPeaApp.Views
         {
             InitializeComponent();
 
+            var graphics = System.Drawing.Graphics.FromHwnd(IntPtr.Zero);
+            var pixelWidth = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width;
+            var pixelHeight = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height;
+            var pixelToDPI = 96.0 / graphics.DpiX;
+            this.Width = pixelWidth * pixelToDPI;
+            this.Height = pixelHeight * pixelToDPI;
+            this.WindowState = WindowState.Normal;
 
             DataContext = new LayoutEditorViewModel(l, DA.GraphicsList);
-            this.Height = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height;
-            this.Width = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width;
             this.Closing += (DataContext as LayoutEditorViewModel).LayoutEditorWindow_Closing;
         }
 
