@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using SnapPeaApp.Views;
@@ -19,7 +20,7 @@ namespace SnapPeaApp.ViewModels
         public MainWindowViewModel()
         {
             winHook = new Hooks(WinEventProc);
-            currentLayout = LoadDefaultLayout();
+            LoadDefaultLayout();
         }
 
         public string LayoutName
@@ -43,7 +44,7 @@ namespace SnapPeaApp.ViewModels
 
         public ICommand LoadLayoutCommand
         {
-            get { return new RelayCommand(o => LoadLayout()); }
+            get { return new RelayCommand(o => BrowseLayout()); }
         }
 
         public ICommand SettingsWindowCommand
@@ -80,23 +81,24 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
-        private Layout LoadDefaultLayout()
+        private void LoadDefaultLayout()
         {
-            try
-            {
-                return JsonConvert.DeserializeObject<Layout>(File.ReadAllText(Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout)));
-            }
-            catch (Exception e)
-            {
-                //MessageBox.Show($"Could not load default layout\nPath: {Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout)}", "Error");
-                MessageBox.Show($"{e.Message}", "Error");
-                return new Layout();
-            }
+           currentLayout = Layout.LoadLayout(Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout));
         }
 
-        private Layout LoadLayout()
+        private void BrowseLayout()
         {
-            throw new NotImplementedException();
+            var fileDialog = new OpenFileDialog()
+            {
+                InitialDirectory = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath),
+                Filter = "json (*.json)|*.json|All files (*.*)|*.*"
+            };
+
+            if(fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                currentLayout = Layout.LoadLayout(fileDialog.FileName);
+                OnPropertyChanged("LayoutName");
+            }
         }
 
         private void OpenSettingsWindow()
