@@ -48,7 +48,7 @@ namespace SnapPeaApp.ViewModels
         {
             get
             {
-                return new RelayCommand(o => browsefolderpathtoo());
+                return new RelayCommand(o => browsedefaultlayout());
             }
         }
 
@@ -63,25 +63,27 @@ namespace SnapPeaApp.ViewModels
         private void browsefolderpath()
         {
             OpenFileDialog filedialog = new OpenFileDialog();
-            filedialog.InitialDirectory = "c:\\";
+            filedialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
             var results = filedialog.ShowDialog();
             if (results == DialogResult.OK)
             {
                 LayoutFolderPath = filedialog.FileName;
             }
+            // update settings in config
         }
 
-        private void browsefolderpathtoo()
+        private void browsedefaultlayout()
         {
             OpenFileDialog filedialog = new OpenFileDialog();
-            filedialog.InitialDirectory = "c:\\";
+            filedialog.InitialDirectory = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath);
 
             var results = filedialog.ShowDialog();
             if(results == DialogResult.OK)
             {
                 DefaultLayoutPath = filedialog.FileName;
             }
+            // update settings in config
         }
 
     }
