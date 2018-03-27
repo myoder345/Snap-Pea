@@ -111,6 +111,7 @@ namespace SnapPeaApp.ViewModels
         {
             var window = new LayoutEditorWindow(layout);
             window.Show();
+            window.Activate();
         }
 
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

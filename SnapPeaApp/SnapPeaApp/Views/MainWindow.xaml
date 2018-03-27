@@ -9,12 +9,12 @@
         Title="Snap Pea" Height="300" Width="300">
     <Window.Resources>
         <ContextMenu x:Key="NotifierContextMenu"
-                    Placement="MousePoint">
-            <MenuItem Header="Create Layout" Command=""/>
-            <MenuItem Header="Edit Layout" Command=""/>
-            <MenuItem Header="Load Layout" Command=""/>
-            <MenuItem Header="Settings" Command=""/>
-            <MenuItem Header="Quit" Click="MenuItem_Click"/>
+                     Placement="MousePoint">
+            <MenuItem Header="Create Layout" Click="MenuItem_Create_Click"/>
+            <MenuItem Header="Edit Layout" Click="MenuItem_Edit_Click"/>
+            <MenuItem Header="Load Layout" Click="MenuItem_Load_Click"/>
+            <MenuItem Header="Settings" Click="MenuItem_Settings_Click"/>
+            <MenuItem Header="Quit" Click="MenuItem_Close_Click"/>
         </ContextMenu>
     </Window.Resources>
     <DockPanel LastChildFill="True">

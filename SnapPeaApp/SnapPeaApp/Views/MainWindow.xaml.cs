@@ -23,6 +23,7 @@ namespace SnapPeaApp
             this.Closing += (DataContext as ViewModels.MainWindowViewModel).MainWindow_Closing;
         }
 
+        #region Events
         private void Ni_MouseDown(object sender, MouseEventArgs e)
         {
             if(e.Button == MouseButtons.Right)
@@ -45,9 +46,30 @@ namespace SnapPeaApp
             base.OnStateChanged(e);
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
+        private void MenuItem_Create_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ViewModels.MainWindowViewModel).CreateLayoutCommand.Execute(null);
+        }
+
+        private void MenuItem_Edit_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ViewModels.MainWindowViewModel).EditLayoutCommand.Execute(null);
+        }
+
+        private void MenuItem_Load_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ViewModels.MainWindowViewModel).LoadLayoutCommand.Execute(null);
+        }
+
+        private void MenuItem_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ViewModels.MainWindowViewModel).SettingsWindowCommand.Execute(null);
+        }
+        #endregion
     }
 }
