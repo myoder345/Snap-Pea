@@ -47,11 +47,12 @@ namespace DrawTools
                         break;
                     }
                 }
+                // keep handle in bounds
+                drawArea.BoundPoint(ref point);
                 if (!collision)
                 {
                     thisRectangle.MoveHandleTo(point, 5);
                 }
-                //drawArea.GraphicsList[0].MoveHandleTo(point, 5);
                 drawArea.Refresh();
             }
         }
