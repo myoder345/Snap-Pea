@@ -13,11 +13,9 @@ namespace SnapPeaApp.ViewModels
     partial class LayoutEditorViewModel : ViewModelBase
     {
         bool changesMade;
-        Layout currentLayout;
 
         public LayoutEditorViewModel(Layout layout, DrawTools.GraphicsList graphicsList)
         {
-            currentLayout = layout;
             GraphicsList = graphicsList;
             GraphicsList.GraphicsListChanged = () => changesMade = true;
 
@@ -31,11 +29,11 @@ namespace SnapPeaApp.ViewModels
 
         void SaveLayout()
         {
-            currentLayout.Regions.Clear();
+            var tempLayout = new Layout();
 
             foreach(DrawTools.DrawRectangle drawRect in GraphicsList.Enumeration)
             {
-                currentLayout.AddRegion(new Region(drawRect.GetRectangle()));
+                tempLayout.AddRegion(new Region(drawRect.GetRectangle()));
             }
 
             // overwrite layout file or svae to new layout file?
@@ -47,8 +45,8 @@ namespace SnapPeaApp.ViewModels
 
             if(saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                currentLayout.Name = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
-                string jsonString = JsonConvert.SerializeObject(currentLayout);
+                tempLayout.Name = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
+                string jsonString = JsonConvert.SerializeObject(tempLayout);
                 System.IO.File.WriteAllText(saveFileDialog.FileName, jsonString);
             }
         }
