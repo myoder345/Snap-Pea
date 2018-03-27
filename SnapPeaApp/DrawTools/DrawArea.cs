@@ -78,6 +78,26 @@ namespace DrawTools
             }
         }
 
+        internal void BoundPoint(ref Point point)
+        {
+            if (point.X > Bounds.Right)
+            {
+                point.X = Bounds.Right;
+            }
+            if (point.Y > Bounds.Bottom)
+            {
+                point.Y = Bounds.Bottom;
+            }
+            if (point.X < Bounds.Left)
+            {
+                point.X = Bounds.Left;
+            }
+            if (point.Y < Bounds.Top)
+            {
+                point.Y = Bounds.Top;
+            }
+        }
+
 
         #endregion
 

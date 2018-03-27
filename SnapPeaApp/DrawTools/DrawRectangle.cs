@@ -257,7 +257,7 @@ namespace DrawTools
             SetRectangle(left, top, right - left, bottom - top);
         }
 
-        public void CheckBounds(int maxX, int maxY)
+        public void FixBounds(int maxX, int maxY)
         {
             int newX = Rectangle.Left;
             int newY = Rectangle.Top;

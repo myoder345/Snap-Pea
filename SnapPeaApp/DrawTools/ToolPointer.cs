@@ -187,6 +187,9 @@ namespace DrawTools
                             break;
                         }
                     }
+                    // keep point in bounds
+                    drawArea.BoundPoint(ref point);
+
                     if(!collision)
                     {
                         resizedObject.MoveHandleTo(point, resizedObjectHandle);
@@ -213,7 +216,7 @@ namespace DrawTools
                     }
 
                     // CHECK OUT OF BOUNDS
-                    o.CheckBounds(drawArea.Width,drawArea.Height);
+                    o.FixBounds(drawArea.Width,drawArea.Height);
                 }
                 drawArea.Refresh();
             }
