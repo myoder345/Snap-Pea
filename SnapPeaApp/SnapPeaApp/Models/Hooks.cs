@@ -52,12 +52,14 @@ namespace SnapPeaApp
 
         IntPtr hhook;
         WinEventDelegate procDelegate;
+        bool isWin10;
 
         public Hooks(Action<IntPtr, uint, IntPtr, object, int, int, uint, uint> winEventProc)
         {
             procDelegate = new WinEventDelegate(winEventProc);
             hhook = SetWinEventHook(EVENT_SYSTEM_MOVESIZEEND, EVENT_SYSTEM_MOVESIZEEND, IntPtr.Zero,
                    procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
+            isWin10 = System.Environment.OSVersion.Version.Major == 10;
         }
 
         public Point GetMousePosition()
@@ -77,7 +79,15 @@ namespace SnapPeaApp
 
         public void MoveWindow(IntPtr hwnd, int x, int y, int width, int height)
         {
-            SetWindowPos(hwnd, 0, x, y, width, height, SWP_NOZORDER | SWP_SHOWWINDOW);
+            if(isWin10)
+            {
+                // Win10 places an invisible border around window which we have to account for.
+                SetWindowPos(hwnd, 0, x - 8, y, width + 16, height + 8, SWP_NOZORDER | SWP_SHOWWINDOW);
+            }
+            else
+            {
+                SetWindowPos(hwnd, 0, x, y, width, height, SWP_NOZORDER | SWP_SHOWWINDOW);
+            }
         }
 
         public void Unhook()
