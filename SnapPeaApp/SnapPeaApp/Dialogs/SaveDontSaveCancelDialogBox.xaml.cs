@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace SnapPeaApp.Dialogs
 {
     /// <summary>
-    /// Interaction logic for SaveDontSaveCancelDialogBox.xaml
+    /// Code behind for SaveDontSaveCancelDialogBox.xaml
     /// </summary>
     public partial class SaveDontSaveCancelDialogBox : Window
     {
@@ -24,7 +24,7 @@ namespace SnapPeaApp.Dialogs
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void DontSave_Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

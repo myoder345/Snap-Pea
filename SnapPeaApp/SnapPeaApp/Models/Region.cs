@@ -22,6 +22,11 @@ namespace SnapPeaApp
         public int Height { get; set; }
         public int Color { get; set; }
 
+        /// <summary>
+        /// Tests whether point is bounded by the region
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public bool IsPointIn(System.Windows.Point p)
         {
             return p.X > Left && p.X < (Left + Width) && p.Y > Top && p.Y < (Top + Height);

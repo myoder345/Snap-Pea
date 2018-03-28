@@ -14,8 +14,14 @@ namespace SnapPeaApp
             Name = "";
         }
 
+        /// <summary>
+        /// Name of layout
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Collection of Region objects
+        /// </summary>
         public List<Region> Regions { get; set; }
 
         public void AddRegion(Region r)
@@ -23,6 +29,11 @@ namespace SnapPeaApp
             Regions.Add(r);
         }
 
+        /// <summary>
+        /// Reads a layout json file and deserializes it into a layout object
+        /// </summary>
+        /// <param name="layoutPath"></param>
+        /// <returns></returns>
         public static Layout LoadLayout(string layoutPath)
         {
             try
@@ -31,8 +42,7 @@ namespace SnapPeaApp
             }
             catch (Exception e)
             {
-                //MessageBox.Show($"Could not load default layout\nPath: {Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout)}", "Error");
-                System.Windows.MessageBox.Show($"{e.Message}", "Error");
+                System.Windows.MessageBox.Show($"Error loading layout: {e.Message}", "Error");
                 return new Layout();
             }
         }

@@ -42,7 +42,7 @@
             <Button Content="Don't Save"
                     IsDefault="True"
                     Style="{StaticResource FormButton}" 
-                    Click="Button_Click"/>
+                    Click="DontSave_Button_Click"/>
             <Button Content="Cancel"
                     IsCancel="True"
                     Style="{StaticResource FormButton}" 

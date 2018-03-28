@@ -15,11 +15,10 @@ namespace DrawTools
 	/// </summary>
 	public class DrawRectangle : DrawTools.DrawObject
 	{
-        private Rectangle rectangle;
 
         private const string entryRectangle = "Rect";
 
-
+        private Rectangle rectangle;
         protected Rectangle Rectangle
         {
             get
@@ -74,6 +73,13 @@ namespace DrawTools
             pen.Dispose();
         }
 
+        /// <summary>
+        /// Modifys the internal rectangle representation according to the params
+        /// </summary>
+        /// <param name="x">Top left corner X coordinate</param>
+        /// <param name="y">Top left corner Y coordinate</param>
+        /// <param name="width">Rectangle width</param>
+        /// <param name="height">Rectangle height</param>
         protected void SetRectangle(int x, int y, int width, int height)
         {
             rectangle.X = x;
@@ -172,13 +178,10 @@ namespace DrawTools
             return -1;
         }
 
-        
         protected override bool PointInObject(Point point)
         {
             return rectangle.Contains(point);
         }
-        
-
 
         /// <summary>
         /// Get cursor for the handle
@@ -257,6 +260,11 @@ namespace DrawTools
             SetRectangle(left, top, right - left, bottom - top);
         }
 
+        /// <summary>
+        /// Repositions a rectangle such that it fits within the bounds created by maxX and maxY
+        /// </summary>
+        /// <param name="maxX"></param>
+        /// <param name="maxY"></param>
         public void FixBounds(int maxX, int maxY)
         {
             int newX = Rectangle.Left;
@@ -299,8 +307,8 @@ namespace DrawTools
         /// <summary>
         /// Move object
         /// </summary>
-        /// <param name="deltaX"></param>
-        /// <param name="deltaY"></param>
+        /// <param name="deltaX">x axis translation</param>
+        /// <param name="deltaY">y axis translation</param>
         public override void Move(int deltaX, int deltaY)
         {
             rectangle.X += deltaX;
@@ -308,12 +316,20 @@ namespace DrawTools
             
         }
 
+        /// <summary>
+        /// Move object
+        /// </summary>
+        /// <param name="X">X coordinate to move top left corner to</param>
+        /// <param name="Y">Y coordinate to move top left corner to</param>
         public override void MoveTo(int X, int Y)
         {
             rectangle.X = X;
             rectangle.Y = Y;
         }
 
+        /// <summary>
+        /// Prints debug info
+        /// </summary>
         public override void Dump()
         {
             base.Dump ();
@@ -349,7 +365,7 @@ namespace DrawTools
         }
 
         /// <summary>
-        /// LOad object from serialization stream
+        /// Load object from serialization stream
         /// </summary>
         /// <param name="info"></param>
         /// <param name="orderNumber"></param>
@@ -364,12 +380,25 @@ namespace DrawTools
             base.LoadFromStream (info, orderNumber);
         }
 
+        /// <summary>
+        /// Returns a copy of this object's internal rectangle representation
+        /// </summary>
+        /// <returns></returns>
         public Rectangle GetRectangle()
         {
             return new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
         }
+
         #region Helper Functions
 
+        /// <summary>
+        /// Returns a normalized version of the rectangle defined by the parameters
+        /// </summary>
+        /// <param name="x1">Top left corner x coordinate</param>
+        /// <param name="y1">Top left corner y coordinate</param>
+        /// <param name="x2">Bottom right corner x coordinate</param>
+        /// <param name="y2">Bottom right corner y coordinate</param>
+        /// <returns>Normalized rectangle</returns>
         public static Rectangle GetNormalizedRectangle(int x1, int y1, int x2, int y2)
         {
             if ( x2 < x1 )
@@ -389,16 +418,33 @@ namespace DrawTools
             return new Rectangle(x1, y1, x2 - x1, y2 - y1);
         }
 
+        /// <summary>
+        /// Returns normalized version of the rectangle defined by the parameters
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
         public static Rectangle GetNormalizedRectangle(Point p1, Point p2)
         {
             return GetNormalizedRectangle(p1.X, p1.Y, p2.X, p2.Y);
         }
 
+        /// <summary>
+        /// Returns normalized version of the rectangle defined by the parameter
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
         public static Rectangle GetNormalizedRectangle(Rectangle r)
         {
             return GetNormalizedRectangle(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
         }
 
+        /// <summary>
+        /// Calculates the minimum distnace required to be outside the rectangle and returns a point at that location
+        /// </summary>
+        /// <param name="drawRect"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public static Point ClosestPointOutside(DrawRectangle drawRect, Point p)
         {
             var rect = drawRect.Rectangle;

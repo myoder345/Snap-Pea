@@ -8,6 +8,9 @@ using System.Windows.Input;
 
 namespace SnapPeaApp.ViewModels
 {
+    /// <summary>
+    /// Contains interaction logic for SettingsWindow view
+    /// </summary>
     class SettingsWindowViewModel : ViewModelBase
     {
         public SettingsWindowViewModel()
@@ -16,6 +19,10 @@ namespace SnapPeaApp.ViewModels
             defaultlLayoutPath = Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout);
         }
 
+        #region Properties
+        /// <summary>
+        /// Data binding for layoutFolderPath textbox
+        /// </summary>
         string layoutFolderPath;
         public string LayoutFolderPath
         {
@@ -30,6 +37,9 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Databinding for defaultLayoutPath textbox
+        /// </summary>
         string defaultlLayoutPath;
         public string DefaultLayoutPath
         {
@@ -43,7 +53,12 @@ namespace SnapPeaApp.ViewModels
                 SetProperty(ref defaultlLayoutPath, value);
             }
         }
+        #endregion
 
+        #region Commands
+        /// <summary>
+        /// Bound to browseLayout button
+        /// </summary>
         public ICommand BrowseLayoutCommand
         {
             get
@@ -52,6 +67,9 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Bound to browseFolderPath button
+        /// </summary>
         public ICommand BrowseFolderPathCommand
         {
             get
@@ -59,7 +77,12 @@ namespace SnapPeaApp.ViewModels
                 return new RelayCommand(o => browsefolderpath());
             }
         }
+        #endregion
 
+        #region Methods
+        /// <summary>
+        /// Opens file browser
+        /// </summary>
         private void browsefolderpath()
         {
             OpenFileDialog filedialog = new OpenFileDialog();
@@ -70,7 +93,8 @@ namespace SnapPeaApp.ViewModels
             {
                 LayoutFolderPath = filedialog.FileName;
             }
-            // update settings in config
+            
+            // TODO: update settings in config
         }
 
         private void browsedefaultlayout()
@@ -83,8 +107,9 @@ namespace SnapPeaApp.ViewModels
             {
                 DefaultLayoutPath = filedialog.FileName;
             }
-            // update settings in config
+            
+            // TODO: update settings in config
         }
-
+        #endregion
     }
 }

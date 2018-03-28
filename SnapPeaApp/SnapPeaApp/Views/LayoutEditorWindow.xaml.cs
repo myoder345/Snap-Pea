@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace SnapPeaApp.Views
 {
     /// <summary>
-    /// Interaction logic for LayoutEditorWindow.xaml
+    /// Code behind for LayoutEditorWindow.xaml
     /// </summary>
     public partial class LayoutEditorWindow : Window
     {
@@ -24,6 +24,7 @@ namespace SnapPeaApp.Views
         {
             InitializeComponent();
 
+            // Logic for handling dpi conversions and setting window size to fill workarea
             var graphics = System.Drawing.Graphics.FromHwnd(IntPtr.Zero);
             var pixelWidth = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width;
             var pixelHeight = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height;
@@ -36,6 +37,11 @@ namespace SnapPeaApp.Views
             this.Closing += (DataContext as LayoutEditorViewModel).LayoutEditorWindow_Closing;
         }
 
+        /// <summary>
+        /// Close window when <Esc> key is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Escape)

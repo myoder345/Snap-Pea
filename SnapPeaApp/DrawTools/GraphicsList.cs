@@ -36,7 +36,6 @@ namespace DrawTools
         public Action GraphicsListChanged;
         #endregion
 
-
         #region Constructor
         public GraphicsList()
         {
@@ -160,6 +159,12 @@ namespace DrawTools
             }
         }
 
+
+        /// <summary>
+        /// subscript operator
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public DrawObject this[int index]
         {
             get
@@ -170,7 +175,6 @@ namespace DrawTools
                 return graphicsList[index];
             }
         }
-
 
         /// <summary>
         /// SelectedCount and GetSelectedObject allow to read
@@ -217,6 +221,9 @@ namespace DrawTools
             }
         }
 
+        /// <summary>
+        /// Gets an enumerable over all objects in the collections
+        /// </summary>
         public IEnumerable<DrawObject> Enumeration
         {
             get

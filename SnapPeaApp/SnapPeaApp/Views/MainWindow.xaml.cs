@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace SnapPeaApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Code behind for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -13,6 +13,8 @@ namespace SnapPeaApp
         {
             InitializeComponent();
             DataContext = new ViewModels.MainWindowViewModel();
+
+            // Notification area icon logic
             NotifyIcon ni = new NotifyIcon
             {
                 Icon = Properties.Resources.testIcon,
@@ -20,6 +22,7 @@ namespace SnapPeaApp
             };
             ni.DoubleClick += ShowWindow;
             ni.MouseDown += Ni_MouseDown;
+
             this.Closing += (DataContext as ViewModels.MainWindowViewModel).MainWindow_Closing;
         }
 

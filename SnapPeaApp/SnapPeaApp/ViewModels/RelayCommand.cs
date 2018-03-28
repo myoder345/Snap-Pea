@@ -8,6 +8,9 @@ using System.Windows.Input;
 
 namespace SnapPeaApp.ViewModels
 {
+    /// <summary>
+    /// RelayCommand implementation of Command design pattern
+    /// </summary>
     public class RelayCommand : ICommand
     {
         #region Fields

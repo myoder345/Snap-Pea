@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace DrawTools
 {
+    /// <summary>
+    /// User control for drawing shapes on.
+    /// </summary>
     public partial class DrawArea : UserControl
     {
 
@@ -78,24 +81,37 @@ namespace DrawTools
             }
         }
 
-        internal void BoundPoint(ref Point point)
+        /// <summary>
+        /// Tests whether a point is within the bounds of the control
+        /// </summary>
+        /// <remarks>If the test point is not in bounds the point is modified to be in bounds</remarks>
+        /// <param name="point">the point to test</param>
+        /// <returns>true if the original point is in bounds, else false</returns>
+        internal bool BoundPoint(ref Point point)
         {
+            bool inBoudns = true;
             if (point.X > Bounds.Right)
             {
                 point.X = Bounds.Right;
+                inBoudns = false;
             }
             if (point.Y > Bounds.Bottom)
             {
                 point.Y = Bounds.Bottom;
+                inBoudns = false;
             }
             if (point.X < Bounds.Left)
             {
                 point.X = Bounds.Left;
+                inBoudns = false;
             }
             if (point.Y < Bounds.Top)
             {
                 point.Y = Bounds.Top;
+                inBoudns = false;
             }
+
+            return inBoudns;
         }
 
 
@@ -126,7 +142,10 @@ namespace DrawTools
             tools[(int)DrawToolType.Rectangle] = new ToolRectangle();
         }
 
-
+        /// <summary>
+        /// Invalidates draw area and renders shapes. 
+        /// Any intersecting shapes are colored red before redrawing.
+        /// </summary>
         public override void Refresh()
         {
             GraphicsList.SetColorToAll(Color.Black);
@@ -150,13 +169,11 @@ namespace DrawTools
         }
 
         /// <summary>
-        /// Right-click handler
+        /// Right-click handler. If the mouse was clicked within a shape, the shape is deleted.
         /// </summary>
         /// <param name="e"></param>
         private void OnContextMenu(MouseEventArgs e)
         {
-            // Change current selection if necessary
-
             Point point = new Point(e.X, e.Y);
 
             int n = GraphicsList.Count;
@@ -208,8 +225,6 @@ namespace DrawTools
             {
                 graphicsList.Draw(e.Graphics);
             }
-
-            //DrawNetSelection(e.Graphics);
 
             brush.Dispose();
         }

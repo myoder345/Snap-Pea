@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.IO;
+using System.Windows;
 
 namespace SnapPeaApp.Config
 {
     /*
-     * The Configuration class contains some static method for retrieving and modifying
+     * The Configuration class contains some static methods for retrieving and modifying
      * setting values.
      * 
      * To use this class:
@@ -29,20 +30,20 @@ namespace SnapPeaApp.Config
      */
     class Configuration
     {
-        /*
-         * The path to the program data folder. This is always given by %userprofile%\SnapPea
-         */
+        /// <summary>
+        /// Path to program data folder. This is always given by %userprofile%\SnapPea
+        /// </summary>
         public static readonly string programFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\SnapPea";
 
-        /*
-         * The path to the configuration XML file. This is always given by %userprofile%\SnapPea\config.xml
-         */
+        /// <summary>
+        /// Path to config XML file. This is always given by %userprofile%\SnapPea\config.xml
+        /// </summary>
         public static readonly string configFileName = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\SnapPea\config.xml";
 
-        /*
-         * This is the string setting entries dict. You can modify default configuration values here,
-         * if no configuration file exists (first-time run) then these values will remain unchanged.
-         */
+        /// <summary>
+        /// String setting entries dict. 
+        /// </summary>
+        /// <remarks> You can modify default configuration values here, if no configuration file exists(first-time run) then these values will remain unchanged. </remarks>
         private static Dictionary<string, string> stringEntries = new Dictionary<string, string>()
         {
             //This is the default path for the layouts folder
@@ -52,75 +53,86 @@ namespace SnapPeaApp.Config
             { ConfigKeys.DefaultLayout, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\SnapPea\layouts\FourSquare.json" }
         };
 
-        /*
-         * This is the int setting entries dict. You can modify default configuration values here,
-         * if no configuration file exists (first-time run) then these values will remain unchanged.
-         */
+        /// <summary>
+        /// Int setting entries dict. 
+        /// </summary>
+        /// <remarks> You can modify default configuration values here, if no configuration file exists(first-time run) then these values will remain unchanged. </remarks>
         private static Dictionary<string, int> intEntries = new Dictionary<string, int>();
 
-        /*
-         * This is the bool setting entries dict. You can modify default configuration values here,
-         * if no configuration file exists (first-time run) then these values will remain unchanged.
-         */
+        /// <summary>
+        /// Bool setting entries dict. 
+        /// </summary>
+        /// <remarks> You can modify default configuration values here, if no configuration file exists(first-time run) then these values will remain unchanged. </remarks>
         private static Dictionary<string, bool> boolEntries = new Dictionary<string, bool>()
         {
             //whether the layout specified by default_layout will be loaded on startup
             { ConfigKeys.LoadLayoutOnStart, false }
         };
 
-        /*
-         * This function returns the setting value identified by key
-         */
+        /// <summary>
+        /// Gets the setting identified by key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public static string getStringSetting(string key)
         {
             return stringEntries[key];
         }
 
-        /*
-         * This function returns the setting value identified by key
-         */
+        /// <summary>
+        /// Gets the setting identified by key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public static int getIntSetting(string key)
         {
             return intEntries[key];
         }
 
-        /*
-         * This function returns the setting value identified by key
-         */
+        /// <summary>
+        /// Gets the setting identified by key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public static bool getBoolSetting(string key)
         {
             return boolEntries[key];
         }
 
-        /*
-         * This function sets the setting value identified by key
-         */
+        /// <summary>
+        /// Sets the settings value identified by key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public static void setStringSetting(string key, string value)
         {
             stringEntries[key] = value;
         }
 
-        /*
-         * This function sets the setting value identified by key
-         */
+        /// <summary>
+        /// Sets the settings value identified by key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public static void setIntSetting(string key, int value)
         {
             intEntries[key] = value;
         }
 
-        /*
-         * This function sets the setting value identified by key
-         */
+         /// <summary>
+         /// Sets the settings value identified by key
+         /// </summary>
+         /// <param name="key"></param>
+         /// <param name="value"></param>
         public static void setBoolSetting(string key, bool value)
         {
             boolEntries[key] = value;
         }
 
-
-        /*
-         * This will save the current configuration state to the settings file
-         */
-        public static void saveToFile()
+         /// <summary>
+         /// Saves the current configuration state to the settings file
+         /// </summary>
+        public static void SaveConfig()
         {
             if (!Directory.Exists(programFolder))
             {
@@ -174,10 +186,10 @@ namespace SnapPeaApp.Config
             textWriter.WriteEndElement();
         }
 
-        /*
-         * Loads configuration values from the settings file.
-         */
-        public static void loadFromFile()
+        /// <summary>
+        /// Loads configuration values from the settings file.
+        /// </summary>
+        public static void LoadConfig()
         {
             try
             {
@@ -229,9 +241,9 @@ namespace SnapPeaApp.Config
 
                 xmlReader.Close();
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                //this is a non-fatal error; default values will be generated
+                MessageBox.Show($"Error loading config: {ex.Message}","Error");
             }
         }
     }

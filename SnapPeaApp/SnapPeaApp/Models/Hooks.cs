@@ -8,6 +8,9 @@ using System.Windows;
 
 namespace SnapPeaApp
 {
+    /// <summary>
+    /// Contains P/invoke and WinAPI methods
+    /// </summary>
     class Hooks
     {
         [StructLayout(LayoutKind.Sequential)]

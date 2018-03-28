@@ -12,30 +12,16 @@ namespace DrawTools
 	/// </summary>
 	public abstract class DrawObject
 	{
+
         #region Members
-
-        // Object properties
-        private bool selected;
-        private Color color;
-        private int penWidth;
-
-        // Allows to write Undo - Redo functions and don't care about
-        // objects order in the list.
-        int id;   
-
-        // Last used property values (may be kept in the Registry)
-        private static Color lastUsedColor = Color.Black;
-        private static int lastUsedPenWidth = 1;
-
         // Entry names for serialization
         private const string entryColor = "Color";
         private const string entryPenWidth = "PenWidth";
-
         #endregion
 
         public DrawObject()
         {
-            id = this.GetHashCode();
+            ID = this.GetHashCode();
         }
 
         #region Properties
@@ -43,47 +29,17 @@ namespace DrawTools
         /// <summary>
         /// Selection flag
         /// </summary>
-        public bool Selected
-        {
-            get
-            {
-                return selected;
-            }
-            set
-            {
-                selected = value;
-            }
-        }
+        public bool Selected { get; set; }
 
         /// <summary>
         /// Color
         /// </summary>
-        public Color Color
-        {
-            get
-            {
-                return color;
-            }
-            set
-            {
-                color = value;
-            }
-        }
+        public Color Color { get; set; }
 
         /// <summary>
         /// Pen width
         /// </summary>
-        public int PenWidth
-        {
-            get
-            {
-                return penWidth;
-            }
-            set
-            {
-                penWidth = value;
-            }
-        }
+        public int PenWidth { get; set; }
 
         /// <summary>
         /// Number of handles
@@ -99,42 +55,17 @@ namespace DrawTools
         /// <summary>
         /// Object ID
         /// </summary>
-        public int ID
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
+        public int ID { get; set; }
 
         /// <summary>
         /// Last used color
         /// </summary>
-        public static Color LastUsedColor
-        {
-            get
-            {
-                return lastUsedColor;
-            }
-            set
-            {
-                lastUsedColor = value;
-            }
-        }
+        public static Color LastUsedColor { get; set; } = Color.Black;
 
         /// <summary>
         /// Last used pen width
         /// </summary>
-        public static int LastUsedPenWidth
-        {
-            get
-            {
-                return lastUsedPenWidth;
-            }
-            set
-            {
-                lastUsedPenWidth = value;
-            }
-        }
+        public static int LastUsedPenWidth { get; set; } = 1;
 
         #endregion
 
@@ -273,8 +204,8 @@ namespace DrawTools
         {
             Trace.WriteLine(this.GetType().Name);
             Trace.WriteLine("Selected = " + 
-                selected.ToString(CultureInfo.InvariantCulture)
-                + " ID = " + id.ToString(CultureInfo.InvariantCulture));
+                Selected.ToString(CultureInfo.InvariantCulture)
+                + " ID = " + ID.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -325,7 +256,7 @@ namespace DrawTools
                 "{0}{1}",
                 entryPenWidth, orderNumber));
 
-            id = this.GetHashCode();
+            ID = this.GetHashCode();
         }
 
         #endregion
@@ -337,8 +268,8 @@ namespace DrawTools
         /// </summary>
         protected void Initialize()
         {
-            color = lastUsedColor;
-            penWidth = LastUsedPenWidth;
+            Color = LastUsedColor;
+            PenWidth = LastUsedPenWidth;
         }
 
         /// <summary>
@@ -347,9 +278,9 @@ namespace DrawTools
         /// </summary>
         protected void FillDrawObjectFields(DrawObject drawObject)
         {
-            drawObject.selected = this.selected;
-            drawObject.color = this.color;
-            drawObject.penWidth = this.penWidth;
+            drawObject.Selected = this.Selected;
+            drawObject.Color = this.Color;
+            drawObject.PenWidth = this.PenWidth;
             drawObject.ID = this.ID;
         }
 

@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace SnapPeaApp.Views
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Code behind for Window1.xaml
     /// </summary>
     public partial class SettingsWindow : Window
     {

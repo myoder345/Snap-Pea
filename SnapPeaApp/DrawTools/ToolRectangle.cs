@@ -16,17 +16,34 @@ namespace DrawTools
             Cursor = new Cursor(GetType(), "Rectangle.cur");
 		}
 
+        /// <summary>
+        /// Event handler for mouse down.
+        /// Creates a new rectangle
+        /// </summary>
+        /// <param name="drawArea"></param>
+        /// <param name="e"></param>
         public override void OnMouseDown(DrawArea drawArea, MouseEventArgs e)
         {
             AddNewObject(drawArea, new DrawRectangle(e.X, e.Y, 1, 1));
         }
 
+        /// <summary>
+        /// Mouse up event handler
+        /// </summary>
+        /// <param name="drawArea"></param>
+        /// <param name="e"></param>
         public override void OnMouseUp(DrawArea drawArea, MouseEventArgs e)
         {
             base.OnMouseUp(drawArea, e);
             drawArea.GraphicsList.GraphicsListChanged?.Invoke();
         }
 
+        /// <summary>
+        /// Mouse move event handler.
+        /// Resizes rectangle on creation to follow cursor
+        /// </summary>
+        /// <param name="drawArea"></param>
+        /// <param name="e"></param>
         public override void OnMouseMove(DrawArea drawArea, MouseEventArgs e)
         {
             drawArea.Cursor = Cursor;
@@ -39,7 +56,6 @@ namespace DrawTools
                 bool collision = false;
                 foreach (DrawRectangle rect in drawArea.GraphicsList.Enumeration.Where(o => thisRectangle != o))
                 {
-                    //if (rect.HitTest(point) > -1)
                     if (rect.IntersectsWith(thisRectangle))
                     {
                         thisRectangle.MoveHandleTo(DrawRectangle.ClosestPointOutside(rect, point), 5);

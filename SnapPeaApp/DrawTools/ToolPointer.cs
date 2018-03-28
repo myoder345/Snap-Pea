@@ -93,17 +93,6 @@ namespace DrawTools
                 }
             }
 
-            // Net selection
-            if ( selectMode == SelectionMode.None )
-            {
-                // click on background
-                if ( ( Control.ModifierKeys & Keys.Control ) == 0 )
-                    drawArea.GraphicsList.UnselectAll();
-
-                selectMode = SelectionMode.NetSelection;
-
-            }
-
             lastPoint.X = e.X;
             lastPoint.Y = e.Y;
             startPoint.X = e.X;
@@ -112,15 +101,6 @@ namespace DrawTools
             drawArea.Capture = true;
 
             drawArea.Refresh();
-
-            if ( selectMode == SelectionMode.NetSelection )
-            {
-                // Draw selection rectangle in initial position
-                ControlPaint.DrawReversibleFrame(
-                    drawArea.RectangleToScreen(DrawRectangle.GetNormalizedRectangle(startPoint, lastPoint)),
-                    Color.Black,
-                    FrameStyle.Dashed);
-            }
         }
 
 
@@ -220,24 +200,6 @@ namespace DrawTools
                 }
                 drawArea.Refresh();
             }
-
-            if (selectMode == SelectionMode.NetSelection)
-            {
-                // Remove old selection rectangle
-                ControlPaint.DrawReversibleFrame(
-                    drawArea.RectangleToScreen(DrawRectangle.GetNormalizedRectangle(startPoint, oldPoint)),
-                    Color.Black,
-                    FrameStyle.Dashed);
-
-                // Draw new selection rectangle
-                ControlPaint.DrawReversibleFrame(
-                    drawArea.RectangleToScreen(DrawRectangle.GetNormalizedRectangle(startPoint, point)),
-                    Color.Black,
-                    FrameStyle.Dashed);
-
-                return;
-            }
-
         }
 
         /// <summary>

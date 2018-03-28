@@ -10,6 +10,10 @@ using System.Windows.Data;
 
 namespace SnapPeaApp.ViewModels
 {
+    /// <summary>
+    /// Base class for View Models
+    /// Contains implementation for INotifyPropertyChanged
+    /// </summary>
     public class ViewModelBase : INotifyPropertyChanged
     {
 		public event PropertyChangedEventHandler PropertyChanged;

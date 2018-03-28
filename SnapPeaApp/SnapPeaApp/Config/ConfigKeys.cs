@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SnapPeaApp.Config
 {
+    /// <summary>
+    /// Static class contains keys used in the dictionaries in Config.Configurations
+    /// </summary>
     static class ConfigKeys
     {
         public const string DefaultLayout = "default_layout";

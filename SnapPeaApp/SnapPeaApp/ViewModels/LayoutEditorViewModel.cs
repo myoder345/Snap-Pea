@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace SnapPeaApp.ViewModels
 {
+    /// <summary>
+    /// Interaction logic for LayoutEditer view
+    /// </summary>
     partial class LayoutEditorViewModel : ViewModelBase
     {
         bool changesMade;
@@ -19,24 +22,32 @@ namespace SnapPeaApp.ViewModels
             GraphicsList = graphicsList;
             GraphicsList.GraphicsListChanged = () => changesMade = true;
 
+            // Draw rectangles on screen representing regions in layout
             foreach(var region in layout.Regions)
             {
                 GraphicsList.Add(new DrawTools.DrawRectangle(region.Left, region.Top, region.Width, region.Height));
             }
         }
 
+        /// <summary>
+        /// Collection of DrawTools.DrawObject objects. Bound to the drawArea user control
+        /// </summary>
         public DrawTools.GraphicsList GraphicsList { get; private set; }
 
+        /// <summary>
+        /// Converts the rectangles drawn on the draw area to a layout representation and writes it to file
+        /// </summary>
         void SaveLayout()
         {
             var tempLayout = new Layout();
 
+            // Add to layout object regions representing rectangles drawn
             foreach(DrawTools.DrawRectangle drawRect in GraphicsList.Enumeration)
             {
                 tempLayout.AddRegion(new Region(drawRect.GetRectangle()));
             }
-
-            // overwrite layout file or svae to new layout file?
+            
+            // Serialize layout object and write to file
             var saveFileDialog = new SaveFileDialog()
             {
                 Filter = "json (*.json)|*.json|All files (*.*)|*.*",
@@ -51,6 +62,12 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Event handler for LayoutEditor window closing.
+        /// Prompts user to save changes before closing if any have been made.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void LayoutEditorWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if(changesMade)
