@@ -57,22 +57,25 @@ namespace SnapPeaApp
         WinEventDelegate procDelegate;
         bool isWin10;
 
-        public Hooks(Action<IntPtr, uint, IntPtr, object, int, int, uint, uint> winEventProc)
+        public Layout CurrentLayout { get; set; }
+
+        public Hooks()
         {
-            procDelegate = new WinEventDelegate(winEventProc);
+            procDelegate = new WinEventDelegate(WinEventProc);
             hhook = SetWinEventHook(EVENT_SYSTEM_MOVESIZEEND, EVENT_SYSTEM_MOVESIZEEND, IntPtr.Zero,
                    procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
             isWin10 = System.Environment.OSVersion.Version.Major == 10;
+            CurrentLayout = new Layout();
         }
 
-        public Point GetMousePosition()
+        Point GetMousePosition()
         {
             Win32Point w32Mouse = new Win32Point();
             GetCursorPos(ref w32Mouse);
             return new Point(w32Mouse.X, w32Mouse.Y);
         }
 
-        public string GetWindowName(object wrapper, IntPtr handle)
+        string GetWindowName(object wrapper, IntPtr handle)
         {
             int capacity = GetWindowTextLength(new HandleRef(wrapper, handle)) + 1;
             StringBuilder stringBuilder = new StringBuilder(capacity);
@@ -80,7 +83,7 @@ namespace SnapPeaApp
             return stringBuilder.ToString();
         }
 
-        public void MoveWindow(IntPtr hwnd, int x, int y, int width, int height)
+        void MoveWindow(IntPtr hwnd, int x, int y, int width, int height)
         {
             if(isWin10)
             {
@@ -96,6 +99,35 @@ namespace SnapPeaApp
         public void Unhook()
         {
             UnhookWinEvent(hhook);
+        }
+
+        /// <summary>
+        /// Callback function called whenever a window drag stops.
+        /// Resizes the dragged window if it is released within a region
+        /// </summary>
+        /// <param name="hWinEventHook">Handle to event hook function</param>
+        /// <param name="eventType">Specifies event that occurred (window moved)</param>
+        /// <param name="hwnd">Handle to window moved</param>
+        /// <param name="sender">Object that triggered event</param>
+        /// <param name="idObject">ID of object associated with event</param>
+        /// <param name="idChild">Specifies whether event was trigger by object or child of object</param>
+        /// <param name="dwEventThread">ID of thread that generated event</param>
+        /// <param name="dwmsEventTime">Time in milliseconds that the event was generated</param>
+        void WinEventProc(IntPtr hWinEventHook, uint eventType,
+            IntPtr hwnd, object sender, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
+        {
+            var windowName = GetWindowName(sender, hwnd);
+            var cursorPos = GetMousePosition();
+            Console.WriteLine($"Window {windowName} Moved, {cursorPos.ToString()}");
+
+            // Check if window released within a region. If so, resize.
+            foreach (Region r in CurrentLayout.Regions)
+            {
+                if (r.IsPointIn(new Point(cursorPos.X, cursorPos.Y)))
+                {
+                    MoveWindow(hwnd, r.Left, r.Top, r.Width, r.Height);
+                }
+            }
         }
     }
 }
