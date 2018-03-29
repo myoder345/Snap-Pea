@@ -23,7 +23,7 @@ namespace SnapPeaApp
         public int Color { get; set; }
 
         /// <summary>
-        /// Tests whether point is bounded by the region
+        /// Tests whether point is within the region
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>

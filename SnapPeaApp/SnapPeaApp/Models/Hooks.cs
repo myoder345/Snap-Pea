@@ -115,8 +115,9 @@ namespace SnapPeaApp
         void WinEventProc(IntPtr hWinEventHook, uint eventType,
             IntPtr hwnd, object sender, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
-            var windowName = GetWindowName(sender, hwnd);
-            var cursorPos = GetMousePosition();
+            string windowName = GetWindowName(sender, hwnd);
+            Point cursorPos = GetMousePosition();
+
             Console.WriteLine($"Window {windowName} Moved, {cursorPos.ToString()}");
 
             // Check if window released within a region. If so, resize.

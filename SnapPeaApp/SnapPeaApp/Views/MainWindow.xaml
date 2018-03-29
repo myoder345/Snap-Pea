@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SnapPeaApp"
         mc:Ignorable="d"
-        Visibility="Visible"
+        Visibility="Hidden"
         Title="Snap Pea" Height="300" Width="300">
     <Window.Resources>
         <ContextMenu x:Key="NotifierContextMenu"

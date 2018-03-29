@@ -45,7 +45,7 @@ namespace SnapPeaApp.ViewModels
         {
             get { return new RelayCommand(o => OpenLayoutEditor(new Layout())); }
         }
-
+        
         /// <summary>
         /// Bound to Edit Layout button
         /// </summary>

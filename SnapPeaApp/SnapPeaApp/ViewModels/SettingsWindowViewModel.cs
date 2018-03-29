@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace SnapPeaApp.ViewModels
 {
@@ -85,13 +86,14 @@ namespace SnapPeaApp.ViewModels
         /// </summary>
         private void BrowseFolderPath()
         {
-            OpenFileDialog filedialog = new OpenFileDialog();
-            filedialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var folderDialog = new CommonOpenFileDialog();
+            folderDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            folderDialog.IsFolderPicker = true;
+            var results = folderDialog.ShowDialog();
 
-            var results = filedialog.ShowDialog();
-            if (results == DialogResult.OK)
+            if (results == CommonFileDialogResult.Ok)
             {
-                LayoutFolderPath = filedialog.FileName;
+                LayoutFolderPath = folderDialog.FileName;
             }
             
             // TODO: update settings in config
@@ -99,7 +101,7 @@ namespace SnapPeaApp.ViewModels
 
         private void BrowseDefaultLayout()
         {
-            OpenFileDialog filedialog = new OpenFileDialog();
+            var filedialog = new OpenFileDialog();
             filedialog.InitialDirectory = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath);
 
             var results = filedialog.ShowDialog();
