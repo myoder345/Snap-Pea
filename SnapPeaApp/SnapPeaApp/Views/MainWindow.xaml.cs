@@ -26,7 +26,7 @@ namespace SnapPeaApp
             this.Closing += (DataContext as ViewModels.MainWindowViewModel).MainWindow_Closing;
         }
 
-        #region Events
+        #region Event Handlers
         private void Ni_MouseDown(object sender, MouseEventArgs e)
         {
             if(e.Button == MouseButtons.Right)

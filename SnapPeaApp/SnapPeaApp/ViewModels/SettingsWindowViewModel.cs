@@ -63,7 +63,7 @@ namespace SnapPeaApp.ViewModels
         {
             get
             {
-                return new RelayCommand(o => browsedefaultlayout());
+                return new RelayCommand(o => BrowseDefaultLayout());
             }
         }
 
@@ -74,7 +74,7 @@ namespace SnapPeaApp.ViewModels
         {
             get
             {
-                return new RelayCommand(o => browsefolderpath());
+                return new RelayCommand(o => BrowseFolderPath());
             }
         }
         #endregion
@@ -83,7 +83,7 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Opens file browser
         /// </summary>
-        private void browsefolderpath()
+        private void BrowseFolderPath()
         {
             OpenFileDialog filedialog = new OpenFileDialog();
             filedialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -97,7 +97,7 @@ namespace SnapPeaApp.ViewModels
             // TODO: update settings in config
         }
 
-        private void browsedefaultlayout()
+        private void BrowseDefaultLayout()
         {
             OpenFileDialog filedialog = new OpenFileDialog();
             filedialog.InitialDirectory = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath);

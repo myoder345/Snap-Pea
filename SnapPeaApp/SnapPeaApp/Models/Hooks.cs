@@ -65,7 +65,6 @@ namespace SnapPeaApp
             hhook = SetWinEventHook(EVENT_SYSTEM_MOVESIZEEND, EVENT_SYSTEM_MOVESIZEEND, IntPtr.Zero,
                    procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
             isWin10 = System.Environment.OSVersion.Version.Major == 10;
-            CurrentLayout = new Layout();
         }
 
         Point GetMousePosition()
