@@ -28,7 +28,7 @@ namespace SnapPeaApp.Config
      *   <entry name="load_layout_on_start" type="bool" value="true" />
      * 
      */
-    class Configuration
+    static class Configuration
     {
         /// <summary>
         /// Path to program data folder. This is always given by %userprofile%\SnapPea
