@@ -156,9 +156,9 @@
     <None Include="Resources\testIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DrawTools\DrawTools.csproj">
+    <ProjectReference Include="..\DrawTools\DrawArea.csproj">
       <Project>{56c76b98-1ce1-4156-885e-ec04150747df}</Project>
-      <Name>DrawTools</Name>
+      <Name>DrawArea</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

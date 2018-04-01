@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DrawTools.Properties {
+namespace DrawArea.Properties {
     using System;
     
     

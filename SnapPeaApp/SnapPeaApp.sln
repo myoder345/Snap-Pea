@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnapPeaApp", "SnapPeaApp\SnapPeaApp.csproj", "{CD7130D3-1CC4-446D-895E-B1BF18D9A9D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawTools", "DrawTools\DrawTools.csproj", "{56C76B98-1CE1-4156-885E-EC04150747DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawArea", "DrawTools\DrawArea.csproj", "{56C76B98-1CE1-4156-885E-EC04150747DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
