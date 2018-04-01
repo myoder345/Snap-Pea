@@ -7,7 +7,19 @@
         mc:Ignorable="d"
         Title="Settings" Height="300" Width="350"
         Background="Gray">
-    <StackPanel>
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Bottom" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Margin="5">
+            <Button Content="Save Settings" 
+                    Margin="5 0" 
+                    Padding="5 2"
+                    Command="{Binding SaveSettingsCommand}"
+                    IsEnabled="{Binding IsDirty}"/>
+            <Button Content="Done"  Padding="5 2" Click="Done_Button_Click"/>
+        </StackPanel>
+        <StackPanel>
         <StackPanel Margin="10 0 10 5">
             <TextBlock 
                 Text="Default Layout:"
@@ -80,4 +92,5 @@
             </StackPanel>
         </StackPanel>
     </StackPanel>
+    </DockPanel>
 </Window>

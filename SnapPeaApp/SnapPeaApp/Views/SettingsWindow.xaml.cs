@@ -24,6 +24,13 @@ namespace SnapPeaApp.Views
         {
             DataContext = new SettingsWindowViewModel();
             InitializeComponent();
+
+            this.Closing += (DataContext as ViewModels.SettingsWindowViewModel).SettingsWindow_Closing;
+        }
+
+        private void Done_Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

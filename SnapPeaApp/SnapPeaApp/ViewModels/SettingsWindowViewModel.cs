@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace SnapPeaApp.ViewModels
 {
@@ -19,6 +19,7 @@ namespace SnapPeaApp.ViewModels
             layoutFolderPath = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath);
             defaultlLayoutPath = Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout);
         }
+
 
         #region Properties
         /// <summary>
@@ -35,6 +36,7 @@ namespace SnapPeaApp.ViewModels
             set
             {
                 SetProperty(ref layoutFolderPath, value);
+                IsDirty = true;
             }
         }
 
@@ -52,8 +54,26 @@ namespace SnapPeaApp.ViewModels
             set
             {
                 SetProperty(ref defaultlLayoutPath, value);
+                IsDirty = true;
             }
         }
+
+        /// <summary>
+        /// Represents whether settings have changed and need saving
+        /// </summary>
+        private bool changesMade;
+        public bool IsDirty
+        {
+            get
+            {
+                return changesMade;
+            }
+            set
+            {
+                SetProperty(ref changesMade, value);
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -78,27 +98,35 @@ namespace SnapPeaApp.ViewModels
                 return new RelayCommand(o => BrowseFolderPath());
             }
         }
+
+        public ICommand SaveSettingsCommand
+        {
+            get
+            {
+                return new RelayCommand(o => SaveSettings());
+            }
+        }
         #endregion
 
         #region Methods
         /// <summary>
-        /// Opens file browser
+        /// Opens folder browser and sets LayoutFolderPath property
         /// </summary>
         private void BrowseFolderPath()
         {
-            var folderDialog = new CommonOpenFileDialog();
-            folderDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            folderDialog.IsFolderPicker = true;
-            var results = folderDialog.ShowDialog();
+            var filedialog = new FolderBrowserDialog();
+            filedialog.RootFolder = Environment.SpecialFolder.UserProfile;
 
-            if (results == CommonFileDialogResult.Ok)
+            var results = filedialog.ShowDialog();
+            if (results == DialogResult.OK)
             {
-                LayoutFolderPath = folderDialog.FileName;
+                LayoutFolderPath = filedialog.SelectedPath;
             }
-            
-            // TODO: update settings in config
         }
 
+        /// <summary>
+        /// Opens file browser and sets DefaultLayoutPath property
+        /// </summary>
         private void BrowseDefaultLayout()
         {
             var filedialog = new OpenFileDialog();
@@ -109,8 +137,33 @@ namespace SnapPeaApp.ViewModels
             {
                 DefaultLayoutPath = filedialog.FileName;
             }
-            
-            // TODO: update settings in config
+        }
+
+        /// <summary>
+        /// Updates settings dictionary with new values
+        /// </summary>
+        private void SaveSettings()
+        {
+            Config.Configuration.setStringSetting(Config.ConfigKeys.DefaultLayout, DefaultLayoutPath);
+            Config.Configuration.setStringSetting(Config.ConfigKeys.LayoutsPath, LayoutFolderPath);
+            IsDirty = false;
+            Config.Configuration.SaveConfig();
+        }
+
+        /// <summary>
+        /// Event handler for window closing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        internal void SettingsWindow_Closing(object sender, CancelEventArgs e)
+        {
+            if(IsDirty)
+            {
+                if(MessageBox.Show("Would you like to save changes?", "Closing", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    SaveSettings();
+                }
+            }
         }
         #endregion
     }

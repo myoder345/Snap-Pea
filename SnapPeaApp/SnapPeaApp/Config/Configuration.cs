@@ -181,8 +181,8 @@ namespace SnapPeaApp.Config
             textWriter.WriteWhitespace(Environment.NewLine + indentString);
             textWriter.WriteStartElement("entry");
             textWriter.WriteAttributeString("name", elementName);
-            textWriter.WriteAttributeString("type", elementValue);
-            textWriter.WriteAttributeString("data", elementType);
+            textWriter.WriteAttributeString("type", elementType);
+            textWriter.WriteAttributeString("data", elementValue);
             textWriter.WriteEndElement();
         }
 
