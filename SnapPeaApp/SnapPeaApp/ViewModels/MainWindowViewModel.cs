@@ -103,8 +103,12 @@ namespace SnapPeaApp.ViewModels
         /// </summary>
         private void OpenSettingsWindow()
         {
-            var window = new SettingsWindow();
-            window.ShowDialog();
+            //var window = new SettingsWindow();
+            //window.ShowDialog();
+
+            // temp 
+            var window = new PreviewWindow(winHook.CurrentLayout);
+            window.Show();
         }
 
         /// <summary>
