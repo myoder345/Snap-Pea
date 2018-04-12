@@ -198,6 +198,7 @@ namespace DrawTools
                     // CHECK OUT OF BOUNDS
                     o.FixBounds(drawArea.Width,drawArea.Height);
                 }
+                drawArea.GraphicsList.GraphicsListChanged?.Invoke();
                 drawArea.Refresh();
             }
         }
@@ -222,10 +223,6 @@ namespace DrawTools
                     DrawRectangle.GetNormalizedRectangle(startPoint, lastPoint));
 
                 selectMode = SelectionMode.None;
-            }
-            if (selectMode == SelectionMode.Move)
-            {
-                drawArea.GraphicsList.GraphicsListChanged?.Invoke();
             }
             if ( resizedObject != null )
             {
