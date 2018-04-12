@@ -10,9 +10,11 @@ namespace SnapPeaApp.ViewModels
 {
     class RegionToScreenConverter : IValueConverter
     {
+        static double scalingFactor = System.Drawing.Graphics.FromHwnd(IntPtr.Zero).DpiX/96.0;
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return System.Convert.ToDouble(value) / 1.25;
+            return System.Convert.ToDouble(value) / scalingFactor;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
