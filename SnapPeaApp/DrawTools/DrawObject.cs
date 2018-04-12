@@ -19,9 +19,9 @@ namespace DrawTools
         private const string entryPenWidth = "PenWidth";
         #endregion
 
-        public DrawObject()
+        protected DrawObject()
         {
-            ID = this.GetHashCode();
+            Id = this.GetHashCode();
         }
 
         #region Properties
@@ -55,7 +55,7 @@ namespace DrawTools
         /// <summary>
         /// Object ID
         /// </summary>
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Last used color
@@ -79,8 +79,8 @@ namespace DrawTools
         /// <summary>
         /// Draw object
         /// </summary>
-        /// <param name="g"></param>
-        public virtual void Draw(Graphics g)
+        /// <param name="graphics"></param>
+        public virtual void Draw(Graphics graphics)
         {
         }
 
@@ -109,8 +109,8 @@ namespace DrawTools
         /// <summary>
         /// Draw tracker for selected object
         /// </summary>
-        /// <param name="g"></param>
-        public virtual void DrawTracker(Graphics g)
+        /// <param name="graphics"></param>
+        public virtual void DrawTracker(Graphics graphics)
         {
             if ( ! Selected )
                 return;
@@ -119,7 +119,7 @@ namespace DrawTools
 
             for ( int i = 1; i <= HandleCount; i++ )
             {
-                g.FillRectangle(brush, GetHandleRectangle(i));
+                graphics?.FillRectangle(brush, GetHandleRectangle(i));
             }
 
             brush.Dispose();
@@ -184,7 +184,9 @@ namespace DrawTools
         {
         }
 
-        public virtual void MoveTo(int X, int Y)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
+        public virtual void MoveTo(int x, int y)
         {
         }
 
@@ -205,7 +207,7 @@ namespace DrawTools
             Trace.WriteLine(this.GetType().Name);
             Trace.WriteLine("Selected = " + 
                 Selected.ToString(CultureInfo.InvariantCulture)
-                + " ID = " + ID.ToString(CultureInfo.InvariantCulture));
+                + " ID = " + Id.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -224,13 +226,13 @@ namespace DrawTools
         /// <param name="orderNumber"></param>
         public virtual void SaveToStream(SerializationInfo info, int orderNumber)
         {
-            info.AddValue(
+            info?.AddValue(
                 String.Format(CultureInfo.InvariantCulture,
                     "{0}{1}",
                     entryColor, orderNumber),
                 Color.ToArgb());
 
-            info.AddValue(
+            info?.AddValue(
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryPenWidth, orderNumber),
@@ -244,19 +246,21 @@ namespace DrawTools
         /// <param name="orderNumber"></param>
         public virtual void LoadFromStream(SerializationInfo info, int orderNumber)
         {
-            int n = info.GetInt32(
+            int? n = info?.GetInt32(
                 String.Format(CultureInfo.InvariantCulture,
                     "{0}{1}",
                     entryColor, orderNumber));
 
-            Color = Color.FromArgb(n);
+            Color = Color.FromArgb(n.Value);
 
-            PenWidth = info.GetInt32(
+            n = info?.GetInt32(
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryPenWidth, orderNumber));
 
-            ID = this.GetHashCode();
+            PenWidth = n.Value;
+
+            Id = this.GetHashCode();
         }
 
         #endregion
@@ -278,10 +282,13 @@ namespace DrawTools
         /// </summary>
         protected void FillDrawObjectFields(DrawObject drawObject)
         {
-            drawObject.Selected = this.Selected;
-            drawObject.Color = this.Color;
-            drawObject.PenWidth = this.PenWidth;
-            drawObject.ID = this.ID;
+            if(drawObject != null)
+            {
+                drawObject.Selected = this.Selected;
+                drawObject.Color = this.Color;
+                drawObject.PenWidth = this.PenWidth;
+                drawObject.Id = this.Id;
+            }
         }
 
         #endregion

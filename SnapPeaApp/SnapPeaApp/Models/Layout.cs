@@ -22,11 +22,11 @@ namespace SnapPeaApp
         /// <summary>
         /// Collection of Region objects
         /// </summary>
-        public List<Region> Regions { get; set; }
+        public IList<Region> Regions { get; }
 
-        public void AddRegion(Region r)
+        public void AddRegion(Region region)
         {
-            Regions.Add(r);
+            Regions.Add(region);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace SnapPeaApp
             {
                 return JsonConvert.DeserializeObject<Layout>(File.ReadAllText(layoutPath));
             }
-            catch (Exception e)
+            catch (IOException e)
             {
                 System.Windows.MessageBox.Show($"Error loading layout: {e.Message}", "Error");
                 return new Layout();

@@ -35,7 +35,9 @@ namespace DrawTools
 		{
 		}
 
-        
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
         public DrawRectangle(int x, int y, int width, int height) : base()
         {
             rectangle.X = x;
@@ -63,12 +65,12 @@ namespace DrawTools
         /// <summary>
         /// Draw rectangle
         /// </summary>
-        /// <param name="g"></param>
-        public override void Draw(Graphics g)
+        /// <param name="graphics"></param>
+        public override void Draw(Graphics graphics)
         {
             Pen pen = new Pen(Color, PenWidth);
 
-            g.DrawRectangle(pen, DrawRectangle.GetNormalizedRectangle(Rectangle));
+            graphics?.DrawRectangle(pen, DrawRectangle.GetNormalizedRectangle(Rectangle));
 
             pen.Dispose();
         }
@@ -80,6 +82,8 @@ namespace DrawTools
         /// <param name="y">Top left corner Y coordinate</param>
         /// <param name="width">Rectangle width</param>
         /// <param name="height">Rectangle height</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
         protected void SetRectangle(int x, int y, int width, int height)
         {
             rectangle.X = x;
@@ -292,15 +296,15 @@ namespace DrawTools
             rectangle.Y = newY;
         }
 
-        public override bool IntersectsWith(Rectangle rectangle)
+        public override bool IntersectsWith(Rectangle rect)
         {
-            return Rectangle.IntersectsWith(rectangle);
+            return Rectangle.IntersectsWith(rect);
         }
 
-        public override bool IntersectsWith(DrawRectangle rectangle)
+        public override bool IntersectsWith(DrawRectangle rect)
         {
             var RectB = GetNormalizedRectangle(Rectangle);
-            var RectA = GetNormalizedRectangle(rectangle.Rectangle);
+            var RectA = GetNormalizedRectangle(rect.Rectangle);
             return (RectA.Left < RectB.Right && RectA.Right > RectB.Left && RectA.Top < RectB.Bottom && RectA.Bottom > RectB.Top);
         }
 
@@ -319,12 +323,12 @@ namespace DrawTools
         /// <summary>
         /// Move object
         /// </summary>
-        /// <param name="X">X coordinate to move top left corner to</param>
-        /// <param name="Y">Y coordinate to move top left corner to</param>
-        public override void MoveTo(int X, int Y)
+        /// <param name="x">X coordinate to move top left corner to</param>
+        /// <param name="y">Y coordinate to move top left corner to</param>
+        public override void MoveTo(int x, int y)
         {
-            rectangle.X = X;
-            rectangle.Y = Y;
+            rectangle.X = x;
+            rectangle.Y = y;
         }
 
         /// <summary>
@@ -355,7 +359,7 @@ namespace DrawTools
         /// <param name="orderNumber"></param>
         public override void SaveToStream(System.Runtime.Serialization.SerializationInfo info, int orderNumber)
         {
-            info.AddValue(
+            info?.AddValue(
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryRectangle, orderNumber),
@@ -371,7 +375,7 @@ namespace DrawTools
         /// <param name="orderNumber"></param>
         public override void LoadFromStream(SerializationInfo info, int orderNumber)
         {
-            rectangle = (Rectangle)info.GetValue(
+            rectangle = (Rectangle)info?.GetValue(
                 String.Format(CultureInfo.InvariantCulture,
                 "{0}{1}",
                 entryRectangle, orderNumber),
@@ -399,6 +403,8 @@ namespace DrawTools
         /// <param name="x2">Bottom right corner x coordinate</param>
         /// <param name="y2">Bottom right corner y coordinate</param>
         /// <returns>Normalized rectangle</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
         public static Rectangle GetNormalizedRectangle(int x1, int y1, int x2, int y2)
         {
             if ( x2 < x1 )
@@ -424,6 +430,7 @@ namespace DrawTools
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "p")]
         public static Rectangle GetNormalizedRectangle(Point p1, Point p2)
         {
             return GetNormalizedRectangle(p1.X, p1.Y, p2.X, p2.Y);
@@ -432,28 +439,28 @@ namespace DrawTools
         /// <summary>
         /// Returns normalized version of the rectangle defined by the parameter
         /// </summary>
-        /// <param name="r"></param>
+        /// <param name="rect"></param>
         /// <returns></returns>
-        public static Rectangle GetNormalizedRectangle(Rectangle r)
+        public static Rectangle GetNormalizedRectangle(Rectangle rect)
         {
-            return GetNormalizedRectangle(r.X, r.Y, r.X + r.Width, r.Y + r.Height);
+            return GetNormalizedRectangle(rect.X, rect.Y, rect.X + rect.Width, rect.Y + rect.Height);
         }
 
         /// <summary>
         /// Calculates the minimum distnace required to be outside the rectangle and returns a point at that location
         /// </summary>
         /// <param name="drawRect"></param>
-        /// <param name="p"></param>
+        /// <param name="point"></param>
         /// <returns></returns>
-        public static Point ClosestPointOutside(DrawRectangle drawRect, Point p)
+        public static Point ClosestPointOutside(DrawRectangle drawRect, Point point)
         {
             var rect = drawRect.Rectangle;
             var points = new List<KeyValuePair<int, Point>>
             {
-                new KeyValuePair<int, Point>(Math.Abs(p.X - rect.Left), new Point(rect.Left - 1, p.Y)),
-                new KeyValuePair<int, Point>(Math.Abs(p.X - rect.Right), new Point(rect.Right + 1, p.Y)),
-                new KeyValuePair<int, Point>(Math.Abs(p.Y - rect.Top), new Point(p.X, rect.Top - 1)),
-                new KeyValuePair<int, Point>(Math.Abs(p.Y - rect.Bottom), new Point(p.X, rect.Bottom + 1))
+                new KeyValuePair<int, Point>(Math.Abs(point.X - rect.Left), new Point(rect.Left - 1, point.Y)),
+                new KeyValuePair<int, Point>(Math.Abs(point.X - rect.Right), new Point(rect.Right + 1, point.Y)),
+                new KeyValuePair<int, Point>(Math.Abs(point.Y - rect.Top), new Point(point.X, rect.Top - 1)),
+                new KeyValuePair<int, Point>(Math.Abs(point.Y - rect.Bottom), new Point(point.X, rect.Bottom + 1))
             };
             points.Sort((p1, p2) => p1.Key.CompareTo(p2.Key));
 

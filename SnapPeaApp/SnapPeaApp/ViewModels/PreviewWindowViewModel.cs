@@ -13,6 +13,6 @@ namespace SnapPeaApp.ViewModels
             Regions = layout.Regions;
         }
 
-        public List<Region> Regions { get; private set; }
+        public IList<Region> Regions { get; private set; }
     }
 }

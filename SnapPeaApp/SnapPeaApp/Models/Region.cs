@@ -10,12 +10,12 @@ namespace SnapPeaApp
 {
     public class Region
     {
-        public Region(Rectangle r)
+        public Region(Rectangle rect)
         {
-            LeftF = (float)r.Left / Screen.PrimaryScreen.WorkingArea.Width;
-            TopF = (float)r.Top / Screen.PrimaryScreen.WorkingArea.Height;
-            WidthF = (float)r.Width / Screen.PrimaryScreen.WorkingArea.Width;
-            HeightF = (float)r.Height / Screen.PrimaryScreen.WorkingArea.Height;
+            LeftF = (float)rect.Left / Screen.PrimaryScreen.WorkingArea.Width;
+            TopF = (float)rect.Top / Screen.PrimaryScreen.WorkingArea.Height;
+            WidthF = (float)rect.Width / Screen.PrimaryScreen.WorkingArea.Width;
+            HeightF = (float)rect.Height / Screen.PrimaryScreen.WorkingArea.Height;
         }
 
         [JsonProperty]
@@ -60,12 +60,12 @@ namespace SnapPeaApp
         /// <summary>
         /// Tests whether point is within the region
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="point"></param>
         /// <returns></returns>
-        public bool IsPointIn(System.Windows.Point p)
+        public bool IsPointIn(System.Windows.Point point)
         {
             Console.Out.WriteLine(Left + "," + Width + "\n" + Top + "\n" + Height);
-            return p.X > Left && p.X < (Left + Width) && p.Y > Top && p.Y < (Top + Height);
+            return point.X > Left && point.X < (Left + Width) && point.Y > Top && point.Y < (Top + Height);
         }
     }
 }

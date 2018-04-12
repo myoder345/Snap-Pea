@@ -51,7 +51,7 @@ namespace SnapPeaApp.ViewModels
             var saveFileDialog = new SaveFileDialog()
             {
                 Filter = "json (*.json)|*.json|All files (*.*)|*.*",
-                InitialDirectory = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath)
+                InitialDirectory = Config.Configuration.GetStringSetting(Config.ConfigKeys.LayoutsPath)
             };
 
             if(saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -72,8 +72,10 @@ namespace SnapPeaApp.ViewModels
         {
             if(changesMade)
             {
-                var saveChangesDialog = new SaveDontSaveCancelDialogBox();
-                saveChangesDialog.DataContext = this;
+                var saveChangesDialog = new SaveDontSaveCancelDialogBox
+                {
+                    DataContext = this
+                };
                 saveChangesDialog.ShowDialog();
                 if(cancelClosing)
                 {

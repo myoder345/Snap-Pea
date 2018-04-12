@@ -113,7 +113,6 @@ namespace DrawTools
         public override void OnMouseMove(DrawArea drawArea, MouseEventArgs e)
         {
             Point point = new Point(e.X, e.Y);
-            Point oldPoint = lastPoint;
 
             // set cursor when mouse button is not pressed
             if (e.Button == MouseButtons.None)
@@ -189,7 +188,7 @@ namespace DrawTools
                     o.Move(dx, dy);
 
                     // CHECK COLLISION
-                    foreach (DrawRectangle rect in drawArea.GraphicsList.Enumeration.Where(x => x != o && o.IntersectsWith((DrawRectangle)x)))
+                    foreach (var _ in drawArea.GraphicsList.Enumeration.Where(x => x != o && o.IntersectsWith((DrawRectangle)x)))
                     {
                         o.Move(-dx, -dy);
                         break;

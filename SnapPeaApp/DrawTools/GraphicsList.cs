@@ -33,7 +33,7 @@ namespace DrawTools
         /// <summary>
         /// Gets invoked when the collection or an object in the collection changes
         /// </summary>
-        public Action GraphicsListChanged;
+        public Action GraphicsListChanged { get; set; }
         #endregion
 
         #region Constructor
@@ -50,13 +50,13 @@ namespace DrawTools
         {
             graphicsList = new DrawList();
 
-            int n = info.GetInt32(entryCount);
+            int? n = info?.GetInt32(entryCount);
             string typeName;
             DrawObject drawObject;
 
             for (int i = 0; i < n; i++)
             {
-                typeName = info.GetString(
+                typeName = info?.GetString(
                     String.Format(CultureInfo.InvariantCulture,
                         "{0}{1}",
                     entryType, i));
@@ -79,13 +79,13 @@ namespace DrawTools
         [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue(entryCount, graphicsList.Count);
+            info?.AddValue(entryCount, graphicsList.Count);
 
             int i = 0;
 
             foreach (DrawObject o in graphicsList)
             {
-                info.AddValue(
+                info?.AddValue(
                     String.Format(CultureInfo.InvariantCulture,
                         "{0}{1}",
                         entryType, i),
@@ -101,7 +101,7 @@ namespace DrawTools
 
         #region Other functions
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics graphics)
         {
             int n = graphicsList.Count;
             DrawObject o;
@@ -112,11 +112,11 @@ namespace DrawTools
             {
                 o = graphicsList[i];
 
-                o.Draw(g);
+                o.Draw(graphics);
 
                 if (o.Selected == true)
                 {
-                    o.DrawTracker(g);
+                    o.DrawTracker(graphics);
                 }
             }
         }
@@ -184,14 +184,7 @@ namespace DrawTools
         {
             get
             {
-                int n = 0;
-
-                foreach (DrawObject o in Selection)
-                {
-                    n++;
-                }
-
-                return n;
+                return Selection.Count();
             }
         }
 

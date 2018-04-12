@@ -15,7 +15,7 @@ namespace SnapPeaApp.ViewModels
     /// <summary>
     /// Contains interaction logic for MainWindow view
     /// </summary>
-    class MainWindowViewModel : ViewModelBase
+    class MainWindowViewModel : ViewModelBase, IDisposable
     {
         Hooks winHook;
 
@@ -77,7 +77,7 @@ namespace SnapPeaApp.ViewModels
         /// </summary>
         private void LoadDefaultLayout()
         {
-           winHook.CurrentLayout = Layout.LoadLayout(Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout));
+           winHook.CurrentLayout = Layout.LoadLayout(Config.Configuration.GetStringSetting(Config.ConfigKeys.DefaultLayout));
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace SnapPeaApp.ViewModels
         {
             var fileDialog = new OpenFileDialog()
             {
-                InitialDirectory = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath),
+                InitialDirectory = Config.Configuration.GetStringSetting(Config.ConfigKeys.LayoutsPath),
                 Filter = "json (*.json)|*.json|All files (*.*)|*.*"
             };
 
@@ -115,7 +115,7 @@ namespace SnapPeaApp.ViewModels
         /// Opens layout editer window
         /// </summary>
         /// <param name="layout"></param>
-        private void OpenLayoutEditor(Layout layout)
+        private static void OpenLayoutEditor(Layout layout)
         {
             var window = new LayoutEditorWindow(layout);
             window.Show();
@@ -130,7 +130,31 @@ namespace SnapPeaApp.ViewModels
         /// <param name="e"></param>
         public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            winHook.Unhook();
+            Dispose();
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    winHook.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+        }
+        #endregion
     }
 }

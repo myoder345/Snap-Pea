@@ -9,25 +9,21 @@ using System.Windows;
 
 namespace SnapPeaApp.Config
 {
-    /*
-     * The Configuration class contains some static methods for retrieving and modifying
-     * setting values.
-     * 
-     * To use this class:
-     *   - invoke loadFromFile() on program startup
-     *   - invoke saveToFile() when the settings are modified ("save" button in the config editor dialog, for instance)
-     *   - invoke the appropriate functions for retrieving config values, as needed
-     *     - Example: Configuration.getBoolSetting("load_layout_on_start") will return either true or false depending on
-     *       the load_layout_on_start value from the config file.
-     *     - Similarly, Configuration.setBoolSetting("load_layout_on_start", true) will set this value to "true". Using a Dictionary,
-     *       mapping config keys to control IDs, or some other similar scheme, one could automate saving to a high degree.
-     *       Once modifications to settings have been done, invoke saveToFile() as described above.
-     * 
-     * The XML config file stores entries in the following format:
-     * 
-     *   <entry name="load_layout_on_start" type="bool" value="true" />
-     * 
-     */
+    /// <summary>
+    /// Contains some static methods for retrieving and modifying setting values.
+    /// </summary>
+    /// <remarks>
+    /// The XML config file stores entries in the following format: <entry name = "load_layout_on_start" type="bool" value="true" />
+    /// </remarks>
+    /// <example>
+    /// - invoke loadFromFile() on program startup
+    /// - invoke saveToFile() when the settings are modified("save" button in the config editor dialog, for instance)
+    /// - invoke the appropriate functions for retrieving config values, as needed
+    /// - Example: Configuration.getBoolSetting("load_layout_on_start") will return either true or false depending on the load_layout_on_start value from the config file.
+    /// - Similarly, Configuration.setBoolSetting("load_layout_on_start", true) will set this value to "true". 
+    /// Using a Dictionary, mapping config keys to control IDs, or some other similar scheme, one could automate saving to a high degree. 
+    /// Once modifications to settings have been done, invoke saveToFile() as described above.
+    /// </example>
     static class Configuration
     {
         /// <summary>
@@ -74,7 +70,7 @@ namespace SnapPeaApp.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public static string getStringSetting(string key)
+        public static string GetStringSetting(string key)
         {
             return stringEntries[key];
         }
@@ -84,7 +80,8 @@ namespace SnapPeaApp.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public static int getIntSetting(string key)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        public static int GetIntSetting(string key)
         {
             return intEntries[key];
         }
@@ -94,7 +91,8 @@ namespace SnapPeaApp.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public static bool getBoolSetting(string key)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        public static bool GetBoolSetting(string key)
         {
             return boolEntries[key];
         }
@@ -104,7 +102,7 @@ namespace SnapPeaApp.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public static void setStringSetting(string key, string value)
+        public static void SetStringSetting(string key, string value)
         {
             stringEntries[key] = value;
         }
@@ -114,17 +112,19 @@ namespace SnapPeaApp.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public static void setIntSetting(string key, int value)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        public static void SetIntSetting(string key, int value)
         {
             intEntries[key] = value;
         }
 
-         /// <summary>
-         /// Sets the settings value identified by key
-         /// </summary>
-         /// <param name="key"></param>
-         /// <param name="value"></param>
-        public static void setBoolSetting(string key, bool value)
+        /// <summary>
+        /// Sets the settings value identified by key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        public static void SetBoolSetting(string key, bool value)
         {
             boolEntries[key] = value;
         }
@@ -241,7 +241,7 @@ namespace SnapPeaApp.Config
 
                 xmlReader.Close();
             }
-            catch (Exception ex)
+            catch (IOException ex)
             {
                 MessageBox.Show($"Error loading config: {ex.Message}","Error");
             }

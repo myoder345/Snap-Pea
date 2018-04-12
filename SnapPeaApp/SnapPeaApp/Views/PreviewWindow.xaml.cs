@@ -20,10 +20,10 @@ namespace SnapPeaApp.Views
     /// </summary>
     public partial class PreviewWindow : Window
     {
-        public PreviewWindow(Layout l)
+        public PreviewWindow(Layout layout)
         {
             InitializeComponent();
-            DataContext = new PreviewWindowViewModel(l);
+            DataContext = new PreviewWindowViewModel(layout);
         }
     }
 }

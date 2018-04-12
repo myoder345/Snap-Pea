@@ -11,7 +11,7 @@ namespace SnapPeaApp
     /// <summary>
     /// Contains P/invoke and WinAPI methods
     /// </summary>
-    class Hooks
+    class Hooks : IDisposable
     {
         [StructLayout(LayoutKind.Sequential)]
         struct Win32Point
@@ -28,7 +28,7 @@ namespace SnapPeaApp
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         static extern int GetWindowTextLength(HandleRef hWnd);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         static extern int GetWindowText(HandleRef hWnd, StringBuilder lpString, int nMaxCount);
 
         [DllImport("user32.dll")]
@@ -37,12 +37,14 @@ namespace SnapPeaApp
             uint idThread, uint dwFlags);
 
         [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool UnhookWinEvent(IntPtr hWinEventHook);
 
         const uint EVENT_SYSTEM_MOVESIZEEND = 0x000B;
         const uint WINEVENT_OUTOFCONTEXT = 0;
 
         [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int Y, int cx, int cy, uint wFlags);
 
         const uint SWP_NOZORDER = 0x0004;
@@ -67,19 +69,21 @@ namespace SnapPeaApp
             isWin10 = System.Environment.OSVersion.Version.Major == 10;
         }
 
-        Point GetMousePosition()
+        static Point GetMousePosition()
         {
             Win32Point w32Mouse = new Win32Point();
             GetCursorPos(ref w32Mouse);
             return new Point(w32Mouse.X, w32Mouse.Y);
         }
 
-        string GetWindowName(object wrapper, IntPtr handle)
+        static string GetWindowName(object wrapper, IntPtr handle)
         {
             int capacity = GetWindowTextLength(new HandleRef(wrapper, handle)) + 1;
             StringBuilder stringBuilder = new StringBuilder(capacity);
-            GetWindowText(new HandleRef(wrapper, handle), stringBuilder, stringBuilder.Capacity);
-            return stringBuilder.ToString();
+            if (GetWindowText(new HandleRef(wrapper, handle), stringBuilder, stringBuilder.Capacity) > 0)
+                return stringBuilder.ToString();
+            else
+                return String.Empty;
         }
 
         void MoveWindow(IntPtr hwnd, int x, int y, int width, int height)
@@ -128,6 +132,22 @@ namespace SnapPeaApp
                     MoveWindow(hwnd, r.Left, r.Top, r.Width, r.Height);
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~Hooks()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            this.Unhook();
         }
     }
 }

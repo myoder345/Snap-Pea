@@ -50,7 +50,7 @@ namespace DrawTools
         /// </summary>
         /// <param name="drawArea"></param>
         /// <param name="o"></param>
-        protected void AddNewObject(DrawArea drawArea, DrawObject o)
+        protected static void AddNewObject(DrawArea drawArea, DrawObject o)
         {
             drawArea.GraphicsList.UnselectAll();
 

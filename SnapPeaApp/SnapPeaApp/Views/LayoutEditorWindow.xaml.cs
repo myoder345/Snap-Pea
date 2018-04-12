@@ -20,7 +20,7 @@ namespace SnapPeaApp.Views
     /// </summary>
     public partial class LayoutEditorWindow : Window
     {
-        public LayoutEditorWindow(Layout l)
+        public LayoutEditorWindow(Layout layout)
         {
             InitializeComponent();
 
@@ -33,7 +33,7 @@ namespace SnapPeaApp.Views
             this.Height = pixelHeight * pixelToDPI;
             this.WindowState = WindowState.Normal;
 
-            DataContext = new LayoutEditorViewModel(l, DA.GraphicsList);
+            DataContext = new LayoutEditorViewModel(layout, DA.GraphicsList);
             this.Closing += (DataContext as LayoutEditorViewModel).LayoutEditorWindow_Closing;
         }
 

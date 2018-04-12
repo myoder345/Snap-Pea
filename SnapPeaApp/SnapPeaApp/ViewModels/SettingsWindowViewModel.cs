@@ -16,8 +16,8 @@ namespace SnapPeaApp.ViewModels
     {
         public SettingsWindowViewModel()
         {
-            layoutFolderPath = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath);
-            defaultlLayoutPath = Config.Configuration.getStringSetting(Config.ConfigKeys.DefaultLayout);
+            layoutFolderPath = Config.Configuration.GetStringSetting(Config.ConfigKeys.LayoutsPath);
+            defaultlLayoutPath = Config.Configuration.GetStringSetting(Config.ConfigKeys.DefaultLayout);
         }
 
 
@@ -80,6 +80,7 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Bound to browseLayout button
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand BrowseLayoutCommand
         {
             get
@@ -91,6 +92,7 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Bound to browseFolderPath button
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand BrowseFolderPathCommand
         {
             get
@@ -99,6 +101,7 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand SaveSettingsCommand
         {
             get
@@ -114,8 +117,10 @@ namespace SnapPeaApp.ViewModels
         /// </summary>
         private void BrowseFolderPath()
         {
-            var filedialog = new FolderBrowserDialog();
-            filedialog.RootFolder = Environment.SpecialFolder.UserProfile;
+            var filedialog = new FolderBrowserDialog
+            {
+                RootFolder = Environment.SpecialFolder.UserProfile
+            };
 
             var results = filedialog.ShowDialog();
             if (results == DialogResult.OK)
@@ -129,8 +134,10 @@ namespace SnapPeaApp.ViewModels
         /// </summary>
         private void BrowseDefaultLayout()
         {
-            var filedialog = new OpenFileDialog();
-            filedialog.InitialDirectory = Config.Configuration.getStringSetting(Config.ConfigKeys.LayoutsPath);
+            var filedialog = new OpenFileDialog
+            {
+                InitialDirectory = Config.Configuration.GetStringSetting(Config.ConfigKeys.LayoutsPath)
+            };
 
             var results = filedialog.ShowDialog();
             if(results == DialogResult.OK)
@@ -144,8 +151,8 @@ namespace SnapPeaApp.ViewModels
         /// </summary>
         private void SaveSettings()
         {
-            Config.Configuration.setStringSetting(Config.ConfigKeys.DefaultLayout, DefaultLayoutPath);
-            Config.Configuration.setStringSetting(Config.ConfigKeys.LayoutsPath, LayoutFolderPath);
+            Config.Configuration.SetStringSetting(Config.ConfigKeys.DefaultLayout, DefaultLayoutPath);
+            Config.Configuration.SetStringSetting(Config.ConfigKeys.LayoutsPath, LayoutFolderPath);
             IsDirty = false;
             Config.Configuration.SaveConfig();
         }

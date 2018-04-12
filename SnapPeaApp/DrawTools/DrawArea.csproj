@@ -41,6 +41,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\SnapPeaApp\CodeAnalysisRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -71,6 +73,7 @@
     </Compile>
     <Compile Include="DrawObject.cs" />
     <Compile Include="DrawRectangle.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GraphicsList.cs" />
     <Compile Include="GraphicsProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
