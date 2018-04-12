@@ -21,8 +21,7 @@ namespace DrawTools
     /// <summary>
     /// List of graphic objects
     /// </summary>
-    [Serializable]
-    public class GraphicsList : ISerializable
+    public class GraphicsList
     {
         #region Members
 
@@ -43,64 +42,8 @@ namespace DrawTools
         }
 
         #endregion
-
-        #region Serialization Support
-
-        protected GraphicsList(SerializationInfo info, StreamingContext context)
-        {
-            graphicsList = new DrawList();
-
-            int? n = info?.GetInt32(entryCount);
-            string typeName;
-            DrawObject drawObject;
-
-            for (int i = 0; i < n; i++)
-            {
-                typeName = info?.GetString(
-                    String.Format(CultureInfo.InvariantCulture,
-                        "{0}{1}",
-                    entryType, i));
-
-                drawObject = (DrawObject)Assembly.GetExecutingAssembly().CreateInstance(
-                    typeName);
-
-                drawObject.LoadFromStream(info, i);
-
-                graphicsList.Add(drawObject);
-            }
-
-        }
-
-        /// <summary>
-        /// Save object to serialization stream
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info?.AddValue(entryCount, graphicsList.Count);
-
-            int i = 0;
-
-            foreach (DrawObject o in graphicsList)
-            {
-                info?.AddValue(
-                    String.Format(CultureInfo.InvariantCulture,
-                        "{0}{1}",
-                        entryType, i),
-                    o.GetType().FullName);
-
-                o.SaveToStream(info, i);
-
-                i++;
-            }
-        }
-
-        #endregion
-
+        
         #region Other functions
-
         public void Draw(Graphics graphics)
         {
             int n = graphicsList.Count;
@@ -409,93 +352,6 @@ namespace DrawTools
 
             return (n > 0);
         }
-
-        /// <summary>
-        /// Get properties from selected objects and fill GraphicsProperties instance
-        /// </summary>
-        /// <returns></returns>
-        private GraphicsProperties GetProperties()
-        {
-            GraphicsProperties properties = new GraphicsProperties();
-
-            bool bFirst = true;
-
-            int firstColor = 0;
-            int firstPenWidth = 1;
-
-            bool allColorsAreEqual = true;
-            bool allWidthAreEqual = true;
-
-            foreach (DrawObject o in Selection)
-            {
-                if (bFirst)
-                {
-                    firstColor = o.Color.ToArgb();
-                    firstPenWidth = o.PenWidth;
-                    bFirst = false;
-                }
-                else
-                {
-                    if (o.Color.ToArgb() != firstColor)
-                        allColorsAreEqual = false;
-
-                    if (o.PenWidth != firstPenWidth)
-                        allWidthAreEqual = false;
-                }
-            }
-
-
-            if (allColorsAreEqual)
-            {
-                properties.Color = Color.FromArgb(firstColor);
-            }
-
-            if (allWidthAreEqual)
-            {
-                properties.PenWidth = firstPenWidth;
-            }
-
-            return properties;
-        }
-
-        /// <summary>
-        /// Apply properties for all selected objects.
-        /// Returns TRue if at least one property is changed.
-        /// </summary>
-        private bool ApplyProperties(GraphicsProperties properties)
-        {
-            bool changed = false;
-
-            foreach (DrawObject o in graphicsList)
-            {
-                if (o.Selected)
-                {
-                    if (properties.Color.HasValue)
-                    {
-                        if (o.Color != properties.Color.Value)
-                        {
-                            o.Color = properties.Color.Value;
-                            DrawObject.LastUsedColor = properties.Color.Value;
-                            changed = true;
-                        }
-                    }
-
-                    if (properties.PenWidth.HasValue)
-                    {
-                        if (o.PenWidth != properties.PenWidth.Value)
-                        {
-                            o.PenWidth = properties.PenWidth.Value;
-                            DrawObject.LastUsedPenWidth = properties.PenWidth.Value;
-                            changed = true;
-                        }
-                    }
-                }
-            }
-
-            return changed;
-        }
-
-       
 
         public void SetColorToAll(Color color)
         {

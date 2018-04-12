@@ -12,13 +12,6 @@ namespace DrawTools
 	/// </summary>
 	public abstract class DrawObject
 	{
-
-        #region Members
-        // Entry names for serialization
-        private const string entryColor = "Color";
-        private const string entryPenWidth = "PenWidth";
-        #endregion
-
         protected DrawObject()
         {
             Id = this.GetHashCode();
@@ -217,52 +210,6 @@ namespace DrawTools
         public virtual void Normalize()
         {
         }
-
-
-        /// <summary>
-        /// Save object to serialization stream
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="orderNumber"></param>
-        public virtual void SaveToStream(SerializationInfo info, int orderNumber)
-        {
-            info?.AddValue(
-                String.Format(CultureInfo.InvariantCulture,
-                    "{0}{1}",
-                    entryColor, orderNumber),
-                Color.ToArgb());
-
-            info?.AddValue(
-                String.Format(CultureInfo.InvariantCulture,
-                "{0}{1}",
-                entryPenWidth, orderNumber),
-                PenWidth);
-        }
-
-        /// <summary>
-        /// Load object from serialization stream
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="orderNumber"></param>
-        public virtual void LoadFromStream(SerializationInfo info, int orderNumber)
-        {
-            int? n = info?.GetInt32(
-                String.Format(CultureInfo.InvariantCulture,
-                    "{0}{1}",
-                    entryColor, orderNumber));
-
-            Color = Color.FromArgb(n.Value);
-
-            n = info?.GetInt32(
-                String.Format(CultureInfo.InvariantCulture,
-                "{0}{1}",
-                entryPenWidth, orderNumber));
-
-            PenWidth = n.Value;
-
-            Id = this.GetHashCode();
-        }
-
         #endregion
 
         #region Other functions

@@ -75,7 +75,6 @@
     <Compile Include="DrawRectangle.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GraphicsList.cs" />
-    <Compile Include="GraphicsProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DrawArea.resx">
       <SubType>Designer</SubType>

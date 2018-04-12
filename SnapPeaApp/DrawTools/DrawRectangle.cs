@@ -15,19 +15,16 @@ namespace DrawTools
 	/// </summary>
 	public class DrawRectangle : DrawTools.DrawObject
 	{
-
-        private const string entryRectangle = "Rect";
-
-        private Rectangle rectangle;
-        protected Rectangle Rectangle
+        private Rectangle _rectangle;
+        public Rectangle Rectangle
         {
             get
             {
-                return rectangle;
+                return _rectangle;
             }
-            set
+            protected set
             {
-                rectangle = value;
+                _rectangle = value;
             }
         }
         
@@ -40,10 +37,10 @@ namespace DrawTools
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
         public DrawRectangle(int x, int y, int width, int height) : base()
         {
-            rectangle.X = x;
-            rectangle.Y = y;
-            rectangle.Width = width;
-            rectangle.Height = height;
+            _rectangle.X = x;
+            _rectangle.Y = y;
+            _rectangle.Width = width;
+            _rectangle.Height = height;
             Initialize();
         }
 
@@ -54,7 +51,7 @@ namespace DrawTools
         {
             DrawRectangle drawRectangle = new DrawRectangle
             {
-                rectangle = this.rectangle
+                _rectangle = this._rectangle
             };
 
             FillDrawObjectFields(drawRectangle);
@@ -86,10 +83,10 @@ namespace DrawTools
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
         protected void SetRectangle(int x, int y, int width, int height)
         {
-            rectangle.X = x;
-            rectangle.Y = y;
-            rectangle.Width = width;
-            rectangle.Height = height;
+            _rectangle.X = x;
+            _rectangle.Y = y;
+            _rectangle.Width = width;
+            _rectangle.Height = height;
         }
 
 
@@ -114,43 +111,43 @@ namespace DrawTools
         {
             int x, y, xCenter, yCenter;
 
-            xCenter = rectangle.X + rectangle.Width/2;
-            yCenter = rectangle.Y + rectangle.Height/2;
-            x = rectangle.X;
-            y = rectangle.Y;
+            xCenter = _rectangle.X + _rectangle.Width/2;
+            yCenter = _rectangle.Y + _rectangle.Height/2;
+            x = _rectangle.X;
+            y = _rectangle.Y;
 
             switch ( handleNumber )
             {
                 case 1:
-                    x = rectangle.X;
-                    y = rectangle.Y;
+                    x = _rectangle.X;
+                    y = _rectangle.Y;
                     break;
                 case 2:
                     x = xCenter;
-                    y = rectangle.Y;
+                    y = _rectangle.Y;
                     break;
                 case 3:
-                    x = rectangle.Right;
-                    y = rectangle.Y;
+                    x = _rectangle.Right;
+                    y = _rectangle.Y;
                     break;
                 case 4:
-                    x = rectangle.Right;
+                    x = _rectangle.Right;
                     y = yCenter;
                     break;
                 case 5:
-                    x = rectangle.Right;
-                    y = rectangle.Bottom;
+                    x = _rectangle.Right;
+                    y = _rectangle.Bottom;
                     break;
                 case 6:
                     x = xCenter;
-                    y = rectangle.Bottom;
+                    y = _rectangle.Bottom;
                     break;
                 case 7:
-                    x = rectangle.X;
-                    y = rectangle.Bottom;
+                    x = _rectangle.X;
+                    y = _rectangle.Bottom;
                     break;
                 case 8:
-                    x = rectangle.X;
+                    x = _rectangle.X;
                     y = yCenter;
                     break;
             }
@@ -184,7 +181,7 @@ namespace DrawTools
 
         protected override bool PointInObject(Point point)
         {
-            return rectangle.Contains(point);
+            return _rectangle.Contains(point);
         }
 
         /// <summary>
@@ -292,19 +289,22 @@ namespace DrawTools
                 newY -= Rectangle.Bottom - maxY;
             }
 
-            rectangle.X = newX;
-            rectangle.Y = newY;
+            _rectangle.X = newX;
+            _rectangle.Y = newY;
         }
 
-        public override bool IntersectsWith(Rectangle rect)
+        public override bool IntersectsWith(Rectangle rectangle)
         {
-            return Rectangle.IntersectsWith(rect);
+            return Rectangle.IntersectsWith(rectangle);
         }
 
-        public override bool IntersectsWith(DrawRectangle rect)
+        public override bool IntersectsWith(DrawRectangle rectangle)
         {
+            if (rectangle == null)
+                throw new ArgumentNullException(nameof(rectangle));
+
             var RectB = GetNormalizedRectangle(Rectangle);
-            var RectA = GetNormalizedRectangle(rect.Rectangle);
+            var RectA = GetNormalizedRectangle(rectangle.Rectangle);
             return (RectA.Left < RectB.Right && RectA.Right > RectB.Left && RectA.Top < RectB.Bottom && RectA.Bottom > RectB.Top);
         }
 
@@ -315,8 +315,8 @@ namespace DrawTools
         /// <param name="deltaY">y axis translation</param>
         public override void Move(int deltaX, int deltaY)
         {
-            rectangle.X += deltaX;
-            rectangle.Y += deltaY;
+            _rectangle.X += deltaX;
+            _rectangle.Y += deltaY;
             
         }
 
@@ -327,8 +327,8 @@ namespace DrawTools
         /// <param name="y">Y coordinate to move top left corner to</param>
         public override void MoveTo(int x, int y)
         {
-            rectangle.X = x;
-            rectangle.Y = y;
+            _rectangle.X = x;
+            _rectangle.Y = y;
         }
 
         /// <summary>
@@ -338,10 +338,10 @@ namespace DrawTools
         {
             base.Dump ();
 
-            Trace.WriteLine("rectangle.X = " + rectangle.X.ToString(CultureInfo.InvariantCulture));
-            Trace.WriteLine("rectangle.Y = " + rectangle.Y.ToString(CultureInfo.InvariantCulture));
-            Trace.WriteLine("rectangle.Width = " + rectangle.Width.ToString(CultureInfo.InvariantCulture));
-            Trace.WriteLine("rectangle.Height = " + rectangle.Height.ToString(CultureInfo.InvariantCulture));
+            Trace.WriteLine("rectangle.X = " + _rectangle.X.ToString(CultureInfo.InvariantCulture));
+            Trace.WriteLine("rectangle.Y = " + _rectangle.Y.ToString(CultureInfo.InvariantCulture));
+            Trace.WriteLine("rectangle.Width = " + _rectangle.Width.ToString(CultureInfo.InvariantCulture));
+            Trace.WriteLine("rectangle.Height = " + _rectangle.Height.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>
@@ -349,52 +349,10 @@ namespace DrawTools
         /// </summary>
         public override void Normalize()
         {
-            rectangle = DrawRectangle.GetNormalizedRectangle(rectangle);
-        }
-
-        /// <summary>
-        /// Save objevt to serialization stream
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="orderNumber"></param>
-        public override void SaveToStream(System.Runtime.Serialization.SerializationInfo info, int orderNumber)
-        {
-            info?.AddValue(
-                String.Format(CultureInfo.InvariantCulture,
-                "{0}{1}",
-                entryRectangle, orderNumber),
-                rectangle);
-
-            base.SaveToStream (info, orderNumber);
-        }
-
-        /// <summary>
-        /// Load object from serialization stream
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="orderNumber"></param>
-        public override void LoadFromStream(SerializationInfo info, int orderNumber)
-        {
-            rectangle = (Rectangle)info?.GetValue(
-                String.Format(CultureInfo.InvariantCulture,
-                "{0}{1}",
-                entryRectangle, orderNumber),
-                typeof(Rectangle));
-
-            base.LoadFromStream (info, orderNumber);
-        }
-
-        /// <summary>
-        /// Returns a copy of this object's internal rectangle representation
-        /// </summary>
-        /// <returns></returns>
-        public Rectangle GetRectangle()
-        {
-            return new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+            _rectangle = DrawRectangle.GetNormalizedRectangle(_rectangle);
         }
 
         #region Helper Functions
-
         /// <summary>
         /// Returns a normalized version of the rectangle defined by the parameters
         /// </summary>
@@ -454,13 +412,16 @@ namespace DrawTools
         /// <returns></returns>
         public static Point ClosestPointOutside(DrawRectangle drawRect, Point point)
         {
+            if (drawRect == null)
+                throw new ArgumentNullException(nameof(drawRect));
+
             var rect = drawRect.Rectangle;
             var points = new List<KeyValuePair<int, Point>>
             {
-                new KeyValuePair<int, Point>(Math.Abs(point.X - rect.Left), new Point(rect.Left - 1, point.Y)),
-                new KeyValuePair<int, Point>(Math.Abs(point.X - rect.Right), new Point(rect.Right + 1, point.Y)),
-                new KeyValuePair<int, Point>(Math.Abs(point.Y - rect.Top), new Point(point.X, rect.Top - 1)),
-                new KeyValuePair<int, Point>(Math.Abs(point.Y - rect.Bottom), new Point(point.X, rect.Bottom + 1))
+                new KeyValuePair<int, Point>(Math.Abs(point.X - rect.Left), new Point(rect.Left, point.Y)),
+                new KeyValuePair<int, Point>(Math.Abs(point.X - rect.Right), new Point(rect.Right, point.Y)),
+                new KeyValuePair<int, Point>(Math.Abs(point.Y - rect.Top), new Point(point.X, rect.Top)),
+                new KeyValuePair<int, Point>(Math.Abs(point.Y - rect.Bottom), new Point(point.X, rect.Bottom))
             };
             points.Sort((p1, p2) => p1.Key.CompareTo(p2.Key));
 

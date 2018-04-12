@@ -44,7 +44,7 @@ namespace SnapPeaApp.ViewModels
             // Add to layout object regions representing rectangles drawn
             foreach(DrawTools.DrawRectangle drawRect in GraphicsList.Enumeration)
             {
-                tempLayout.AddRegion(new Region(drawRect.GetRectangle()));
+                tempLayout.AddRegion(new Region(drawRect.Rectangle));
             }
             
             // Serialize layout object and write to file

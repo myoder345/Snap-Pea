@@ -188,10 +188,9 @@ namespace DrawTools
                     o.Move(dx, dy);
 
                     // CHECK COLLISION
-                    foreach (var _ in drawArea.GraphicsList.Enumeration.Where(x => x != o && o.IntersectsWith((DrawRectangle)x)))
+                    if (drawArea.GraphicsList.Enumeration.Any(x => x != o && o.IntersectsWith((DrawRectangle)x)))
                     {
                         o.Move(-dx, -dy);
-                        break;
                     }
 
                     // CHECK OUT OF BOUNDS
