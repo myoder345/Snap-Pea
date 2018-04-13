@@ -64,7 +64,9 @@ namespace SnapPeaApp
         /// <returns></returns>
         public bool IsPointIn(System.Windows.Point point)
         {
-            Console.Out.WriteLine(Left + "," + Width + "\n" + Top + "\n" + Height);
+#if DEBUG
+            Console.WriteLine(Left + "," + Width + "\n" + Top + "\n" + Height);
+#endif
             return point.X > Left && point.X < (Left + Width) && point.Y > Top && point.Y < (Top + Height);
         }
     }

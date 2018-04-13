@@ -19,6 +19,7 @@ namespace SnapPeaApp.ViewModels
         /// Command bound to Cancel button
         /// </summary>
         /// [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand CancelCommand
         {
             get

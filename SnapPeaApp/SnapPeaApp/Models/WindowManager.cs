@@ -5,67 +5,29 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static SnapPeaApp.WinAPI.NativeMethods;
 
-namespace SnapPeaApp
+namespace SnapPeaApp.WinAPI
 {
     /// <summary>
     /// Contains P/invoke and WinAPI methods
     /// </summary>
-    class Hooks : IDisposable
+    class WindowManager : IDisposable
     {
-        [StructLayout(LayoutKind.Sequential)]
-        struct Win32Point
-        {
-            public Int32 X;
-            public Int32 Y;
-        };
-
-        #region Dll_Imports
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool GetCursorPos(ref Win32Point pt);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        static extern int GetWindowTextLength(HandleRef hWnd);
-
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        static extern int GetWindowText(HandleRef hWnd, StringBuilder lpString, int nMaxCount);
-
-        [DllImport("user32.dll")]
-        static extern IntPtr SetWinEventHook(uint eventMin, uint eventMax,
-            IntPtr hmodWinEventProc, WinEventDelegate lpfnWinEventProc, uint idProcess,
-            uint idThread, uint dwFlags);
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool UnhookWinEvent(IntPtr hWinEventHook);
-
-        const uint EVENT_SYSTEM_MOVESIZEEND = 0x000B;
-        const uint WINEVENT_OUTOFCONTEXT = 0;
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int Y, int cx, int cy, uint wFlags);
-
-        const uint SWP_NOZORDER = 0x0004;
-        const uint SWP_SHOWWINDOW = 0x0040;
-
-        delegate void WinEventDelegate(IntPtr hWinEventHook, uint eventType,
-            IntPtr hwnd, object sender, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
-
-        #endregion
-
-        IntPtr hhook;
+        MySafeHandle safeHandle;
         WinEventDelegate procDelegate;
         bool isWin10;
-
+        
         public Layout CurrentLayout { get; set; }
 
-        public Hooks()
+        public WindowManager()
         {
             procDelegate = new WinEventDelegate(WinEventProc);
-            hhook = SetWinEventHook(EVENT_SYSTEM_MOVESIZEEND, EVENT_SYSTEM_MOVESIZEEND, IntPtr.Zero,
-                   procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
+
+            var handle = SetWinEventHook(EVENT_SYSTEM_MOVESIZEEND, EVENT_SYSTEM_MOVESIZEEND, IntPtr.Zero,
+               procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
+
+            safeHandle = new MySafeHandle(handle);
             isWin10 = System.Environment.OSVersion.Version.Major == 10;
         }
 
@@ -99,11 +61,6 @@ namespace SnapPeaApp
             }
         }
 
-        public void Unhook()
-        {
-            UnhookWinEvent(hhook);
-        }
-
         /// <summary>
         /// Callback function called whenever a window drag stops.
         /// Resizes the dragged window if it is released within a region
@@ -119,10 +76,11 @@ namespace SnapPeaApp
         void WinEventProc(IntPtr hWinEventHook, uint eventType,
             IntPtr hwnd, object sender, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
+#if DEBUG
             string windowName = GetWindowName(sender, hwnd);
             Point cursorPos = GetMousePosition();
-
             Console.WriteLine($"Window {windowName} Moved, {cursorPos.ToString()}");
+#endif
 
             // Check if window released within a region. If so, resize.
             foreach (Region r in CurrentLayout.Regions)
@@ -134,20 +92,54 @@ namespace SnapPeaApp
             }
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~Hooks()
-        {
-            Dispose(false);
-        }
+        #region IDisposable Support
+         bool disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
-            this.Unhook();
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    procDelegate = null;
+                    safeHandle.Dispose();
+                }
+
+                disposedValue = true;
+            }
         }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+        }
+        #endregion
+
+
+        #region SafeHandle
+        /// <summary>
+        /// Inner class acting as a wrapper to unmanaged type IntPtr
+        /// </summary>
+        private class MySafeHandle : SafeHandle
+        {
+            internal MySafeHandle(IntPtr intPtr) : base(intPtr, true)
+            {
+                handle = intPtr;
+            }
+
+            bool isInvalid;
+            public override bool IsInvalid => isInvalid;
+
+            protected override bool ReleaseHandle()
+            {
+                UnhookWinEvent(handle);
+                handle = IntPtr.Zero;
+                isInvalid = true;
+                return true;
+            }
+        }
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ using System.Windows.Data;
 
 namespace SnapPeaApp.ViewModels
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
     class RegionToScreenConverter : IValueConverter
     {
         static double scalingFactor = System.Drawing.Graphics.FromHwnd(IntPtr.Zero).DpiX/96.0;

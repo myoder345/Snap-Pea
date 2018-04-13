@@ -14,6 +14,21 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -86,7 +101,9 @@
     <Compile Include="Dialogs\SaveDontSaveCancelDialogBox.xaml.cs">
       <DependentUpon>SaveDontSaveCancelDialogBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Hooks.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\WindowManager.cs" />
+    <Compile Include="Models\NativeMethods.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="ViewModels\Converters.cs" />
     <Compile Include="ViewModels\PreviewWindowViewModel.cs" />
@@ -171,6 +188,13 @@
       <Project>{56c76b98-1ce1-4156-885e-ec04150747df}</Project>
       <Name>DrawArea</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

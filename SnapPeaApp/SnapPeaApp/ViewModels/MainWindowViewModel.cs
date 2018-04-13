@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using SnapPeaApp.Views;
+using SnapPeaApp.WinAPI;
 
 namespace SnapPeaApp.ViewModels
 {
@@ -17,11 +18,11 @@ namespace SnapPeaApp.ViewModels
     /// </summary>
     class MainWindowViewModel : ViewModelBase, IDisposable
     {
-        Hooks winHook;
+        WindowManager winHook;
 
         public MainWindowViewModel()
         {
-            winHook = new Hooks();
+            winHook = new WindowManager();
             Config.Configuration.LoadConfig();
             LoadDefaultLayout();
         }
@@ -29,6 +30,7 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// String for layout name text block
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string LayoutName
         {
             get
@@ -41,6 +43,7 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Bound to Create Layout button
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public ICommand CreateLayoutCommand
         {
             get { return new RelayCommand(o => OpenLayoutEditor(new Layout())); }
@@ -149,7 +152,6 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
-        // This code added to correctly implement the disposable pattern.
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
