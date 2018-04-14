@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SnapPeaApp.ViewModels
 {
+    /// <summary>
+    /// ViewModel for PreviewWindow
+    /// </summary>
     class PreviewWindowViewModel : ViewModelBase
     {
         public PreviewWindowViewModel(Layout layout)

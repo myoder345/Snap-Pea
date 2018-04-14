@@ -44,6 +44,10 @@ namespace DrawTools
         #endregion
         
         #region Other functions
+        /// <summary>
+        /// Draws each object in the collection
+        /// </summary>
+        /// <param name="graphics"></param>
         public void Draw(Graphics graphics)
         {
             int n = graphicsList.Count;
@@ -172,6 +176,10 @@ namespace DrawTools
             }
         }
 
+        /// <summary>
+        /// Adds a draw object to the collection
+        /// </summary>
+        /// <param name="obj"></param>
         public void Add(DrawObject obj)
         {
             // insert to the top of z-order
@@ -224,31 +232,14 @@ namespace DrawTools
             }
         }
 
-        public void SelectInRectangle(Rectangle rectangle)
-        {
-            UnselectAll();
-
-            foreach (DrawObject o in graphicsList)
-            {
-                if (o.IntersectsWith(rectangle))
-                    o.Selected = true;
-            }
-
-        }
-
+        /// <summary>
+        /// Unselects any selected shapes
+        /// </summary>
         public void UnselectAll()
         {
             foreach (DrawObject o in graphicsList)
             {
                 o.Selected = false;
-            }
-        }
-
-        public void SelectAll()
-        {
-            foreach (DrawObject o in graphicsList)
-            {
-                o.Selected = true;
             }
         }
 
@@ -353,6 +344,10 @@ namespace DrawTools
             return (n > 0);
         }
 
+        /// <summary>
+        /// Sets all shapes to the given color
+        /// </summary>
+        /// <param name="color"></param>
         public void SetColorToAll(Color color)
         {
             foreach(DrawObject o in Enumeration)

@@ -15,6 +15,9 @@ namespace DrawTools
 	/// </summary>
 	public class DrawRectangle : DrawTools.DrawObject
 	{
+        /// <summary>
+        /// Internal rectangle representation
+        /// </summary>
         private Rectangle _rectangle;
         public Rectangle Rectangle
         {
@@ -179,6 +182,11 @@ namespace DrawTools
             return -1;
         }
 
+        /// <summary>
+        /// Tests whether point is within the object
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
         protected override bool PointInObject(Point point)
         {
             return _rectangle.Contains(point);
@@ -293,11 +301,21 @@ namespace DrawTools
             _rectangle.Y = newY;
         }
 
+        /// <summary>
+        /// Tests whether this rectange and the rectangle argument intersect
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <returns></returns>
         public override bool IntersectsWith(Rectangle rectangle)
         {
             return Rectangle.IntersectsWith(rectangle);
         }
 
+        // <summary>
+        /// Tests whether this rectange and the rectangle argument intersect
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <returns></returns>
         public override bool IntersectsWith(DrawRectangle rectangle)
         {
             if (rectangle == null)

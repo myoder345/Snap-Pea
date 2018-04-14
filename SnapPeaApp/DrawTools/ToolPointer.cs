@@ -13,7 +13,6 @@ namespace DrawTools
         private enum SelectionMode
         {
             None,
-            NetSelection,   // group selection is active
             Move,           // object(s) are moves
             Size            // object is resized
         }
@@ -208,20 +207,6 @@ namespace DrawTools
         /// <param name="e"></param>
         public override void OnMouseUp(DrawArea drawArea, MouseEventArgs e)
         {
-            if ( selectMode == SelectionMode.NetSelection )
-            {
-                // Remove old selection rectangle
-                ControlPaint.DrawReversibleFrame(
-                    drawArea.RectangleToScreen(DrawRectangle.GetNormalizedRectangle(startPoint, lastPoint)),
-                    Color.Black,
-                    FrameStyle.Dashed);
-
-                // Make group selection
-                drawArea.GraphicsList.SelectInRectangle(
-                    DrawRectangle.GetNormalizedRectangle(startPoint, lastPoint));
-
-                selectMode = SelectionMode.None;
-            }
             if ( resizedObject != null )
             {
                 // after resizing
