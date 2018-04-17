@@ -109,7 +109,7 @@
     <Compile Include="Dialogs\SaveDontSaveCancelDialogBox.xaml.cs">
       <DependentUpon>SaveDontSaveCancelDialogBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\SafeHandle.cs" />
     <Compile Include="Models\WindowManager.cs" />
     <Compile Include="Models\NativeMethods.cs" />
     <Compile Include="Models\Region.cs" />

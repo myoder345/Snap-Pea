@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SnapPeaApp.Config
+﻿namespace SnapPeaApp.Config
 {
     /// <summary>
     /// Static class contains keys used in the dictionaries in Config.Configurations

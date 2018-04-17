@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -80,7 +76,6 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Bound to browseLayout button
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand BrowseLayoutCommand
         {
             get
@@ -92,7 +87,6 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Bound to browseFolderPath button
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand BrowseFolderPathCommand
         {
             get
@@ -101,7 +95,6 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand SaveSettingsCommand
         {
             get

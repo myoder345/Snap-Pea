@@ -73,7 +73,6 @@
     </Compile>
     <Compile Include="DrawObject.cs" />
     <Compile Include="DrawRectangle.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="GraphicsList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DrawArea.resx">

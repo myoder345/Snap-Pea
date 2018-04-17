@@ -1,14 +1,13 @@
-using System;
-using System.Windows.Forms;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace DrawTools
 {
-	/// <summary>
-	/// Pointer tool
-	/// </summary>
-	class ToolPointer : DrawTools.Tool
+    /// <summary>
+    /// Pointer tool
+    /// </summary>
+    class ToolPointer : DrawTools.Tool
 	{
         private enum SelectionMode
         {

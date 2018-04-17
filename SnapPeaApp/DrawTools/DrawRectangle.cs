@@ -1,19 +1,17 @@
 using System;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Diagnostics;
-using System.Globalization;
-using System.Runtime.Serialization;
-using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace DrawTools
 {
-	/// <summary>
-	/// Rectangle graphic object
-	/// </summary>
-	public class DrawRectangle : DrawTools.DrawObject
+    /// <summary>
+    /// Rectangle graphic object
+    /// </summary>
+    public class DrawRectangle : DrawTools.DrawObject
 	{
         /// <summary>
         /// Internal rectangle representation
@@ -36,8 +34,6 @@ namespace DrawTools
 		}
 
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
         public DrawRectangle(int x, int y, int width, int height) : base()
         {
             _rectangle.X = x;
@@ -82,8 +78,6 @@ namespace DrawTools
         /// <param name="y">Top left corner Y coordinate</param>
         /// <param name="width">Rectangle width</param>
         /// <param name="height">Rectangle height</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
         protected void SetRectangle(int x, int y, int width, int height)
         {
             _rectangle.X = x;
@@ -379,8 +373,6 @@ namespace DrawTools
         /// <param name="x2">Bottom right corner x coordinate</param>
         /// <param name="y2">Bottom right corner y coordinate</param>
         /// <returns>Normalized rectangle</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
         public static Rectangle GetNormalizedRectangle(int x1, int y1, int x2, int y2)
         {
             if ( x2 < x1 )
@@ -406,7 +398,6 @@ namespace DrawTools
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "p")]
         public static Rectangle GetNormalizedRectangle(Point p1, Point p2)
         {
             return GetNormalizedRectangle(p1.X, p1.Y, p2.X, p2.Y);

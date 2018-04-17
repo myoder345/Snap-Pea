@@ -1,14 +1,12 @@
-using System;
 using System.Windows.Forms;
-using System.Drawing;
 
 
 namespace DrawTools
 {
-	/// <summary>
-	/// Base class for all drawing tools
-	/// </summary>
-	abstract class Tool
+    /// <summary>
+    /// Base class for all drawing tools
+    /// </summary>
+    abstract class Tool
 	{
 
         /// <summary>

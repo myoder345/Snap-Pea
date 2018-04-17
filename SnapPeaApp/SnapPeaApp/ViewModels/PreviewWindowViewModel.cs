@@ -1,11 +1,7 @@
 ﻿using SnapPeaApp.Config;
-using SnapPeaApp.WinAPI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SnapPeaApp.ViewModels
@@ -16,18 +12,17 @@ namespace SnapPeaApp.ViewModels
     class PreviewWindowViewModel : ViewModelBase, IDisposable
     {
         NativeMethods.CallbackDelegate cbDelegate;
-        MySafeHandle safeHandle;
+        SafeHandle safeHandle;
 
         public PreviewWindowViewModel(Layout layout)
         {
             Regions = layout.Regions;
             cbDelegate = new NativeMethods.CallbackDelegate(KeyboardProc);
             IntPtr hook = NativeMethods.SetWindowsHookEx(NativeMethods.HookType.WH_KEYBOARD_LL, cbDelegate, IntPtr.Zero, 0);
-            safeHandle = new MySafeHandle(hook, NativeMethods.UnhookWindowsHookEx);
-            Layout.LayoutChanged += LayoutChangedEventHandler;
+            safeHandle = new SafeHandle(hook, NativeMethods.UnhookWindowsHookEx);
+            Layout.LayoutLoaded += LayoutChangedEventHandler;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public IList<Region> Regions { get; private set; }
 
         private bool isVisible;
@@ -44,7 +39,7 @@ namespace SnapPeaApp.ViewModels
 
         void OnClosing(object o)
         {
-            Layout.LayoutChanged -= LayoutChangedEventHandler;
+            Layout.LayoutLoaded -= LayoutChangedEventHandler;
             Dispose();
         }
 

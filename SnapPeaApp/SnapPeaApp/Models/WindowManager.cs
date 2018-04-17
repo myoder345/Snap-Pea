@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using static SnapPeaApp.WinAPI.NativeMethods;
+using static SnapPeaApp.NativeMethods;
 
-namespace SnapPeaApp.WinAPI
+namespace SnapPeaApp
 {
     /// <summary>
     /// Contains P/invoke and WinAPI methods
     /// </summary>
     class WindowManager : IDisposable
     {
-        MySafeHandle safeHandle;
+        SafeHandle safeHandle;
         WinEventDelegate procDelegate;
         bool isWin10;
         
@@ -27,7 +24,7 @@ namespace SnapPeaApp.WinAPI
             var handle = SetWinEventHook(EVENT_SYSTEM_MOVESIZEEND, EVENT_SYSTEM_MOVESIZEEND, IntPtr.Zero,
                procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
 
-            safeHandle = new MySafeHandle(handle,UnhookWinEvent);
+            safeHandle = new SafeHandle(handle,UnhookWinEvent);
             isWin10 = System.Environment.OSVersion.Version.Major == 10;
         }
 
@@ -36,16 +33,6 @@ namespace SnapPeaApp.WinAPI
             Win32Point w32Mouse = new Win32Point();
             GetCursorPos(ref w32Mouse);
             return new Point(w32Mouse.X, w32Mouse.Y);
-        }
-
-        static string GetWindowName(object wrapper, IntPtr handle)
-        {
-            int capacity = GetWindowTextLength(new HandleRef(wrapper, handle)) + 1;
-            StringBuilder stringBuilder = new StringBuilder(capacity);
-            if (GetWindowText(new HandleRef(wrapper, handle), stringBuilder, stringBuilder.Capacity) > 0)
-                return stringBuilder.ToString();
-            else
-                return String.Empty;
         }
 
         void MoveWindow(IntPtr hwnd, int x, int y, int width, int height)
@@ -76,12 +63,7 @@ namespace SnapPeaApp.WinAPI
         void WinEventProc(IntPtr hWinEventHook, uint eventType,
             IntPtr hwnd, object sender, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
-#if DEBUG
-            string windowName = GetWindowName(sender, hwnd);
             Point cursorPos = GetMousePosition();
-            Console.WriteLine($"Window {windowName} Moved, {cursorPos.ToString()}");
-#endif
-
             // Check if window released within a region. If so, resize.
             foreach (Region r in CurrentLayout.Regions)
             {
@@ -117,31 +99,4 @@ namespace SnapPeaApp.WinAPI
         }
         #endregion
     }
-
-    #region SafeHandle
-    /// <summary>
-    /// Wrapper to unmanaged type IntPtr deriving from SafeHandle
-    /// </summary>
-    public class MySafeHandle : SafeHandle
-    {
-        Func<IntPtr, bool> FreeHandle;
-
-        internal MySafeHandle(IntPtr intPtr, Func<IntPtr, bool> freeHandleOperation) : base(intPtr, true)
-        {
-            FreeHandle = freeHandleOperation;
-            handle = intPtr;
-        }
-
-        bool isInvalid;
-        public override bool IsInvalid => isInvalid;
-
-        protected override bool ReleaseHandle()
-        {
-            FreeHandle(handle);
-            handle = IntPtr.Zero;
-            isInvalid = true;
-            return true;
-        }
-    }
-    #endregion
 }

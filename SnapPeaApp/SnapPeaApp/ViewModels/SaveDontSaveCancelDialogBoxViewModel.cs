@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace SnapPeaApp.ViewModels
 {
@@ -18,8 +13,6 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Command bound to Cancel button
         /// </summary>
-        /// [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand CancelCommand
         {
             get
@@ -31,7 +24,6 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Command bound to Save button
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public ICommand SaveCommand
         {
             get

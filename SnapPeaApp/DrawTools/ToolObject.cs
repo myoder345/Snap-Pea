@@ -1,14 +1,12 @@
-using System;
 using System.Windows.Forms;
-using System.Drawing;
 
 
 namespace DrawTools
 {
-	/// <summary>
-	/// Base class for all tools which create new graphic object
-	/// </summary>
-	abstract class ToolObject : DrawTools.Tool
+    /// <summary>
+    /// Base class for all tools which create new graphic object
+    /// </summary>
+    abstract class ToolObject : DrawTools.Tool
 	{
         private Cursor cursor;
 

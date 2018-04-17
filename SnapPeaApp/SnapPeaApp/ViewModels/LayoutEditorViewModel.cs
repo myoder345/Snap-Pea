@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SnapPeaApp.Dialogs;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SnapPeaApp.ViewModels

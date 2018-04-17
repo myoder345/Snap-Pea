@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Forms;
-using System.Text;
+﻿using Newtonsoft.Json;
+using System;
 using System.Drawing;
-using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace SnapPeaApp
 {

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:SnapPeaApp"
         mc:Ignorable="d"
         Visibility="Hidden"
@@ -17,6 +18,11 @@
             <MenuItem Header="Quit" Click="MenuItem_Close_Click"/>
         </ContextMenu>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <DockPanel LastChildFill="True">
         <TextBlock Margin="10 5 0 5"  DockPanel.Dock="Bottom" Text="{Binding LayoutName}"/>
         <Grid Margin="10 10 10 0">

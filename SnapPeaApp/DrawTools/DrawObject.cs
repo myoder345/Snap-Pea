@@ -1,16 +1,14 @@
-using System;
-using System.Windows.Forms;
-using System.Drawing;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
-using System.Runtime.Serialization;
+using System.Windows.Forms;
 
 namespace DrawTools
 {
-	/// <summary>
-	/// Base class for all draw objects
-	/// </summary>
-	public abstract class DrawObject
+    /// <summary>
+    /// Base class for all draw objects
+    /// </summary>
+    public abstract class DrawObject
 	{
         protected DrawObject()
         {
@@ -177,8 +175,6 @@ namespace DrawTools
         {
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "y")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "x")]
         public virtual void MoveTo(int x, int y)
         {
         }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SnapPeaApp.ViewModels
@@ -26,10 +22,7 @@ namespace SnapPeaApp.ViewModels
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
         #endregion // Constructors

@@ -22,8 +22,6 @@ namespace SnapPeaApp
             };
             ni.DoubleClick += ShowWindow;
             ni.MouseDown += Ni_MouseDown;
-
-            this.Closing += (DataContext as ViewModels.MainWindowViewModel).MainWindow_Closing;
         }
 
         #region Event Handlers
@@ -51,6 +49,8 @@ namespace SnapPeaApp
 
         private void MenuItem_Close_Click(object sender, RoutedEventArgs e)
         {
+            this.Show();
+            this.Visibility = Visibility.Hidden;
             this.Close();
         }
 

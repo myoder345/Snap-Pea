@@ -2,13 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace SnapPeaApp
 {
     public class Layout
     {
-        public static event EventHandler<LayoutEventArgs> LayoutChanged;
+        /// <summary>
+        /// Event invoked whenever a new layout is loaded
+        /// </summary>
+        public static event EventHandler<LayoutEventArgs> LayoutLoaded;
 
         public Layout()
         {
@@ -36,6 +38,7 @@ namespace SnapPeaApp
         /// </summary>
         /// <param name="layoutPath"></param>
         /// <returns>the loaded layout</returns>
+        /// <remarks>raises LayoutLoaded event</remarks>
         public static Layout LoadLayout(string layoutPath)
         {
             Layout newLayout;
@@ -49,13 +52,16 @@ namespace SnapPeaApp
                 newLayout = new Layout();
             }
 
-            // raise layout changed event
-            LayoutChanged?.Invoke(null, new LayoutEventArgs(newLayout));
+            // invoke event
+            LayoutLoaded?.Invoke(null, new LayoutEventArgs(newLayout));
 
             return newLayout;
         }
     }
 
+    /// <summary>
+    /// EventArgs class for Layout.LayoutChanged event
+    /// </summary>
     public class LayoutEventArgs : EventArgs
     {
         public LayoutEventArgs(Layout layout)

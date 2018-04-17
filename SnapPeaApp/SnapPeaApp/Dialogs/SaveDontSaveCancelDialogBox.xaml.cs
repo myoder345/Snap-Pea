@@ -17,7 +17,6 @@ namespace SnapPeaApp.Dialogs
     /// <summary>
     /// Code behind for SaveDontSaveCancelDialogBox.xaml
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Dont")]
     public partial class SaveDontSaveCancelDialogBox : Window
     {
         public SaveDontSaveCancelDialogBox()

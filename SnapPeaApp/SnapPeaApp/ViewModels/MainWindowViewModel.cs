@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Input;
-using Newtonsoft.Json;
-using SnapPeaApp.Config;
 using SnapPeaApp.Views;
-using SnapPeaApp.WinAPI;
 
 namespace SnapPeaApp.ViewModels
 {
@@ -34,7 +24,6 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// String for layout name text block
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public string LayoutName
         {
             get
@@ -47,7 +36,6 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Bound to Create Layout button
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public ICommand CreateLayoutCommand
         {
             get { return new RelayCommand(o => OpenLayoutEditor(new Layout())); }
@@ -77,6 +65,13 @@ namespace SnapPeaApp.ViewModels
             get { return new RelayCommand(o => OpenSettingsWindow()); }
         }
 
+        /// <summary>
+        /// Bound to window closing event
+        /// </summary>
+        public ICommand ClosingCommand
+        {
+            get { return new RelayCommand(o => Dispose()); }
+        }
         #endregion
 
         /// <summary>
@@ -118,22 +113,11 @@ namespace SnapPeaApp.ViewModels
         /// Opens layout editer window
         /// </summary>
         /// <param name="layout"></param>
-        private static void OpenLayoutEditor(Layout layout)
+        private void OpenLayoutEditor(Layout layout)
         {
             var window = new LayoutEditorWindow(layout);
             window.Show();
             window.Activate();
-        }
-
-        /// <summary>
-        /// Event handler for MainWindow closing.
-        /// Unhooks message hooks
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Dispose();
         }
 
         #region IDisposable Support

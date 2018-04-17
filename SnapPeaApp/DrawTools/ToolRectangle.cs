@@ -1,14 +1,13 @@
-using System;
-using System.Windows.Forms;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace DrawTools
 {
-	/// <summary>
-	/// Rectangle tool
-	/// </summary>
-	class ToolRectangle : DrawTools.ToolObject
+    /// <summary>
+    /// Rectangle tool
+    /// </summary>
+    class ToolRectangle : DrawTools.ToolObject
 	{
 
 		public ToolRectangle()

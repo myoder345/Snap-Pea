@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.IO;
 using System.Windows;
+using System.Xml;
 
 namespace SnapPeaApp.Config
 {
@@ -84,7 +81,6 @@ namespace SnapPeaApp.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static int GetIntSetting(string key)
         {
             return intEntries[key];
@@ -95,7 +91,6 @@ namespace SnapPeaApp.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static bool GetBoolSetting(string key)
         {
             return boolEntries[key];
@@ -116,7 +111,6 @@ namespace SnapPeaApp.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static void SetIntSetting(string key, int value)
         {
             intEntries[key] = value;
@@ -127,7 +121,6 @@ namespace SnapPeaApp.Config
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static void SetBoolSetting(string key, bool value)
         {
             boolEntries[key] = value;
