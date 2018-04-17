@@ -14,5 +14,6 @@ namespace SnapPeaApp.Config
         public const string DefaultLayout = "default_layout";
         public const string LayoutsPath = "layouts_path";
         public const string LoadLayoutOnStart = "load_layout_on_start";
+        public const string PreviewKey = "preview_key";
     }
 }

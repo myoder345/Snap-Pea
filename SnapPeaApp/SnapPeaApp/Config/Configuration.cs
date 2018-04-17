@@ -53,7 +53,11 @@ namespace SnapPeaApp.Config
         /// Int setting entries dict. 
         /// </summary>
         /// <remarks> You can modify default configuration values here, if no configuration file exists(first-time run) then these values will remain unchanged. </remarks>
-        private static Dictionary<string, int> intEntries = new Dictionary<string, int>();
+        private static Dictionary<string, int> intEntries = new Dictionary<string, int>()
+        {
+            //This is the key which displays the layout preview window
+            { ConfigKeys.PreviewKey,  0xA0} //VK_LSHIFT
+        };
 
         /// <summary>
         /// Bool setting entries dict. 
