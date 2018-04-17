@@ -53,7 +53,7 @@ namespace SnapPeaApp.WinAPI
             public Int32 dwExtraInfo;
         }
 
-        public delegate IntPtr CallbackDelegate(int Code, IntPtr W, IntPtr L);
+        public delegate IntPtr CallbackDelegate(int code, IntPtr wParam, IntPtr lParam);
 
         public delegate void WinEventDelegate(IntPtr hWinEventHook, uint eventType,
             IntPtr hwnd, object sender, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
@@ -76,7 +76,7 @@ namespace SnapPeaApp.WinAPI
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool UnhookWindowsHookEx(int idHook);
+        public static extern bool UnhookWindowsHookEx(IntPtr idHook);
 
         [DllImport("user32.dll")]
         public static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, IntPtr lParam);

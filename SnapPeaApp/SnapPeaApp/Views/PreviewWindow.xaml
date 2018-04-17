@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SnapPeaApp.Views"
-        xmlns:vm="clr-namespace:SnapPeaApp.ViewModels"
+        xmlns:converters="clr-namespace:SnapPeaApp.Converters"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="PreviewWindow"
         AllowsTransparency="True"
@@ -13,10 +14,20 @@
         ResizeMode="NoResize"
         Left="0"
         Top="0"
-        Background="Transparent">
+        Background="Transparent"
+        Topmost="True">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ClosingCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Window.Resources>
-        <vm:RegionToScreenConverter x:Key="regionToScreenConverter"/>
+        <converters:RegionToScreenConverter x:Key="regionToScreenConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
     </Window.Resources>
+    <Window.Visibility>
+        <Binding Path="IsVisible" Converter="{StaticResource boolToVisibilityConverter}" Mode="TwoWay"/>
+    </Window.Visibility>
     <ItemsControl ItemsSource="{Binding Regions}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
@@ -33,7 +44,7 @@
         </ItemsControl.ItemContainerStyle>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Rectangle Stroke="Azure" StrokeThickness="1" Fill="Transparent"/>
+                <Rectangle Stroke="Lime" StrokeThickness="1" Fill="Transparent"/>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>

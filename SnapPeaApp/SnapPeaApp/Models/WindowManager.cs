@@ -27,7 +27,7 @@ namespace SnapPeaApp.WinAPI
             var handle = SetWinEventHook(EVENT_SYSTEM_MOVESIZEEND, EVENT_SYSTEM_MOVESIZEEND, IntPtr.Zero,
                procDelegate, 0, 0, WINEVENT_OUTOFCONTEXT);
 
-            safeHandle = new MySafeHandle(handle);
+            safeHandle = new MySafeHandle(handle,UnhookWinEvent);
             isWin10 = System.Environment.OSVersion.Version.Major == 10;
         }
 
@@ -116,30 +116,32 @@ namespace SnapPeaApp.WinAPI
             Dispose(true);
         }
         #endregion
-
-
-        #region SafeHandle
-        /// <summary>
-        /// Inner class acting as a wrapper to unmanaged type IntPtr
-        /// </summary>
-        private class MySafeHandle : SafeHandle
-        {
-            internal MySafeHandle(IntPtr intPtr) : base(intPtr, true)
-            {
-                handle = intPtr;
-            }
-
-            bool isInvalid;
-            public override bool IsInvalid => isInvalid;
-
-            protected override bool ReleaseHandle()
-            {
-                UnhookWinEvent(handle);
-                handle = IntPtr.Zero;
-                isInvalid = true;
-                return true;
-            }
-        }
-        #endregion
     }
+
+    #region SafeHandle
+    /// <summary>
+    /// Wrapper to unmanaged type IntPtr deriving from SafeHandle
+    /// </summary>
+    public class MySafeHandle : SafeHandle
+    {
+        Func<IntPtr, bool> FreeHandle;
+
+        internal MySafeHandle(IntPtr intPtr, Func<IntPtr, bool> freeHandleOperation) : base(intPtr, true)
+        {
+            FreeHandle = freeHandleOperation;
+            handle = intPtr;
+        }
+
+        bool isInvalid;
+        public override bool IsInvalid => isInvalid;
+
+        protected override bool ReleaseHandle()
+        {
+            FreeHandle(handle);
+            handle = IntPtr.Zero;
+            isInvalid = true;
+            return true;
+        }
+    }
+    #endregion
 }

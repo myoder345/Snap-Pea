@@ -8,6 +8,8 @@ namespace SnapPeaApp
 {
     public class Layout
     {
+        public static event EventHandler<LayoutEventArgs> LayoutChanged;
+
         public Layout()
         {
             Regions = new List<Region>();
@@ -33,18 +35,34 @@ namespace SnapPeaApp
         /// Reads a layout json file and deserializes it into a layout object
         /// </summary>
         /// <param name="layoutPath"></param>
-        /// <returns></returns>
+        /// <returns>the loaded layout</returns>
         public static Layout LoadLayout(string layoutPath)
         {
+            Layout newLayout;
             try
             {
-                return JsonConvert.DeserializeObject<Layout>(File.ReadAllText(layoutPath));
+                newLayout = JsonConvert.DeserializeObject<Layout>(File.ReadAllText(layoutPath));
             }
             catch (IOException e)
             {
                 System.Windows.MessageBox.Show($"Error loading layout: {e.Message}", "Error");
-                return new Layout();
+                newLayout = new Layout();
             }
+
+            // raise layout changed event
+            LayoutChanged?.Invoke(null, new LayoutEventArgs(newLayout));
+
+            return newLayout;
         }
+    }
+
+    public class LayoutEventArgs : EventArgs
+    {
+        public LayoutEventArgs(Layout layout)
+        {
+            Layout = layout;
+        }
+
+        public Layout Layout { get; set; }
     }
 }

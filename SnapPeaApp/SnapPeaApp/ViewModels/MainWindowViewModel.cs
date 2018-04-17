@@ -21,17 +21,14 @@ namespace SnapPeaApp.ViewModels
     class MainWindowViewModel : ViewModelBase, IDisposable
     {
         WindowManager winHook;
-        NativeMethods.CallbackDelegate cbDelegate;
-        private PreviewWindow previewWindow = null;
-        private IntPtr hookId = IntPtr.Zero;
+        PreviewWindow previewWindow;
 
         public MainWindowViewModel()
         {
             winHook = new WindowManager();
-            cbDelegate = new NativeMethods.CallbackDelegate(KeyboardProc);
-            hookId = NativeMethods.SetWindowsHookEx(NativeMethods.HookType.WH_KEYBOARD_LL, cbDelegate, IntPtr.Zero, 0);
             Config.Configuration.LoadConfig();
             LoadDefaultLayout();
+            previewWindow = new PreviewWindow(winHook.CurrentLayout);
         }
 
         /// <summary>
@@ -88,13 +85,6 @@ namespace SnapPeaApp.ViewModels
         private void LoadDefaultLayout()
         {
             winHook.CurrentLayout = Layout.LoadLayout(Config.Configuration.GetStringSetting(Config.ConfigKeys.DefaultLayout));
-
-            if (previewWindow != null)
-            {
-                previewWindow.Close();
-            }
-
-            previewWindow = new PreviewWindow(winHook.CurrentLayout);
         }
 
         /// <summary>
@@ -112,13 +102,6 @@ namespace SnapPeaApp.ViewModels
             {
                 winHook.CurrentLayout = Layout.LoadLayout(fileDialog.FileName);
                 OnPropertyChanged("LayoutName");
-
-                if (previewWindow != null)
-                {
-                    previewWindow.Close();
-                }
-
-                previewWindow = new PreviewWindow(winHook.CurrentLayout);
             }
         }
 
@@ -129,10 +112,6 @@ namespace SnapPeaApp.ViewModels
         {
             var window = new SettingsWindow();
             window.ShowDialog();
-
-            // temp 
-            //var window = new PreviewWindow(winHook.CurrentLayout);
-            //window.Show();
         }
 
         /// <summary>
@@ -157,49 +136,6 @@ namespace SnapPeaApp.ViewModels
             Dispose();
         }
 
-        /// <summary>
-        /// This is the keyboard hook.
-        /// We will listen for the preview key and display
-        /// the preview window when it's pressed.
-        /// </summary>
-        /// <param name="Code"></param>
-        /// <param name="W"></param>
-        /// <param name="L"></param>
-        private IntPtr KeyboardProc(int Code, IntPtr W, IntPtr L)
-        {
-            NativeMethods.KBDLLHookStruct LS = new NativeMethods.KBDLLHookStruct();
-
-            if(Code < 0)
-            {
-                return NativeMethods.CallNextHookEx(hookId, Code, W, L);
-            }
-
-            NativeMethods.KeyEvents kEvent = (NativeMethods.KeyEvents)W;
-
-            Int32 vkCode = Marshal.ReadInt32((IntPtr)L);
-
-            if (vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey))
-            {
-                if (kEvent == NativeMethods.KeyEvents.KeyDown)
-                {
-                    if (previewWindow != null)
-                    {
-                        previewWindow.Show();
-                        //previewWindow.Activate();
-                    }
-                }
-                else if (kEvent == NativeMethods.KeyEvents.KeyUp)
-                {
-                    if (previewWindow != null)
-                    {
-                        previewWindow.Hide();
-                    }
-                }
-            }
-
-            return NativeMethods.CallNextHookEx(hookId, Code, W, L);
-        }
-
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -210,6 +146,7 @@ namespace SnapPeaApp.ViewModels
                 if (disposing)
                 {
                     winHook.Dispose();
+                    previewWindow.Close();
                 }
 
                 disposedValue = true;
