@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace SnapPeaApp.ViewModels
@@ -66,18 +67,23 @@ namespace SnapPeaApp.ViewModels
 
             NativeMethods.KeyEvents kEvent = (NativeMethods.KeyEvents)wParam;
 
-            Int32 vkCode = Marshal.ReadInt32((IntPtr)lParam);
+            Int32 vkCode = Marshal.ReadInt32(lParam);
 
-            if (vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey))
+            // Key Down message
+            if (kEvent == NativeMethods.KeyEvents.KeyDown)
             {
-                if (kEvent == NativeMethods.KeyEvents.KeyDown)
+                if (vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey) && Keys.Control == Control.ModifierKeys)
                 {
                     if (((int)lParam & 0x40000000) == 0)
                     {
                         IsVisible = true;
                     }
                 }
-                else if (kEvent == NativeMethods.KeyEvents.KeyUp)
+            }
+            // Key up message
+            if (kEvent == NativeMethods.KeyEvents.KeyUp)
+            {
+                if(vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey) || Keys.Control == Control.ModifierKeys)
                 {
                     IsVisible = false;
                 }
