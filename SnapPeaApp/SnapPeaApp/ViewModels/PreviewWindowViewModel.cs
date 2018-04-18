@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace SnapPeaApp.ViewModels
@@ -72,7 +71,7 @@ namespace SnapPeaApp.ViewModels
             // Key Down message
             if (kEvent == NativeMethods.KeyEvents.KeyDown)
             {
-                if (vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey) && Keys.Control == Control.ModifierKeys)
+                if (vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey) && (int)Keyboard.Modifiers == Configuration.GetIntSetting(ConfigKeys.PreviewKeyModifiers))
                 {
                     if (((int)lParam & 0x40000000) == 0)
                     {
@@ -83,7 +82,7 @@ namespace SnapPeaApp.ViewModels
             // Key up message
             if (kEvent == NativeMethods.KeyEvents.KeyUp)
             {
-                if(vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey) || Keys.Control == Control.ModifierKeys)
+                if(vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey) || (int)Keyboard.Modifiers != Configuration.GetIntSetting(ConfigKeys.PreviewKeyModifiers))
                 {
                     IsVisible = false;
                 }

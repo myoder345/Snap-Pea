@@ -19,6 +19,7 @@ namespace SnapPeaApp
 
         public WindowManager()
         {
+            CurrentLayout = new Layout();
             procDelegate = new WinEventDelegate(WinEventProc);
 
             var handle = SetWinEventHook(EVENT_SYSTEM_MOVESIZEEND, EVENT_SYSTEM_MOVESIZEEND, IntPtr.Zero,

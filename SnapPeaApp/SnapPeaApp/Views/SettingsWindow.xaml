@@ -21,19 +21,17 @@
         </StackPanel>
         <StackPanel>
         <StackPanel Margin="10 0 10 5">
-            <TextBlock 
-                Text="Default Layout:"
-                TextWrapping="Wrap"
-                Margin="0 5"
-                HorizontalAlignment="Left"
-                FontWeight="Bold"
-                FontSize="20"/>
+            <TextBlock Text="Default Layout:" 
+                       TextWrapping="Wrap"
+                       Margin="0 5" 
+                       HorizontalAlignment="Left" 
+                       FontWeight="Bold" 
+                       FontSize="20"/>
 
             <StackPanel Orientation="Horizontal">
-                <TextBox
-                    VerticalAlignment="Center"
-                    Width="250"
-                    Text="{Binding DefaultLayoutPath}">
+                <TextBox VerticalAlignment="Center"
+                         Width="250"
+                         Text="{Binding DefaultLayoutPath}">
                     <TextBox.ToolTip>
                         <ToolTip>
                             <StackPanel>
@@ -43,28 +41,26 @@
                     </TextBox.ToolTip>
                 </TextBox>
 
-                <Button
-                    Margin="10 0 0 0"
-                    Padding="5 2"
-                    VerticalAlignment="Center"
-                    Background="White"
-                    Command="{Binding BrowseLayoutCommand}"
-                    Content ="Browse...">
-                </Button>
-            </StackPanel>
+                <Button Margin="10 0 0 0" 
+                        Padding="5 2"
+                        VerticalAlignment="Center"
+                        Background="White"
+                        Command="{Binding BrowseLayoutCommand}"
+                        Content ="Browse..."/>
+
+                </StackPanel>
         </StackPanel>
 
         <StackPanel Margin="10 0">
-            <TextBlock
-                Text="Layout Folder Path:"
-                Grid.Row="1"
-                Grid.Column="0"
-                TextWrapping="Wrap"
-                Margin="0 5"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontWeight="Bold"
-                FontSize="20"/>
+            <TextBlock Text="Layout Folder Path:" 
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       TextWrapping="Wrap"
+                       Margin="0 5"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontWeight="Bold"
+                       FontSize="20"/>
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBox
@@ -91,6 +87,38 @@
                 </Button>
             </StackPanel>
         </StackPanel>
-    </StackPanel>
+
+        <StackPanel Margin="10 0">
+            <TextBlock
+            Text="Layout View Hotkey:"
+            Grid.Row="1"
+            Grid.Column="0"
+            TextWrapping="Wrap"
+            Margin="0 5"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            FontWeight="Bold"
+            FontSize="20"/>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBox VerticalAlignment="Center" 
+                         Width="250" 
+                         Text="{Binding HotkeyString}"
+                         IsReadOnly="True"/>
+
+
+                    <Button VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Background="White"
+                    Margin="10 0 0 0"
+                    Padding="5 2"
+                    Command="{Binding OpenHotkeySelectorCommand}"
+                    Content="Change...">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+
+        </StackPanel>
     </DockPanel>
 </Window>

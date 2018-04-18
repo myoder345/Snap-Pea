@@ -52,8 +52,10 @@ namespace SnapPeaApp.Config
         /// <remarks> You can modify default configuration values here, if no configuration file exists(first-time run) then these values will remain unchanged. </remarks>
         private static Dictionary<string, int> intEntries = new Dictionary<string, int>()
         {
-            //This is the key which displays the layout preview window
-            { ConfigKeys.PreviewKey,  0xA0} //VK_LSHIFT
+            // This is the key which displays the layout preview window
+            { ConfigKeys.PreviewKey,  0xC0}, // ~ vk_code oem3
+            // This is the modifier keys for the above hotkey
+            { ConfigKeys.PreviewKeyModifiers, 3} // Ctrl + Alt ModifierKeys.Control | ModifierKeys.Alt
         };
 
         /// <summary>

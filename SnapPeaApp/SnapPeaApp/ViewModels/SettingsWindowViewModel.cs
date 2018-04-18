@@ -1,19 +1,26 @@
-﻿using System;
+﻿using SnapPeaApp.Dialogs;
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Windows.Input;
+using SnapPeaApp.Config;
 
 namespace SnapPeaApp.ViewModels
 {
     /// <summary>
     /// Contains interaction logic for SettingsWindow view
     /// </summary>
-    class SettingsWindowViewModel : ViewModelBase
+    partial class SettingsWindowViewModel : ViewModelBase
     {
+        Hotkey hotkey;
+
         public SettingsWindowViewModel()
         {
-            layoutFolderPath = Config.Configuration.GetStringSetting(Config.ConfigKeys.LayoutsPath);
-            defaultlLayoutPath = Config.Configuration.GetStringSetting(Config.ConfigKeys.DefaultLayout);
+            layoutFolderPath = Configuration.GetStringSetting(ConfigKeys.LayoutsPath);
+            defaultlLayoutPath = Configuration.GetStringSetting(ConfigKeys.DefaultLayout);
+
+            hotkey = new Hotkey(Configuration.GetIntSetting(ConfigKeys.PreviewKeyModifiers), Configuration.GetIntSetting(ConfigKeys.PreviewKey));
+            hotkeyString = hotkey.ToString();
         }
 
 
@@ -70,6 +77,22 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// String representing the current hotkey setting
+        /// </summary>
+        string hotkeyString;
+        public string HotkeyString
+        {
+            get
+            {
+                return hotkeyString;
+            }
+            set
+            {
+                SetProperty(ref hotkeyString, value);
+                IsDirty = true;
+            }
+        }
         #endregion
 
         #region Commands
@@ -95,6 +118,9 @@ namespace SnapPeaApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Bound to Save settings button
+        /// </summary>
         public ICommand SaveSettingsCommand
         {
             get
@@ -102,6 +128,18 @@ namespace SnapPeaApp.ViewModels
                 return new RelayCommand(o => SaveSettings());
             }
         }
+
+        /// <summary>
+        /// Bounds to change hotkey button
+        /// </summary>
+        public ICommand OpenHotkeySelectorCommand
+        {
+            get
+            {
+                return new RelayCommand(o => OpenHotkeySelector());
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -129,7 +167,7 @@ namespace SnapPeaApp.ViewModels
         {
             var filedialog = new OpenFileDialog
             {
-                InitialDirectory = Config.Configuration.GetStringSetting(Config.ConfigKeys.LayoutsPath)
+                InitialDirectory = Configuration.GetStringSetting(ConfigKeys.LayoutsPath)
             };
 
             var results = filedialog.ShowDialog();
@@ -140,14 +178,29 @@ namespace SnapPeaApp.ViewModels
         }
 
         /// <summary>
+        /// Opens hotkey selector dialog
+        /// </summary>
+        private void OpenHotkeySelector()
+        {
+            var hotkeyDialog = new HotkeySelectionDialog(hotkey)
+            {
+                DataContext = this
+            };
+            hotkeyDialog.ShowDialog();
+        }
+
+        /// <summary>
         /// Updates settings dictionary with new values
         /// </summary>
         private void SaveSettings()
         {
-            Config.Configuration.SetStringSetting(Config.ConfigKeys.DefaultLayout, DefaultLayoutPath);
-            Config.Configuration.SetStringSetting(Config.ConfigKeys.LayoutsPath, LayoutFolderPath);
+            Configuration.SetStringSetting(ConfigKeys.DefaultLayout, DefaultLayoutPath);
+            Configuration.SetStringSetting(ConfigKeys.LayoutsPath, LayoutFolderPath);
+            Configuration.SetIntSetting(ConfigKeys.PreviewKey, hotkey.Key);
+            Configuration.SetIntSetting(ConfigKeys.PreviewKeyModifiers, hotkey.Modifiers);
+
             IsDirty = false;
-            Config.Configuration.SaveConfig();
+            Configuration.SaveConfig();
         }
 
         /// <summary>

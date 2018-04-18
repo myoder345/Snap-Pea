@@ -9,5 +9,6 @@
         public const string LayoutsPath = "layouts_path";
         public const string LoadLayoutOnStart = "load_layout_on_start";
         public const string PreviewKey = "preview_key";
+        public const string PreviewKeyModifiers = "preview_key_modifiers";
     }
 }

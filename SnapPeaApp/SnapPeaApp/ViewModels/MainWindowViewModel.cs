@@ -15,8 +15,8 @@ namespace SnapPeaApp.ViewModels
 
         public MainWindowViewModel()
         {
-            winHook = new WindowManager();
             Config.Configuration.LoadConfig();
+            winHook = new WindowManager();
             LoadDefaultLayout();
             previewWindow = new PreviewWindow(winHook.CurrentLayout);
         }

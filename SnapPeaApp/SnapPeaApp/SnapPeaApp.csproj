@@ -109,11 +109,17 @@
     <Compile Include="Dialogs\SaveDontSaveCancelDialogBox.xaml.cs">
       <DependentUpon>SaveDontSaveCancelDialogBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\HotkeySelectionDialogBox.xaml.cs">
+      <DependentUpon>HotkeySelectionDialogBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IClosable.cs" />
+    <Compile Include="Models\Hotkey.cs" />
     <Compile Include="Models\SafeHandle.cs" />
     <Compile Include="Models\WindowManager.cs" />
     <Compile Include="Models\NativeMethods.cs" />
     <Compile Include="Models\Region.cs" />
-    <Compile Include="ViewModels\Converters.cs" />
+    <Compile Include="Converters\Converters.cs" />
+    <Compile Include="ViewModels\HotkeySelectionDialogBoxViewModel.cs" />
     <Compile Include="ViewModels\PreviewWindowViewModel.cs" />
     <Compile Include="Views\PreviewWindow.xaml.cs">
       <DependentUpon>PreviewWindow.xaml</DependentUpon>
@@ -122,6 +128,10 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialogs\SaveDontSaveCancelDialogBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\HotkeySelectionDialogBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
