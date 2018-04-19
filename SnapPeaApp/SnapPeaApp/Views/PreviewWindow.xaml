@@ -44,7 +44,7 @@
         </ItemsControl.ItemContainerStyle>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Rectangle Stroke="Lime" StrokeThickness="1" Fill="Transparent"/>
+                <Rectangle Stroke="Lime" StrokeThickness="2" Fill="Transparent"/>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
