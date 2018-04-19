@@ -20,11 +20,19 @@ namespace SnapPeaApp.ViewModels
             cbDelegate = new NativeMethods.CallbackDelegate(KeyboardProc);
             IntPtr hook = NativeMethods.SetWindowsHookEx(NativeMethods.HookType.WH_KEYBOARD_LL, cbDelegate, IntPtr.Zero, 0);
             safeHandle = new SafeHandle(hook, NativeMethods.UnhookWindowsHookEx);
+
+            // subscribe to LayoutLoaded event
             Layout.LayoutLoaded += LayoutChangedEventHandler;
         }
 
+        /// <summary>
+        /// Collection of regions. Bound to window ItemControl.ItemSource
+        /// </summary>
         public IList<Region> Regions { get; private set; }
 
+        /// <summary>
+        /// Bound to window Visibility property
+        /// </summary>
         private bool isVisible;
         public bool IsVisible
         {
@@ -32,17 +40,29 @@ namespace SnapPeaApp.ViewModels
             set { SetProperty(ref isVisible, value); }
         }
 
+        /// <summary>
+        /// Bound to window Closing event
+        /// </summary>
         public ICommand ClosingCommand
         {
             get { return new RelayCommand(OnClosing); }
         }
 
+        /// <summary>
+        /// Closing event handler
+        /// </summary>
+        /// <param name="o"></param>
         void OnClosing(object o)
         {
             Layout.LayoutLoaded -= LayoutChangedEventHandler;
             Dispose();
         }
 
+        /// <summary>
+        /// Event handler for LayoutChanged event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void LayoutChangedEventHandler(object sender, LayoutEventArgs e)
         {
             Regions = e.Layout.Regions;
@@ -50,9 +70,7 @@ namespace SnapPeaApp.ViewModels
         }
 
         /// <summary>
-        /// This is the keyboard hook.
-        /// We will listen for the preview key and display
-        /// the preview window when it's pressed.
+        /// Keyboard hook callback
         /// </summary>
         /// <param name="code"></param>
         /// <param name="wParam"></param>
@@ -66,13 +84,16 @@ namespace SnapPeaApp.ViewModels
 
             NativeMethods.KeyEvents kEvent = (NativeMethods.KeyEvents)wParam;
 
+            // get tigger source key (virtual keyboard code)
             Int32 vkCode = Marshal.ReadInt32(lParam);
 
             // Key Down message
             if (kEvent == NativeMethods.KeyEvents.KeyDown)
             {
+                // check that pressed key and modifiers match hotkey in settings
                 if (vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey) && (int)Keyboard.Modifiers == Configuration.GetIntSetting(ConfigKeys.PreviewKeyModifiers))
                 {
+                    // ignroe keyboard auto-repeat messages
                     if (((int)lParam & 0x40000000) == 0)
                     {
                         IsVisible = true;
@@ -82,6 +103,7 @@ namespace SnapPeaApp.ViewModels
             // Key up message
             if (kEvent == NativeMethods.KeyEvents.KeyUp)
             {
+                // check that pressed key and modifiers match hotkey in settings
                 if(vkCode == Configuration.GetIntSetting(ConfigKeys.PreviewKey) || (int)Keyboard.Modifiers != Configuration.GetIntSetting(ConfigKeys.PreviewKeyModifiers))
                 {
                     IsVisible = false;

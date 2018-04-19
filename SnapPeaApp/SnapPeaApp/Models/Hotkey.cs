@@ -9,6 +9,9 @@ namespace SnapPeaApp
     /// <summary>
     /// Encapsulates hotkey codes including modifiers.
     /// </summary>
+    /// <remarks>
+    /// Uses System.Windows.Input key code enums
+    /// </remarks>
     public class Hotkey
     {
         public Hotkey()
@@ -36,7 +39,15 @@ namespace SnapPeaApp
         public override string ToString()
         {
             string result;
-            result = ((ModifierKeys)Modifiers).ToString().Replace(", ", "+");
+
+            if ((ModifierKeys)Modifiers == ModifierKeys.None)
+            {
+                result = String.Empty;
+            }
+            else
+            {
+                result = ((ModifierKeys)Modifiers).ToString().Replace(", ", "+");
+            }
 
             var key = KeyInterop.KeyFromVirtualKey(Key);
             switch (key)
@@ -52,7 +63,7 @@ namespace SnapPeaApp
                 case System.Windows.Input.Key.None:
                     break;
                 default:
-                    result += "+" + key.ToString();
+                    result += String.IsNullOrEmpty(result) ? key.ToString() : "+" + key.ToString();
                     break;
             }
 

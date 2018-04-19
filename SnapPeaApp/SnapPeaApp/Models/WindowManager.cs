@@ -7,7 +7,7 @@ using static SnapPeaApp.NativeMethods;
 namespace SnapPeaApp
 {
     /// <summary>
-    /// Contains P/invoke and WinAPI methods
+    /// Contains P/invoke and WinAPI methods for managing windows
     /// </summary>
     class WindowManager : IDisposable
     {
@@ -29,6 +29,10 @@ namespace SnapPeaApp
             isWin10 = System.Environment.OSVersion.Version.Major == 10;
         }
 
+        /// <summary>
+        /// Gets current mouse cursor location
+        /// </summary>
+        /// <returns></returns>
         static Point GetMousePosition()
         {
             Win32Point w32Mouse = new Win32Point();
@@ -36,6 +40,14 @@ namespace SnapPeaApp
             return new Point(w32Mouse.X, w32Mouse.Y);
         }
 
+        /// <summary>
+        /// Moves and resizes window
+        /// </summary>
+        /// <param name="hwnd">Handle to window to transform</param>
+        /// <param name="x">Top left point x coordinate</param>
+        /// <param name="y">Top left point y coordinate</param>
+        /// <param name="width">Window width</param>
+        /// <param name="height">Window height</param>
         void MoveWindow(IntPtr hwnd, int x, int y, int width, int height)
         {
             if(isWin10)

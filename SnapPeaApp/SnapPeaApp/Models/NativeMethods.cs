@@ -5,7 +5,7 @@ using System.Text;
 namespace SnapPeaApp
 {
     /// <summary>
-    /// Class that encapsulates WinAPI methods and types
+    /// Class that encapsulates imported WinAPI methods and types
     /// </summary>
     internal static class NativeMethods
     {
@@ -41,16 +41,6 @@ namespace SnapPeaApp
             KeyUp = 0x0101,
             SKeyDown = 0x0104,
             SKeyUp = 0x0105
-        }
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        internal struct KBDLLHookStruct
-        {
-            public Int32 vkCode;
-            public Int32 scanCode;
-            public Int32 flags;
-            public Int32 time;
-            public Int32 dwExtraInfo;
         }
 
         internal delegate IntPtr CallbackDelegate(int code, IntPtr wParam, IntPtr lParam);

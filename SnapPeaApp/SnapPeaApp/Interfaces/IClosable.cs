@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SnapPeaApp.Interfaces
 {
+    /// <summary>
+    /// Asserts that implementing object can be closed
+    /// </summary>
     interface IClosable
     {
         void Close();

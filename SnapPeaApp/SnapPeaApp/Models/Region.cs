@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace SnapPeaApp
 {
+    /// <summary>
+    /// Resizing region representation
+    /// </summary>
     public class Region
     {
         public Region(Rectangle rect)

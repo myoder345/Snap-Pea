@@ -5,6 +5,9 @@ using System.IO;
 
 namespace SnapPeaApp
 {
+    /// <summary>
+    /// Screen partition layout representation
+    /// </summary>
     public class Layout
     {
         /// <summary>
