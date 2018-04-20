@@ -8,7 +8,7 @@ namespace SnapPeaApp.ViewModels
     /// <summary>
     /// Interaction logic for LayoutEditer view
     /// </summary>
-    partial class LayoutEditorViewModel : ViewModelBase
+    public partial class LayoutEditorViewModel : ViewModelBase
     {
         bool changesMade;
 
@@ -32,17 +32,9 @@ namespace SnapPeaApp.ViewModels
         /// <summary>
         /// Converts the rectangles drawn on the draw area to a layout representation and writes it to file
         /// </summary>
-        void SaveLayout()
+        public void SaveLayout()
         {
-            var tempLayout = new Layout();
-
-            // Add to layout object regions representing rectangles drawn
-            foreach(DrawTools.DrawRectangle drawRect in GraphicsList.Enumeration)
-            {
-                tempLayout.AddRegion(new Region(drawRect.Rectangle));
-            }
-            
-            // Serialize layout object and write to file
+            // Write to file
             var saveFileDialog = new SaveFileDialog()
             {
                 Filter = "json (*.json)|*.json|All files (*.*)|*.*",
@@ -51,10 +43,27 @@ namespace SnapPeaApp.ViewModels
 
             if(saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                tempLayout.Name = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
-                string jsonString = JsonConvert.SerializeObject(tempLayout);
-                System.IO.File.WriteAllText(saveFileDialog.FileName, jsonString);
+                SaveLayout(saveFileDialog.FileName, Path.GetFileNameWithoutExtension(saveFileDialog.FileName));
             }
+        }
+
+        /// <summary>
+        /// Converts the rectangles drawn on the draw area to a layout representation and writes it to file
+        /// </summary>
+        /// <param name="path"></param>
+        public void SaveLayout(string path, string name)
+        {
+            var tempLayout = new Layout();
+
+            // Add to layout object regions representing rectangles drawn
+            foreach (DrawTools.DrawRectangle drawRect in GraphicsList.Enumeration)
+            {
+                tempLayout.AddRegion(new Region(drawRect.Rectangle));
+            }
+            
+            tempLayout.Name = name;
+            string jsonString = JsonConvert.SerializeObject(tempLayout);
+            System.IO.File.WriteAllText(path, jsonString);
         }
 
         /// <summary>

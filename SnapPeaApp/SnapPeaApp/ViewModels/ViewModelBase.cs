@@ -8,7 +8,7 @@ namespace SnapPeaApp.ViewModels
     /// Base class for View Models
     /// Contains implementation for INotifyPropertyChanged
     /// </summary>
-    abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
 		public event PropertyChangedEventHandler PropertyChanged;
 
