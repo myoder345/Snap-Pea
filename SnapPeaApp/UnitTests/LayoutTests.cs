@@ -34,6 +34,31 @@ namespace UnitTests
         }
 
         /*
+         * Ensures that Region.IsPointIn functions as it should.
+         */
+        [TestMethod]
+        public void RegionIsPointIn()
+        {
+            Rectangle rect = new Rectangle(100, 200, 300, 400);
+
+            SnapPeaApp.Region region = new SnapPeaApp.Region(rect);
+
+            Assert.IsNotNull(region);
+
+            //0,0 is not in the region
+            Assert.IsFalse(region.IsPointIn(new System.Windows.Point(0.0, 0.0)));
+
+            //250,100 is not in the region (above)
+            Assert.IsFalse(region.IsPointIn(new System.Windows.Point(250.0, 100.0)));
+
+            //500,100 is not in the region (to the right)
+            Assert.IsFalse(region.IsPointIn(new System.Windows.Point(500.0, 100.0)));
+
+            //250, 400 is in the region (center)
+            Assert.IsTrue(region.IsPointIn(new System.Windows.Point(250.0, 400.0)));
+        }
+
+        /*
          * Create an empty layout and ensure the object's
          * member fields are as expected.
          */
