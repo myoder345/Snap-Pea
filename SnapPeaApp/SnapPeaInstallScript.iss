@@ -3,7 +3,7 @@
 
 #define MyAppName "SnapPea"
 #define MyAppVersion "1.0.0"
-#define MyAppExeName "SnapPea.exe"
+#define MyAppExeName "SnapPeaApp.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -24,7 +24,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
+Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked;
 
 [Dirs]
 Name: "{%UserProfile}\{#MyAppName}"; Permissions: users-full
@@ -52,8 +52,11 @@ Source: "SnapPeaApp\Resources\config.xml"; DestDir: "{%UserProfile}\{#MyAppName}
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-
+Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#MyAppName}}"; Flags: nowait postinstall skipifsilent
 

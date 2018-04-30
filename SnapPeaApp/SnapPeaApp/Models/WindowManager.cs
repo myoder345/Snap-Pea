@@ -2,6 +2,8 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
+using System.Linq;
+using System.Windows.Interop;
 using static SnapPeaApp.NativeMethods;
 
 namespace SnapPeaApp
@@ -80,11 +82,23 @@ namespace SnapPeaApp
             // Check if window released within a region. If so, resize.
             foreach (Region r in CurrentLayout.Regions)
             {
-                if (r.IsPointIn(new Point(cursorPos.X, cursorPos.Y)))
+                if (CheckProgramWindows(hwnd) && r.IsPointIn(new Point(cursorPos.X, cursorPos.Y)))
                 {
                     MoveWindow(hwnd, r.Left, r.Top, r.Width, r.Height);
                 }
             }
+        }
+
+        bool CheckProgramWindows(IntPtr hwnd)
+        {
+            foreach (var window in Application.Current.Windows.Cast<Window>())
+            {
+                if (hwnd == new WindowInteropHelper(window).Handle)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         #region IDisposable Support
