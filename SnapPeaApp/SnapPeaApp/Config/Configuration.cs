@@ -21,7 +21,7 @@ namespace SnapPeaApp.Config
     /// Using a Dictionary, mapping config keys to control IDs, or some other similar scheme, one could automate saving to a high degree. 
     /// Once modifications to settings have been done, invoke saveToFile() as described above.
     /// </example>
-    static class Configuration
+    public static class Configuration
     {
         /// <summary>
         /// Path to program data folder. This is always given by %userprofile%\SnapPea
