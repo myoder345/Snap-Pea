@@ -199,6 +199,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\FourSquare.json" />
+    <None Include="Resources\Halfscreen.json" />
     <None Include="Resources\testIcon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +215,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

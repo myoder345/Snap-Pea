@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?><entries>
+	<entry name="layouts_path" type="string" data="C:\Users\deslas2\SnapPea\layouts" />
+	<entry name="default_layout" type="string" data="C:\Users\deslas2\SnapPea\layouts\FourSquare.json" />
+	<entry name="preview_key" type="int" data="192" />
+	<entry name="preview_key_modifiers" type="int" data="3" />
+	<entry name="load_layout_on_start" type="bool" data="False" /></entries>

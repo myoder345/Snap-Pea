@@ -28,6 +28,7 @@ namespace SnapPeaApp.Properties {
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
         
@@ -56,6 +57,40 @@ namespace SnapPeaApp.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;entries&gt;
+        ///	&lt;entry name=&quot;layouts_path&quot; type=&quot;string&quot; data=&quot;C:\Users\deslas2\SnapPea\layouts&quot; /&gt;
+        ///	&lt;entry name=&quot;default_layout&quot; type=&quot;string&quot; data=&quot;C:\Users\deslas2\SnapPea\layouts\FourSquare.json&quot; /&gt;
+        ///	&lt;entry name=&quot;preview_key&quot; type=&quot;int&quot; data=&quot;192&quot; /&gt;
+        ///	&lt;entry name=&quot;preview_key_modifiers&quot; type=&quot;int&quot; data=&quot;3&quot; /&gt;
+        ///	&lt;entry name=&quot;load_layout_on_start&quot; type=&quot;bool&quot; data=&quot;False&quot; /&gt;&lt;/entries&gt;.
+        /// </summary>
+        internal static string config {
+            get {
+                return ResourceManager.GetString("config", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] FourSquare {
+            get {
+                object obj = ResourceManager.GetObject("FourSquare", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Halfscreen {
+            get {
+                object obj = ResourceManager.GetObject("Halfscreen", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
