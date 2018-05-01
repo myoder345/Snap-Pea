@@ -242,7 +242,9 @@ namespace SnapPeaApp.Config
             }
             catch (IOException ex)
             {
-                MessageBox.Show($"Error loading config: {ex.Message}","Error");
+                SaveConfig();
+                MessageBox.Show($"The configuration file was not found. A default configuration file has been created.","Config");
+                LoadConfig();
             }
         }
     }

@@ -4,6 +4,7 @@
 #define MyAppName "SnapPea"
 #define MyAppVersion "1.0.0"
 #define MyAppExeName "SnapPeaApp.exe"
+#define MyAppIcoName "testIcon.ico"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -18,6 +19,7 @@ OutputBaseFilename="{#MyAppName} Setup"
 Compression=lzma
 SolidCompression=yes
 ChangesAssociations=yes
+SetupIconFile="SnapPeaApp\Resources\testIcon.ico"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -48,13 +50,15 @@ Source: "SnapPeaApp\bin\Release\Newtonsoft.Json.xml"; DestDir: "{app}"; Flags: i
 
 Source: "SnapPeaApp\Resources\FourSquare.json"; DestDir: "{%UserProfile}\{#MyAppName}\layouts"; Flags: ignoreversion
 Source: "SnapPeaApp\Resources\HalfScreen.json"; DestDir: "{%UserProfile}\{#MyAppName}\layouts"; Flags: ignoreversion
-Source: "SnapPeaApp\Resources\config.xml"; DestDir: "{%UserProfile}\{#MyAppName}"; Flags: ignoreversion
+Source: "SnapPeaApp\Resources\testIcon.ico"; DestDir: "{app}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{userdesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; \
+    IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+;Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
 
 [Run]

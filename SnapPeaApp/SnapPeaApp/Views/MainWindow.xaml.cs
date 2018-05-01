@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SnapPeaApp
 {
@@ -12,6 +16,7 @@ namespace SnapPeaApp
         public MainWindow()
         {
             InitializeComponent();
+            this.Icon = ToImageSource(Properties.Resources.testIcon);
             DataContext = new ViewModels.MainWindowViewModel();
 
             // Notification area icon logic
@@ -22,6 +27,16 @@ namespace SnapPeaApp
             };
             ni.DoubleClick += ShowWindow;
             ni.MouseDown += Ni_MouseDown;
+        }
+
+        static ImageSource ToImageSource(Icon icon)
+        {
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                icon.Handle,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+
+            return imageSource;
         }
 
         #region Event Handlers
